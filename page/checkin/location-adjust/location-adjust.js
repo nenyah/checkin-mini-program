@@ -24,25 +24,6 @@ Page({
     hasLocation: false,
     location: [],
     markers: [],
-    setting: {
-      // 手势
-      gestureEnable: 1,
-      // 比例尺
-      showScale: 1,
-      // 指南针
-      showCompass: 0,
-      //双手下滑
-      tiltGesturesEnabled: 1,
-      // 交通路况展示
-      trafficEnabled: 0,
-      // 地图 POI 信息
-      showMapText: 0,
-      // 高德地图 logo 位置
-      logoPosition: {
-        centerX: 150,
-        centerY: 90
-      }
-    },
     controls: [
       {
         id: 5,
@@ -58,24 +39,17 @@ Page({
     ]
   },
   onReady() {
-    if (!my.canIUse("createMapContext")) {
-      my.alert({
-        title: "客户端版本过低",
-        content: "this.mapCtx.updateComponents 需要 10.1.35 及以上版本"
-      });
-      return;
-    }
-    this.mapCtx = my.createMapContext("map");
   },
   onLoad() {
-    if (!my.canIUse("my.chooseLocation")) {
+    if (my.getLocation) {
+      this._getLocation();
+    } else {
+      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样提示
       my.alert({
-        title: "客户端版本过低",
-        content: "this.mapCtx.updateComponents 需要 10.1.35 及以上版本"
+        title: "提示",
+        content: "当前支付宝版本过低，无法使用此功能，请升级最新版本支付宝"
       });
-      return;
     }
-    this._chooseLocation();
   },
   onItemClick(e) {
     const index = e.index;
@@ -136,22 +110,6 @@ Page({
       },
       fail: () => {
         dd.alert({ title: "定位失败" });
-      }
-    });
-  },
-  _chooseLocation() {
-    my.chooseLocation({
-      success: res => {
-        console.log(JSON.stringify(res));
-        this.setData({
-          longitude: res.longitude,
-          latitude: res.latitude,
-          name: res.name,
-          address: res.address
-        });
-      },
-      fail: error => {
-        my.alert({ content: "调用失败：" + JSON.stringify(error) });
       }
     });
   }

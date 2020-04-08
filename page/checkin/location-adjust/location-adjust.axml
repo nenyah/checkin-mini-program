@@ -2,7 +2,6 @@
 onControlTap="controltap"
 show-location="{{hasLocation}}" 
 controls="{{controls}}" 
-setting="{{setting}}" 
 markers="{{markers}}" 
 style="width:100%;height:50%;"></map>
 <list>
