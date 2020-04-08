@@ -5,7 +5,8 @@
     "page/checkin/stats/stats",
     "page/checkin/customer/customer",
     "page/checkin/customer-cate/customer-cate",
-    "page/checkin/location-adjust/location-adjust"
+    "page/checkin/location-adjust/location-adjust",
+    "page/checkin/checkin-submit/checkin-submit"
   ],
   "window": {
     "defaultTitle": "华东宁波签到系统",

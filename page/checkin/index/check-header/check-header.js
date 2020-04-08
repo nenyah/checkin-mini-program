@@ -1,11 +1,16 @@
 Component({
   mixins: [],
   data: {},
-  props: {
-    today:"2020年04月01日"
+  props: {},
+  didMount() {
+    const date = new Date();
+    const today = `${date.getFullYear()}年${date.getMonth() +
+      1}月${date.getDate()}日`;
+    this.setData({
+      today
+    });
   },
-  didMount() {},
   didUpdate() {},
   didUnmount() {},
-  methods: {},
+  methods: {}
 });
