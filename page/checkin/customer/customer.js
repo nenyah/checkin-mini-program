@@ -69,22 +69,12 @@ Page({
       url: '/page/checkin/customer-cate/customer-cate'
     });
   },
-  onItemTap(e) {
-    console.log(e)
-    const activeIndex = e
-    const items = custCate[e]
-    const numClients = items.length
-    this.setData({
-      activeIndex,
-      items,
-      numClients
-    })
-  },
   handleTabClick({ index, tabsName }) {
+    console.log('handleTabeClick',{index,tabsName})
     const items = custCate[index]
     const numClients = items.length
     this.setData({
-      [tabsName]: index,
+      activeIndex: index,
       items,
       numClients
     });
