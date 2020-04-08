@@ -1,0 +1,19 @@
+<list class="h-full ">
+  <list-item arrow="{{arrow}}">
+    {{title}}
+    <text slot="extra">{{extra}}</text>
+  </list-item>
+  <filter show="{{show}}" max="{{10}}" onChange="handleCallBack" onMaskTap="toggleFilter" class="my-2">
+    <block a:for="{{labels}}" a:for-item="item" a:for-index="key">
+      <view class="">
+        <view class="{{randomColor[key]}} font-bold text-lg">
+          <view class="fa fa-circle text-xs mr-1" aria-hidden="true"></view>
+          {{item.cate}}
+        </view>
+        <view a:for="{{item.tag}}" a:for-item="tag">
+          <filter-item value="{{tag}}" id="{{tag.id}}" selected="{{tag.selected}}" key="filter-item-{{index}}" />
+        </view>
+      </view>
+    </block>
+  </filter>
+</list>

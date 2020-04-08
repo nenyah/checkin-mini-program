@@ -1,0 +1,7 @@
+<view class="flex ">
+  <block a:for="{{titles}}" a:key="index">
+    <view class='flex-1 h-10 leading-none text-base {{index == currentIndex?"color-primary": ""}}' onTap="itemClick" data-index="{{index}}">
+      <text>{{item}}</text>
+    </view>
+  </block>
+</view>

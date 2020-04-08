@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "s-header": "./check-header/check-header",
+        "s-choose-person": "./choose-person/choose-person",
+        "s-check": "./check-icon/check-icon"
+    },
+    "defaultTitle": "签到"
+}

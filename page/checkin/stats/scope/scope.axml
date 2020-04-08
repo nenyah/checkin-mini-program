@@ -1,0 +1,15 @@
+<!--<map longitude="120.131441" latitude="30.279383" show-location="{{true}}" style="width:100%;height:200rpx;">test</map> -->
+<view style="z-index:100;" class="flex my-1 bg-color-white color-label w-1-2 radius-5 shadow">
+  <view class="fa fa-globe mx-1" aria-hidden="true"></view>
+  <view>范围：信息管理中心</view>
+  <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+</view>
+<view class="flex my-1 bg-color-white color-label w-1-3 radius-5 shadow">
+  <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
+  <view>2020-04-01</view>
+  <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+</view>
+<view class="flex flex-row-reverse">
+  <view class="color-primary">签到历史分布
+    <view class="fa fa-angle-right mx-1" aria-hidden="true"></view></view>
+</view>

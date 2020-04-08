@@ -1,0 +1,12 @@
+<!--时间公司提示-->
+<s-header></s-header>
+<view class="sep-line">
+</view>
+<!-- 地图 -->
+<map longitude="120.131441" latitude="30.279383" show-location="{{true}}" style="width:100%;height:100px;"></map>
+<view class="sep-line">
+</view>
+<!--选择人员-->
+<s-choose-person></s-choose-person>
+<!--签到-->
+<s-check></s-check>

@@ -1,0 +1,10 @@
+<view class="flex bg-color-white shadow">
+  <view class="flex flex-row items-center justify-center h-20">
+    <text class="text-xl color-big-title font-bold w-1-4">拜访对象</text>
+    <input class="p-4" type="text" placeholder="请选择或输入" />
+  </view>
+  <view onTap="handleTap">
+    <view class="fa fa-address-book-o fa-2x color-primary my-2 block" aria-hidden="true"></view>
+    <text class="text-sm color-primary">选择</text>
+  </view>
+</view>

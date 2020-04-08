@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "page/checkin/index/index",
+    "page/test/test",
+    "page/checkin/stats/stats",
+    "page/checkin/customer/customer",
+    "page/checkin/customer-cate/customer-cate",
+    "page/checkin/location-adjust/location-adjust"
+  ],
+  "window": {
+    "defaultTitle": "华东宁波签到系统",
+    "backgroundColor": "#F5F5F9",
+    "pullRefresh": false,
+    "allowsBounceVertical": "YES"
+  },
+  "tabBar": {
+    "textColor": "#404040",
+    "selectedColor": "#108ee9",
+    "backgroundColor": "#F5F5F9",
+    "items": [
+      {
+        "pagePath": "page/checkin/index/index",
+        "name": "签到",
+        "icon": "assets/images/icon_signin_line.png",
+        "activeIcon": "assets/images/icon_signin_line_active.png"
+      },
+      {
+        "pagePath": "page/checkin/stats/stats",
+        "name": "统计",
+        "icon": "assets/images/icon_statistics.png",
+        "activeIcon": "assets/images/icon_statistics_active.png"
+      }
+    ]
+  },
+  "debug": true
+}

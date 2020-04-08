@@ -1,0 +1,10 @@
+<view class="header flex w-full color-label bg-color-white py-2 mx-2">
+  <view class="flex no-wrap w-2-5">
+    <view class="fa fa-clock-o mx-1" aria-hidden="true"></view>
+    <view class="">{{today}}</view>
+  </view>
+  <view class="flex no-wrap">
+    <view class="fa fa-sitemap mx-1" aria-hidden="true"></view>
+    <view class=" w-full no-wrap">当前企业：华东宁波医药有限公司</view>
+  </view>
+</view>
