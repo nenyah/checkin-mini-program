@@ -4,9 +4,9 @@
   <view>范围：信息管理中心</view>
   <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
 </view>
-<view class="flex my-1 bg-color-white color-label w-1-3 radius-5 shadow">
+<view class="flex my-1 bg-color-white color-label w-1-3 radius-5 shadow" onTap="chooseDate">
   <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
-  <view>2020-04-01</view>
+  <view>{{today}}</view>
   <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
 </view>
 <view class="flex flex-row-reverse">
