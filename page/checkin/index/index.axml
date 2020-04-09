@@ -2,8 +2,21 @@
 <s-header></s-header>
 <view class="sep-line">
 </view>
+<view class="flex justify-between p-2 bg-color-white items-center">
+  <view class="text-2xl w-3-4 no-wrap">
+    {{address}}
+  </view>
+  <view class="color-primary text-sm w-1-4 text-right">
+    地点微调
+  </view>
+</view>
 <!-- 地图 -->
-<map longitude="120.131441" latitude="30.279383" show-location="{{true}}" style="width:100%;height:100px;"></map>
+<map 
+longitude="{{longitude}}" 
+latitude="{{latitude}}" 
+show-location="{{true}}" 
+markers="{{markers}}"
+style="width:100%;height:100px;"></map>
 <view class="sep-line">
 </view>
 <!--选择人员-->
