@@ -1,13 +1,15 @@
-<!--<map longitude="120.131441" latitude="30.279383" show-location="{{true}}" style="width:100%;height:200rpx;">test</map> -->
-<view style="z-index:100;" class="flex my-1 bg-color-white color-label w-2-3 radius-5 shadow">
-  <view class="fa fa-globe mx-1" aria-hidden="true"></view>
-  <view>范围：信息管理中心</view>
-  <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
-</view>
-<view class="flex my-1 bg-color-white color-label w-2-3 radius-5 shadow" onTap="chooseDate">
-  <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
-  <view>{{today}}</view>
-  <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+<!--<map id="map" longitude="120.131441" latitude="30.279383" show-location="{{true}}" controls="{{controls}}" style="width:100%;height:200rpx;"></map> -->
+<view>
+  <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-3-5 justify-center shadow">
+    <view class="fa fa-globe mx-1" aria-hidden="true"></view>
+    <view>范围：信息管理中心</view>
+    <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+  </view>
+  <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-2-5 justify-center shadow" onTap="chooseDate">
+    <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
+    <view>{{today}}</view>
+    <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+  </view>
 </view>
 <view class="flex flex-row-reverse">
   <view class="color-primary">签到历史分布

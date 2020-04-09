@@ -1,4 +1,4 @@
-<view class="flex mt-5 bg-color-white">
+<!-- <view class="flex mt-5 bg-color-white">
   <view class="color-primary text-xl mx-5 flex flex-col items-center border-bottom">
     <view class="">1</view>
     <view class="">最新签到</view>
@@ -7,4 +7,4 @@
       <view class="">7</view>
     <view class="">未签到</view>
   </view>
-</view>
+</view> -->

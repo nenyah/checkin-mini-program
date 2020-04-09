@@ -2,7 +2,9 @@ import { formatDate } from "/util/utils.js";
 Component({
   mixins: [],
   data: {
-    today: "2020-04-01"
+    today: "2020-04-01",
+    control:[{}]
+
   },
   props: {},
   didMount() {

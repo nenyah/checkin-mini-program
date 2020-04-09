@@ -1,25 +1,55 @@
-<view class="mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow">
-  <view style="border-bottom:solid #eee 2rpx;" class="flex items-center border-bottom px-2">
-    <view class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2">
-      <view class="color-white">
-      士明
+<block a:if="{{activeIndex==0}}">
+  <block a:for="{{items.checkin}}" a:key="index">
+    <view class="mt-5 mx-auto w-5-6 radius-5 p-2 bg-color-white shadow">
+      <view style="border-bottom:solid #e2e2e2 2rpx;" class="flex items-center px-2">
+        <view class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2">
+          <view a:if="{{item.thumbAvatar}}" class="flex">
+            <image mode="scaleToFill" src="{{item.thumbAvatar}}" class="w-10 h-10 circle m-auto"/>
+          </view>
+          <view a:else class="color-white">
+          {{item.name.length>2?item.name.slice(-2):item.name}}
+          </view>
+        </view>
+        <view class="">
+          <view class="text-base color-big-title">
+          {{item.name}}
+          </view>
+          <view class="mt-2 color-label text-xs">
+          {{item.lastTime}} 今日已签到{{item.checkInTimes}}次
+          </view>
+        </view>
+      </view>
+      <view class="mt-2 px-5">
+        <view class="color-label font-bold my-2">签到地点</view>
+        <view class="color-big-title font-bold">
+        {{item.address}}
+        </view>
+        <view a:if="{{item.remark}}">
+          <view class="color-label font-bold my-2">签到备注</view>
+          <view class="color-big-title font-bold">
+          {{item.remark}}
+          </view>
+        </view>
+        <view a:if="{{item.picUrl}}">
+          <view class="color-label font-bold my-2">签到图片</view>
+          <image src="{{item.picUrl}}" mode="aspectFill" class="w-16 h-16"/>
+        </view>
       </view>
     </view>
-    <view class="">
-      <view class="">
-        陈士明
+  </block>
+</block>
+<block a:elif="{{activeIndex==1}}">
+  <view class="flex flex-wrap justify-between px-5">
+    <block a:for="{{items.uncheckin}}" a:key="index">
+      <view class="w-16 m-2">
+        <view a:if="{{item.thumbAvatar}}" class="flex justify-center items-center mb-2">
+          <image mode="scaleToFill" src="{{item.thumbAvatar}}" class="w-10 h-10 circle"/>
+        </view>
+        <view a:else class="w-10 h-10 circle bg-color-primary color-white flex justify-center items-center mb-2">
+          {{item.name.length>2?item.name.slice(-2):item.name}}
+        </view>
+        <text>{{item.name}}</text>
       </view>
-      <view class="">
-        08:58 今日已签到1次
-      </view>
-    </view>
+    </block>
   </view>
-  <view class="mt-2 px-5">
-    <view class="color-label font-bold my-2">签到地点</view>
-    <view class="color-big-title font-bold">
-    宁波市公安局北仑分局交通警察大队
-    </view>
-    <view class="color-label font-bold my-2">签到图片</view>
-    <image src="/assets/images/fake1.jpg" mode="aspectFill" class="w-16 h-16"/>
-  </view>
-</view>
+</block>

@@ -1,0 +1,7 @@
+.arrow-up {
+  width: 24rpx;
+  height: 24rpx;
+  border-right: #e2e2e2 solid 4rpx;
+  border-bottom: #e2e2e2 solid 4rpx;
+  transform: translateY(50%) rotate(-135deg);
+}

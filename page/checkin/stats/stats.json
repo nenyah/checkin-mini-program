@@ -2,9 +2,11 @@
     "component": true,
     "usingComponents": {
         "s-scope": "./scope/scope",
-        "s-breif-stats": "./breif-stats/breif-stats",
+        "s-tab-control":"/components/s-tab-control/s-tab-control",
         "s-person-cards": "./person-cards/person-cards",
-        "s-button": "./export-button/export-button"
+        "s-button": "./export-button/export-button",
+        "tabs":"mini-ali-ui/es/tabs/index",
+        "tab-content":"mini-ali-ui/es/tabs/tab-content/index"
     },
     "defaultTitle": "团队签到统计"
 }

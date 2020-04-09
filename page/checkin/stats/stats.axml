@@ -1,4 +1,6 @@
-<s-scope></s-scope>
-<s-breif-stats></s-breif-stats>
-<s-person-cards></s-person-cards>
-<s-button></s-button>
+<view class="bg-color-white">
+  <s-scope></s-scope>
+  <s-tab-control tabs="{{tabs}}" activeTab="{{activeTab}}" onTabClick="onTabClick"></s-tab-control>
+  <s-person-cards items="{{items}}" activeIndex="{{activeTab}}"></s-person-cards>
+  <s-button></s-button>
+</view>
