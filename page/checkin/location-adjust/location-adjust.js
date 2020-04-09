@@ -1,4 +1,4 @@
-import formatLocation from "/page/API/get-location/format-location.js";
+
 Page({
   data: {
     items: [
