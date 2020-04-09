@@ -16,6 +16,11 @@ Component({
       this.setData({
         ctime
       });
+    },
+    goSubmit(){
+      my.navigateTo({
+        url: '../checkin-submit/checkin-submit'
+      });
     }
   }
 });

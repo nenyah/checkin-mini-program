@@ -72,7 +72,7 @@ Page({
       { title: "1", subTitle: "最新签到" },
       { title: "7", subTitle: "未签到" }
     ],
-    activeTab: 1,
+    activeTab: 0,
     items: items
   },
   onLoad() {},

@@ -1,6 +1,6 @@
 <view style="background-color:#f0eff5;" class="w-full h-2-3 flex flex-col items-center justify-center">
   <view class="w-1-2 h-1-2 flex flex-col items-center">
-    <view class="check-circle bg-color-notify w-32 h-32 circle flex flex-col justify-center items-center">
+    <view class="check-circle bg-color-notify w-32 h-32 circle flex flex-col justify-center items-center" onTap="goSubmit">
       <view class="color-white text-2xl">签到</view>
       <view class="color-white text-4xl">{{ctime}}</view>
     </view>
