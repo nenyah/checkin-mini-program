@@ -1,9 +1,9 @@
 Page({
   data: {
-    longitude: "120.126293",
-    latitude: "30.274653",
-    name: "黄龙万科中心",
-    address: "宁波市公安局北仑分局交通警察大队",
+    longitude: "",
+    latitude: "",
+    name: "",
+    address: "",
     markers: [
       {
         iconPath: "/assets/images/location.png",
@@ -13,15 +13,8 @@ Page({
         width: 50,
         height: 50
       }
-    ]
-  },
-  onDmTap(e, comp) {
-    dd.openLocation({
-      longitude: this.data.longitude,
-      latitude: this.data.latitude,
-      name: this.data.name,
-      address: this.data.address
-    });
+    ],
+    visitsPerson:"",
   },
   openLocation() {
     dd.openLocation({
@@ -64,6 +57,13 @@ Page({
         dd.alert({ title: "定位失败" });
       }
     });
+  },
+  getValue(e){
+    console.log('index page',e)
+    const visitsPerson = e
+    this.setData({
+      visitsPerson
+    })
   },
   onHide() {
     // 页面隐藏

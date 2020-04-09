@@ -1,6 +1,15 @@
 Page({
-  data: {},
-  onLoad() {},
+  data: {
+    visitsPerson:"",
+  },
+  onLoad(query) {
+// 页面加载
+    console.info(`Checkin-submit Page onLoad with query: ${JSON.stringify(query)}`);
+    console.log(query)
+    this.setData({
+      visitsPerson:query.visitsPerson
+    })
+  },
   useCamera() {
     dd.chooseImage({
       count: 1,

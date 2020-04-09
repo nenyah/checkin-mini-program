@@ -3,7 +3,9 @@ Component({
   data: {
     ctime: "00:00"
   },
-  props: {},
+  props: {
+    visitsPerson:"",
+  },
   didMount() {
     this.getTime();
   },
@@ -19,7 +21,7 @@ Component({
     },
     goSubmit(){
       my.navigateTo({
-        url: '../checkin-submit/checkin-submit'
+        url: '../checkin-submit/checkin-submit?visitsPerson='+this.props.visitsPerson
       });
     }
   }
