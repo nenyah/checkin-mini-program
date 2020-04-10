@@ -1,16 +1,16 @@
 import { formatDate } from "/util/utils.js";
+import { getLocation } from "/libs/location.js";
 Page({
   data: {
     longitude: "",
     latitude: "",
-    name: "",
-    address: "宁波市公安局北仑分局交通警察大队",
+    address: "",
     markers: [
       {
         iconPath: "/assets/images/location.png",
         id: 10,
-        latitude: 30.279383,
-        longitude: 120.131441,
+        latitude: "",
+        longitude: "",
         width: 26,
         height: 26
       }
@@ -20,67 +20,63 @@ Page({
     ctime: "",
     company: "华东宁波医药有限公司"
   },
-  adjustLocation() {
-    dd.openLocation({
-      longitude: this.data.longitude,
-      latitude: this.data.latitude,
-      address: this.data.address,
-      success:(res)=>{
-        console.log(res)
-      }
-    });
-  },
 
-  openLocation() {
-    dd.openLocation({
-      longitude: this.data.longitude,
-      latitude: this.data.latitude,
-      name: this.data.name,
-      address: this.data.address
-    });
-  },
   onLoad(query) {
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
     const date = new Date();
     const today = formatDate(date, "YY年MM月DD日");
+    const ctime = formatDate(date, "hh:mm");
     this.setData({
-      today
+      today,
+      ctime
     });
-    this.mapCtx = my.createMapContext('map')
-    // for(let i in this.mapCtx){
-    //   console.log('功能',typeof i,i)
-    // }
-    console.log('element',this.mapCtx.element)
-    console.log('page',this.mapCtx.page)
+    dd.setStorage({
+      key: "checkInDate",
+      data: {
+        date: formatDate(date, "YY-MM-DD hh:mm")
+      },
+      success: function() {
+        console.log({ content: "写入成功" });
+      }
+    });
   },
   onReady() {
     // 页面加载完成
   },
   onShow() {
     // 页面显示
-    my.getLocation({
-      success: res => {
-        console.log(res);
-        this.setData({
-          hasLocation: false,
-          longitude: res.longitude,
-          latitude: res.latitude,
-          address: res.address,
-          "markers[0].latitude": res.latitude,
-          "markers[0].longitude": res.longitude
-        });
-      },
-      fail: () => {
-        dd.alert({ title: "定位失败" });
-      }
-    });
+    this._getLoncation();
   },
   getValue(e) {
     console.log("index page", e);
     const visitsPerson = e;
     this.setData({
       visitsPerson
+    });
+  },
+  adjustLocation() {
+    my.navigateTo({
+      url: '../location-adjust/location-adjust'
+    });
+  },
+  _getLoncation() {
+    getLocation().then(res => {
+      console.log("in promise", res);
+      this.setData({
+        longitude: res.longitude,
+        latitude: res.latitude,
+        address: res.address,
+        "markers[0].longitude": res.longitude,
+        "markers[0].latitude": res.latitude
+      });
+      dd.setStorage({
+        key: "location",
+        data: res,
+        success: function() {
+          console.log("写入成功");
+        }
+      });
     });
   }
 });

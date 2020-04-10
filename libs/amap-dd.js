@@ -15,7 +15,7 @@ function request(opt) {
         console.log(res);
         resolve(res.data);
       },
-      fail: function(err) {
+      fail: err => {
         reject(err);
       },
       complete: res => {
@@ -28,15 +28,15 @@ function getAround(opt) {
   return request({
     url: "https://restapi.amap.com/v3/place/around",
     data: {
-      key:"78afced4810e78fef4e60c9be330ca06",
-      location: `${opt.longtitude},${opt.latitude}`,
-      radius:opt.radius||500,
+      key: "78afced4810e78fef4e60c9be330ca06",
+      location: `${opt.longitude},${opt.latitude}`,
+      radius: opt.radius || 200
     },
     method: "GET",
     header: { "content-type": "application/json" }
-  })
+  });
 }
 
-module.exports={
+module.exports = {
   getAround
-}
+};

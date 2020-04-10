@@ -7,18 +7,21 @@ Page({
         index: 0,
         title: "华东宁波医药有限公司",
         brief: "浙江省宁波市北仑区大碶镇庐山西路16号",
+        location: "",
         selected: true
       },
       {
         index: 1,
         title: "生工多肽生物工程(宁波)有限公司",
         brief: "浙江省宁波市北仑区大碶镇庐山西路16号5号楼",
+        location: "",
         selected: false
       },
       {
         index: 2,
         title: "大浦河北路与庐山西路交叉口",
         brief: "浙江省宁波市北仑区",
+        location: "",
         selected: false
       }
     ],
@@ -46,26 +49,31 @@ Page({
         },
         clickable: true
       }
-    ],
-    extraAddress: []
+    ]
   },
   onLoad() {
-    if (my.getLocation) {
-      this._getLocation();
-    } else {
-      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样提示
-      my.alert({
-        title: "提示",
-        content: "当前支付宝版本过低，无法使用此功能，请升级最新版本支付宝"
-      });
-    }
+    dd.getStorage({
+      key: "location",
+      success: res => {
+        console.log("获取缓存", res.data);
+        const location = [res.data.longitude, res.data.latitude];
+        this.setData({
+          location,
+          "markers[0].longitude": location[0],
+          "markers[0].latitude": location[1]
+        });
+      },
+      fail: res => {
+        dd.alert({ content: res.errorMessage });
+      }
+    });
   },
   onReady() {
     this.mapCtx = my.createMapContext("map");
-    const longtitude = this.data.location[0];
+    const longitude = this.data.location[0];
     const latitude = this.data.location[1];
-    console.log({ longtitude, latitude });
-    this._getAround({ longtitude, latitude });
+    console.log({ longitude, latitude });
+    this._getAround({ longitude, latitude });
   },
 
   regionchange(e) {
@@ -89,6 +97,8 @@ Page({
   onItemClick(e) {
     const index = e.index;
     const items = this.data.items;
+    const [longitude, latitude] = items[index].location.split(",");
+    // console.log("切换", [longitude, latitude]);
     items.forEach(el => {
       if (el.index == index) {
         el.selected = true;
@@ -98,7 +108,9 @@ Page({
     });
 
     this.setData({
-      items
+      items,
+      'markers[0].longitude':longitude,
+      'markers[0].latitude':latitude
     });
   },
   // 改变标记
@@ -142,20 +154,24 @@ Page({
     });
   },
   _getAround(opt) {
-    getAround(opt).then(res => {
-      // console.log("获得地址", res.pois);
-      const items = res.pois.map((item, index) => {
-        return {
-          index: index,
-          title: item.name,
-          brief: item.address,
-          selected: index === 0 ? true : false
-        };
-      });
-      items.forEach(el=>console.log(el))
-      this.setData({
-        items
+    getAround(opt)
+      .then(res => {
+        // console.log("获得地址", res.pois);
+        let oldItems = this.data.items;
+        const items = res.pois.map((item, index) => {
+          return {
+            index: index,
+            title: item.name,
+            brief: item.address,
+            location: item.location,
+            selected: false
+          };
+        });
+        items.forEach(el => console.log(el));
+        this.setData({
+          items
+        });
       })
-    });
+      .catch(err => console.log(err));
   }
 });
