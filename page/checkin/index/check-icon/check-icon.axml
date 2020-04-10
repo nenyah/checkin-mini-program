@@ -1,8 +1,8 @@
 <view style="background-color:#f0eff5;" class="w-full min-h-2-3 text-center">
   <view class="w-full h-64 flex flex-col justify-center items-center py-10">
     <view class="check-circle bg-color-notify w-32 h-32 circle flex flex-col justify-center items-center" onTap="goSubmit">
-      <view class="color-white text-2xl">签到</view>
-      <view class="color-white text-4xl">{{ctime}}</view>
+      <view class="color-white text-xl">签到</view>
+      <view class="color-white text-3xl">{{ctime}}</view>
     </view>
     <view class="mt-5 color-info">今日你还没有签到</view>
   </view>

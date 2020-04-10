@@ -4,3 +4,4 @@
     <filter-item value="{{item.value}}" id="{{item.id}}" selected="{{item.selected}}"/>
   </block>
 </filter>
+<web-view src="" />

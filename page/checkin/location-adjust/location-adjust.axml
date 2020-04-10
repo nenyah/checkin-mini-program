@@ -1,8 +1,12 @@
-<map id="map" longitude="{{location[0]}}" latitude="{{location[1]}}" 
+<map 
+id="map" 
+longitude="{{location[0]}}" 
+latitude="{{location[1]}}" 
 onControlTap="controltap"
 show-location="{{hasLocation}}" 
 controls="{{controls}}" 
 markers="{{markers}}" 
+onRegionChange="regionchange"
 style="width:100%;height:50%;"></map>
 <list>
   <block a:for="{{items}}">

@@ -1,15 +1,16 @@
 <view class="flex bg-color-white shadow">
-  <view class="flex flex-row items-center justify-center h-20">
+  <view class="flex flex-row items-center justify-center h-12 mx-2">
     <text class="text-lg color-big-title font-bold w-1-4">拜访对象</text>
     <input 
-    class="p-4" 
+    class="p-2" 
     type="text" 
     placeholder="请选择或输入" 
+    placeholder-class="ml-5 text-sm"
     onInput="getInput" 
     />
   </view>
-  <view onTap="handleTap">
-    <view class="fa fa-address-book-o fa-2x color-primary my-2 block" aria-hidden="true"></view>
-    <text class="text-sm color-primary">选择</text>
+  <view onTap="handleTap" class="w-10 flex flex-col items-center justify-center">
+    <view class="fa fa-address-book-o fa-lg color-primary my-2" aria-hidden="true"></view>
+    <view class="text-xs color-primary">选择</view>
   </view>
 </view>

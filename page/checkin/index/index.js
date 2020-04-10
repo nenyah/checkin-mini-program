@@ -1,3 +1,4 @@
+import { formatDate } from "/util/utils.js";
 Page({
   data: {
     longitude: "",
@@ -14,8 +15,22 @@ Page({
         height: 26
       }
     ],
-    visitsPerson:"",
+    visitsPerson: "",
+    today: "",
+    ctime: "",
+    company: "华东宁波医药有限公司"
   },
+  adjustLocation() {
+    dd.openLocation({
+      longitude: this.data.longitude,
+      latitude: this.data.latitude,
+      address: this.data.address,
+      success:(res)=>{
+        console.log(res)
+      }
+    });
+  },
+
   openLocation() {
     dd.openLocation({
       longitude: this.data.longitude,
@@ -27,6 +42,17 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+    const date = new Date();
+    const today = formatDate(date, "YY年MM月DD日");
+    this.setData({
+      today
+    });
+    this.mapCtx = my.createMapContext('map')
+    // for(let i in this.mapCtx){
+    //   console.log('功能',typeof i,i)
+    // }
+    console.log('element',this.mapCtx.element)
+    console.log('page',this.mapCtx.page)
   },
   onReady() {
     // 页面加载完成
@@ -41,8 +67,8 @@ Page({
           longitude: res.longitude,
           latitude: res.latitude,
           address: res.address,
-          'markers[0].latitude':res.latitude,
-          'markers[0].longitude':res.longitude,
+          "markers[0].latitude": res.latitude,
+          "markers[0].longitude": res.longitude
         });
       },
       fail: () => {
@@ -50,12 +76,11 @@ Page({
       }
     });
   },
-  getValue(e){
-    console.log('index page',e)
-    const visitsPerson = e
+  getValue(e) {
+    console.log("index page", e);
+    const visitsPerson = e;
     this.setData({
       visitsPerson
-    })
-  },
- 
+    });
+  }
 });

@@ -1,3 +1,4 @@
+import { getAround } from "/libs/amap-dd.js";
 
 Page({
   data: {
@@ -21,9 +22,18 @@ Page({
         selected: false
       }
     ],
-    hasLocation: false,
+    hasLocation: true,
     location: [],
-    markers: [],
+    markers: [
+      {
+        iconPath: "/assets/images/location.png",
+        id: 1,
+        latitude: "",
+        longitude: "",
+        width: 38,
+        height: 38
+      }
+    ],
     controls: [
       {
         id: 5,
@@ -36,9 +46,8 @@ Page({
         },
         clickable: true
       }
-    ]
-  },
-  onReady() {
+    ],
+    extraAddress: []
   },
   onLoad() {
     if (my.getLocation) {
@@ -51,6 +60,32 @@ Page({
       });
     }
   },
+  onReady() {
+    this.mapCtx = my.createMapContext("map");
+    const longtitude = this.data.location[0];
+    const latitude = this.data.location[1];
+    console.log({ longtitude, latitude });
+    this._getAround({ longtitude, latitude });
+  },
+
+  regionchange(e) {
+    console.log("regionchange", e);
+    this.setData({
+      "markers[0].latitude": e.latitude,
+      "markers[0].longitude": e.longitude
+    });
+  },
+  getCenterLocation() {
+    this.mapCtx.getCenterLocation(function(res) {
+      console.log(res.longitude);
+      console.log(res.latitude);
+    });
+  },
+
+  moveToLocation() {
+    this.mapCtx.moveToLocation();
+  },
+  // 选择地址
   onItemClick(e) {
     const index = e.index;
     const items = this.data.items;
@@ -66,6 +101,7 @@ Page({
       items
     });
   },
+  // 改变标记
   changeMarkers() {
     this.setData({
       markers: [
@@ -88,29 +124,38 @@ Page({
   },
   controltap(e) {
     console.log("control tap", e);
-    this._getLocation();
+    this.mapCtx.moveToLocation();
   },
   _getLocation() {
     dd.getLocation({
       success: res => {
-        const markers = [
-          {
-            iconPath: "/assets/images/location.png",
-            id: 1,
-            latitude: res.latitude,
-            longitude: res.longitude,
-            width: 38,
-            height: 38
-          }
-        ];
+        console.log("调用获取定位", res);
         this.setData({
           location: [res.longitude, res.latitude],
-          markers: markers
+          // markers: markers,
+          hasLocation: true
         });
       },
       fail: () => {
         dd.alert({ title: "定位失败" });
       }
+    });
+  },
+  _getAround(opt) {
+    getAround(opt).then(res => {
+      // console.log("获得地址", res.pois);
+      const items = res.pois.map((item, index) => {
+        return {
+          index: index,
+          title: item.name,
+          brief: item.address,
+          selected: index === 0 ? true : false
+        };
+      });
+      items.forEach(el=>console.log(el))
+      this.setData({
+        items
+      })
     });
   }
 });

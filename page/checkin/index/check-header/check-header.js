@@ -2,14 +2,8 @@ import { formatDate } from "/util/utils.js";
 Component({
   mixins: [],
   data: {},
-  props: {},
-  didMount() {
-    const date = new Date();
-    const today = formatDate(date,'YY年MM月DD日');
-    this.setData({
-      today
-    });
-  },
+  props: { today: "2020年04月10日", company: "华东宁波医药有限公司" },
+  didMount() {},
   didUpdate() {},
   didUnmount() {},
   methods: {}
