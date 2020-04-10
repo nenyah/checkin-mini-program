@@ -1,38 +1,28 @@
-/*
- * @Description:
- * @Author: Steven
- * @Date: 2019-10-08 15:05:08
- * @LastEditors: Steven
- * @LastEditTime: 2019-10-08 17:04:13
- */
-const formatTime = date => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
-
-  return (
-    [year, month, day].map(formatNumber).join("/") +
-    " " +
-    [hour, minute, second].map(formatNumber).join(":")
-  );
+function formatDate(time,format='YY-MM-DD hh:mm:ss'){
+    var date = new Date(time);
+ 
+    var year = date.getFullYear(),
+        month = date.getMonth()+1,//月份是从0开始的
+        day = date.getDate(),
+        hour = date.getHours(),
+        min = date.getMinutes(),
+        sec = date.getSeconds();
+    var preArr = Array.apply(null,Array(10)).map(function(elem, index) {
+        return '0'+index;
+    });//开个长度为10的数组 格式为 ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
+ 
+    var newTime = format.replace(/YY/g,year)
+        .replace(/MM/g,preArr[month]||month)
+        .replace(/DD/g,preArr[day]||day)
+        .replace(/hh/g,preArr[hour]||hour)
+        .replace(/mm/g,preArr[min]||min)
+        .replace(/ss/g,preArr[sec]||sec);
+ 
+    return newTime;
 };
 
-const formatDate = (date, sep) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
 
-  return [year, month, day].map(formatNumber).join(sep);
-};
-const formatNumber = n => {
-  n = n.toString();
-  return n[1] ? n : "0" + n;
-};
 
 module.exports = {
-  formatTime: formatTime,
   formatDate: formatDate
 };

@@ -1,4 +1,4 @@
-<view class="header flex w-full color-label bg-color-white py-2 mx-2">
+<view class="header flex w-full color-label bg-color-white p-2 text-xs">
   <view class="flex no-wrap w-2-5">
     <view class="fa fa-clock-o mx-1" aria-hidden="true"></view>
     <view class="">{{today}}</view>

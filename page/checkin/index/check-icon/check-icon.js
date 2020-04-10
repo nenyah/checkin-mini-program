@@ -1,3 +1,4 @@
+import { formatDate } from "/util/utils.js";
 Component({
   mixins: [],
   data: {
@@ -14,7 +15,7 @@ Component({
   methods: {
     getTime() {
       const date = new Date();
-      const ctime = `${date.getHours()}:${date.getMinutes()}`;
+      const ctime = formatDate(date,'hh:mm');
       this.setData({
         ctime
       });

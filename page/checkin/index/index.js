@@ -3,15 +3,15 @@ Page({
     longitude: "",
     latitude: "",
     name: "",
-    address: "",
+    address: "宁波市公安局北仑分局交通警察大队",
     markers: [
       {
         iconPath: "/assets/images/location.png",
         id: 10,
         latitude: 30.279383,
         longitude: 120.131441,
-        width: 50,
-        height: 50
+        width: 26,
+        height: 26
       }
     ],
     visitsPerson:"",
@@ -37,20 +37,12 @@ Page({
       success: res => {
         console.log(res);
         this.setData({
-          hasLocation: true,
+          hasLocation: false,
           longitude: res.longitude,
           latitude: res.latitude,
           address: res.address,
-          markers: [
-            {
-              iconPath: "/assets/images/location.png",
-              id: 10,
-              latitude: res.latitude,
-              longitude: res.longitude,
-              width: 26,
-              height: 26
-            }
-          ]
+          'markers[0].latitude':res.latitude,
+          'markers[0].longitude':res.longitude,
         });
       },
       fail: () => {
@@ -65,27 +57,5 @@ Page({
       visitsPerson
     })
   },
-  onHide() {
-    // 页面隐藏
-  },
-  onUnload() {
-    // 页面被关闭
-  },
-  onTitleClick() {
-    // 标题被点击
-  },
-  onPullDownRefresh() {
-    // 页面被下拉
-  },
-  onReachBottom() {
-    // 页面被拉到底部
-  },
-  onShareAppMessage() {
-    // 返回自定义分享信息
-    return {
-      title: "My App",
-      desc: "My App description",
-      path: "pages/index/index"
-    };
-  }
+ 
 });
