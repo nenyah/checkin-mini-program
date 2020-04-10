@@ -3,7 +3,7 @@
     <view class="fa fa-clock-o fa-lg color-label mx-2" aria-hidden="true"></view>
     <view class="color-label">
       签到时间:
-      <text class="color-big-title ml-2">09:57</text>
+      <text class="color-big-title ml-2">{{checkinTime}}</text>
     </view>
   </view>
   <view class="flex py-2">
@@ -12,7 +12,7 @@
       签到地点:
     </view>
     <view class="color-big-title ml-2 w-3-5 no-wrap-2">
-      宁波市公安局北仑分局交通警察大队大碶中队，浙江省宁波北仑大碶华东宁波医药公司
+      {{address}}
     </view>
   </view>
   <view a:if="{{visitsPerson}}" class="flex py-2">
@@ -24,7 +24,6 @@
       {{visitsPerson}}
     </view>
   </view>
-</view>
 </view>
 <view class="my-5 bg-color-white h-48 pt-3">
   <textarea placeholder="请填写签到备注" maxlength="-1"></textarea>

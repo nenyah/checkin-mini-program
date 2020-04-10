@@ -1,0 +1,5 @@
+{
+  "enableDistFileMinify": true,
+  "enableParallelLoader": true,
+  "axmlStrictCheck": true
+}
