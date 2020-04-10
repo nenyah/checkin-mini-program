@@ -27,9 +27,12 @@
 </view>
 <view class="my-5 bg-color-white h-48 pt-3">
   <textarea placeholder="请填写签到备注" maxlength="-1"></textarea>
-  <view style="border:dashed 2rpx #9c9c9c;" class="w-24 h-24 radius-5 ml-2 flex" onTap="useCamera">
+  <view a:if="{{picUrl.length==0}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-24 radius-5 ml-2 flex" onTap="useCamera">
     <view class="fa fa-camera fa-3x m-auto color-label">
     </view>
+  </view>
+  <view a:else class="w-24 h-24 radius-5 ml-2 flex">
+    <image mode="scaleToFill" src="{{picUrl}}"/>
   </view>
 </view>
 <view class="">
