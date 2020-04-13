@@ -24,6 +24,10 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`)
+    const visitsPerson = query.visitsPerson
+    this.setData({
+      visitsPerson
+    })
     this._getCurrentTime()
     this._getLoncation()
   },

@@ -2,9 +2,7 @@ Component({
   mixins: [],
   data: {},
   props: {
-    onGetvalue: data => {
-      console.log(data);
-    }
+    visitsPerson:""
   },
   didMount() {},
   didUpdate() {},
@@ -14,11 +12,6 @@ Component({
       my.navigateTo({
         url: "/page/checkin/customer/customer"
       });
-    },
-    getInput(e) {
-      console.log('input',e);
-      const value = e.detail.value;
-      this.props.onGetvalue(value);
     },
   }
 });
