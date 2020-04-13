@@ -1,10 +1,13 @@
 <view a:if="{{search}}" class="flex">
-<view class="fa fa-search">
-  
-</view>
-  <input placeholder="搜索" class="radius-5 shadow w-5-6 mx-auto"/>
-  <view class="sep-line">
-  </view>
+  <search-bar 
+  placeholder="搜索" 
+  onInput="handleInput"
+  onClear="handleClear"
+  onFocus="handleFocus"
+  onCancel="handleCancel"
+  onSubmit="handleSubmit"
+  showCancelButton="{{false}}"
+  class="w-4-5 mx-auto"></search-bar>
 </view>
 
 <view a:else>
