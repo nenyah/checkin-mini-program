@@ -29,7 +29,7 @@ Page({
         clickable: true
       }
     ],
-    search: true
+    search: false
   },
   onLoad() {
     dd.getStorage({

@@ -1,4 +1,5 @@
 import { getStorage } from "../../../service/storage.js";
+import { formatDate } from "/util/utils.js";
 Page({
   data: {
     checkinTime: "00:00",
@@ -15,9 +16,10 @@ Page({
     console.log(query);
     getStorage({ key: "checkInDate" })
       .then(res => {
+        const ctime = formatDate(new Date(res.data.date), "hh:mm");
         this.setData({
           visitsPerson: query.visitsPerson,
-          checkinTime: res.data.date.substr(-5)
+          checkinTime: ctime
         });
       })
       .then(() => {
