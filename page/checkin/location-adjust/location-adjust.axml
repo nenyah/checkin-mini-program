@@ -2,19 +2,25 @@
 id="map" 
 longitude="{{location[0]}}" 
 latitude="{{location[1]}}" 
-onControlTap="controltap"
+onControlTap="controltap" 
 show-location="{{hasLocation}}" 
 controls="{{controls}}" 
 markers="{{markers}}" 
-onRegionChange="regionchange"
+onRegionChange="regionchange" 
 style="width:100%;height:50%;"></map>
 <list>
   <block a:for="{{items}}">
     <list-item index="{{index}}" onClick="onItemClick" key="items-{{index}}" last="{{index === (items.length - 1)}}" multipleLine="{{true}}">
-    {{item.title}}
-      <view class="color-label text-xs">{{item.brief}}</view>
-      <view a:if="{{item.selected}}" slot="extra">
-        <icon type="success_no_circle"></icon>
+      <view class="flex">
+        <view class="w-5-6 no-wrap">
+          <view class="text-sm">
+          {{item.title}}
+          </view>
+          <view class="color-label text-xs">{{item.brief}}</view>
+        </view>
+        <view a:if="{{item.selected}}" class="m-auto">
+          <icon type="success_no_circle"></icon>
+        </view>
       </view>
     </list-item>
   </block>
