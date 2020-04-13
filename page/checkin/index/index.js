@@ -1,5 +1,5 @@
 import { formatDate } from "/util/utils.js";
-import { getLocation } from "/libs/location.js";
+import { getLocation } from "../../../service/location.js";
 Page({
   data: {
     longitude: "",
@@ -23,13 +23,13 @@ Page({
 
   onLoad(query) {
     // 页面加载
-    console.info(`首页加载成功: ${JSON.stringify(query)}`)
-    const visitsPerson = query.visitsPerson
+    console.info(`首页加载成功: ${JSON.stringify(query)}`);
+    const visitsPerson = query.visitsPerson;
     this.setData({
       visitsPerson
-    })
-    this._getCurrentTime()
-    this._getLoncation()
+    });
+    this._getCurrentTime();
+    this._getLoncation();
   },
   onReady() {
     // 页面加载完成
@@ -43,25 +43,44 @@ Page({
     });
   },
   _getLoncation() {
-    getLocation().then(res => {
-      console.log("in promise", res);
-      this.setData({
-        longitude: res.longitude,
-        latitude: res.latitude,
-        address: res.address,
-        "markers[0].longitude": res.longitude,
-        "markers[0].latitude": res.latitude
-      });
-      dd.setStorage({
-        key: "location",
-        data: res,
-        success: function() {
-          console.log("写入成功");
+    my.getStorage({
+      key: "location",
+      success: res => {
+        if (!res.data) {
+          console.log('执行if')
+          getLocation().then(res => {
+            this.setData({
+              longitude: res.longitude,
+              latitude: res.latitude,
+              address: res.address,
+              "markers[0].longitude": res.longitude,
+              "markers[0].latitude": res.latitude
+            });
+            dd.setStorage({
+              key: "location",
+              data: {
+                longitude: res.longitude,
+                latitude: res.latitude,
+                address: res.address
+              },
+              success: function() {
+              }
+            });
+          });
+        } else {
+          this.setData({
+            longitude: res.data.longitude,
+            latitude: res.data.latitude,
+            address: res.data.address,
+            "markers[0].longitude": res.data.longitude,
+            "markers[0].latitude": res.data.latitude
+          });
         }
-      });
+      },
+      fail: res => {}
     });
   },
-  _getCurrentTime(){
+  _getCurrentTime() {
     my.getStorage({
       key: "checkInDate",
       success: result => {

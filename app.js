@@ -20,7 +20,7 @@ App({
         date: new Date()
       },
       success: function() {
-        console.log({ content: "写入成功" });
+        // console.log({ content: "写入成功" });
       }
     });
   },

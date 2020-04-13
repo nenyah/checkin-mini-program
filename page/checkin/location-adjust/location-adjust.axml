@@ -1,3 +1,7 @@
+<view class="flex bg-color-white items-center justify-around">
+ <input placeholder="搜索" class="w-4-5 h-10 radius-2"/>
+ <button size="mini" type="primary" class="w-1-5" onTap="comfirm">确定</button>
+</view>
 <map 
 id="map" 
 longitude="{{location[0]}}" 

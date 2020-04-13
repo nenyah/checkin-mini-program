@@ -33,7 +33,7 @@ Page({
     dd.getStorage({
       key: "location",
       success: res => {
-        console.log("获取缓存", res.data);
+        // console.log("获取缓存", res.data);
         const location = [res.data.longitude, res.data.latitude];
         this.setData({
           location,
@@ -50,33 +50,45 @@ Page({
     this.mapCtx = my.createMapContext("map");
     const longitude = this.data.location[0];
     const latitude = this.data.location[1];
-    console.log({ longitude, latitude });
+    // console.log({ longitude, latitude });
     this._getAround({ longitude, latitude });
   },
 
   regionchange(e) {
-    console.log("regionchange", e);
+    // console.log("regionchange", e);
     this.setData({
       "markers[0].latitude": e.latitude,
       "markers[0].longitude": e.longitude
     });
   },
-  getCenterLocation() {
-    this.mapCtx.getCenterLocation(function(res) {
-      console.log(res.longitude);
-      console.log(res.latitude);
+  // 确认选择
+  comfirm() {
+    const selectItem = this.data.items.filter(el => el.selected === true)[0];
+    
+    const address = selectItem.title;
+    const location = selectItem.location.split(',');
+    console.log('location',location)
+    dd.setStorage({
+      key: "location",
+      data: {
+        longitude: Number(location[0]),
+        latitude: Number(location[1]),
+        address: address
+      },
+      success: function() {
+        // console.log("写入成功");
+      }
+    });
+    my.redirectTo({
+      url: `../index/index`
     });
   },
 
-  moveToLocation() {
-    this.mapCtx.moveToLocation();
-  },
   // 选择地址
   onItemClick(e) {
     const index = e.index;
     const items = this.data.items;
     const [longitude, latitude] = items[index].location.split(",");
-    // console.log("切换", [longitude, latitude]);
     items.forEach(el => {
       if (el.index == index) {
         el.selected = true;
@@ -116,39 +128,37 @@ Page({
     console.log("control tap", e);
     this.mapCtx.moveToLocation();
   },
-  _getLocation() {
-    dd.getLocation({
-      success: res => {
-        console.log("调用获取定位", res);
-        this.setData({
-          location: [res.longitude, res.latitude]
-          // markers: markers,
-          // hasLocation: false
-        });
-      },
-      fail: () => {
-        dd.alert({ title: "定位失败" });
-      }
-    });
-  },
+  // _getLocation() {
+  //   dd.getLocation({
+  //     success: res => {
+  //       console.log("调用获取定位", res);
+  //       this.setData({
+  //         location: [res.longitude, res.latitude]
+  //       });
+  //     },
+  //     fail: () => {
+  //       dd.alert({ title: "定位失败" });
+  //     }
+  //   });
+  // },
   _getAround(opt) {
     getAround(opt)
       .then(res => {
-        console.log("获得地址", res.regeocode);
+        // console.log("获得地址", res.regeocode);
         let regeocode = res.regeocode;
         let addressComponent = regeocode.addressComponent;
         let town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
-        console.log(town);
+        // console.log(town);
         const items = regeocode.pois.map((item, index) => {
           return {
             index: index,
             title: item.name,
             brief: `${town}${item.address}`,
             location: item.location,
-            selected: index===0?true:false
+            selected: index === 0 ? true : false
           };
         });
-        items.forEach(el => console.log(el));
+        // items.forEach(el => console.log(el));
         this.setData({
           items
         });

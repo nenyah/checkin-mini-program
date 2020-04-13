@@ -6,7 +6,6 @@ function getLocation() {
   return new Promise((resolve, reject) => {
     dd.getLocation({
       success: res => {
-        // console.log("get location success", res);
         resolve(res);
       },
       fail: err => {

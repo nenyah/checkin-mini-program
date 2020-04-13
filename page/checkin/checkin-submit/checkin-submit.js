@@ -1,4 +1,4 @@
-import { getStorage } from "/libs/storage.js";
+import { getStorage } from "../../../service/storage.js";
 Page({
   data: {
     checkinTime: "00:00",
