@@ -31,14 +31,20 @@ Page({
       });
   },
   useCamera() {
-    dd.chooseImage({
+    my.chooseImage({
       count: 1,
       sourceType: ["camera"],
       success: res => {
-        // TODO： 回传的图片怎么显示？
-        console.log("拍照成功", res);
+        console.info(res);
+        // 打水印
+        dd.getImageInfo({
+          src: res.filePaths[0],
+          success: res => {
+            console.log(JSON.stringify(res));
+          }
+        });
         this.setData({
-          picUrl: res.filePaths
+          picUrl: res.filePaths[0]
         });
       }
     });

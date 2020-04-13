@@ -32,7 +32,7 @@
     </view>
   </view>
   <view a:else class="w-24 h-24 radius-5 ml-2 flex">
-    <image mode="scaleToFill" src="{{picUrl}}"/>
+    <image mode="aspectFit" src="{{picUrl}}" class="w-24 h-24 radius-5"/>
   </view>
 </view>
 <view class="">
