@@ -20,6 +20,10 @@ swipeable="{{true}}"
     <block a:for="{{items}}">
       <list-item 
       onClick="onItemClick" 
+      index="{{index}}"
+      last="{{index === (items.length - 1)}}"
+      key="items-{{index}}"
+      data-item="{{item}}"
       multipleLine="{{true}}"
       class="">
       {{item.mainTitle}}

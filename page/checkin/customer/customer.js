@@ -84,5 +84,13 @@ Page({
       [tabsName]: index,
     });
   },
+  onItemClick(e){
+    console.log('客户页面选择客户',e)
+    // 把选择的客户传回首页
+    const item = e.target.dataset.item
+    my.redirectTo({
+      url: `../index/index?visitsPerson=${item.mainTitle}`
+    });
+  }
 
 });
