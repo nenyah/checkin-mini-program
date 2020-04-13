@@ -27,7 +27,8 @@ Page({
         },
         clickable: true
       }
-    ]
+    ],
+    search: true
   },
   onLoad() {
     dd.getStorage({
@@ -64,10 +65,10 @@ Page({
   // 确认选择
   comfirm() {
     const selectItem = this.data.items.filter(el => el.selected === true)[0];
-    
+
     const address = selectItem.title;
-    const location = selectItem.location.split(',');
-    console.log('location',location)
+    const location = selectItem.location.split(",");
+    console.log("location", location);
     dd.setStorage({
       key: "location",
       data: {
@@ -128,19 +129,13 @@ Page({
     console.log("control tap", e);
     this.mapCtx.moveToLocation();
   },
-  // _getLocation() {
-  //   dd.getLocation({
-  //     success: res => {
-  //       console.log("调用获取定位", res);
-  //       this.setData({
-  //         location: [res.longitude, res.latitude]
-  //       });
-  //     },
-  //     fail: () => {
-  //       dd.alert({ title: "定位失败" });
-  //     }
-  //   });
-  // },
+  changeToSearch() {
+    let search = !this.data.search
+    console.log(search)
+    this.setData({
+      search
+    })
+  },
   _getAround(opt) {
     getAround(opt)
       .then(res => {

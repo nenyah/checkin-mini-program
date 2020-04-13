@@ -42,6 +42,7 @@ Page({
       url: "../location-adjust/location-adjust"
     });
   },
+
   _getLoncation() {
     my.getStorage({
       key: "location",
