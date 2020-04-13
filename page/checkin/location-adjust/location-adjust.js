@@ -3,6 +3,7 @@ import { getAround } from "/libs/amap-dd.js";
 Page({
   data: {
     items: [],
+    searchItems: [],
     hasLocation: false,
     location: [],
     markers: [
@@ -130,11 +131,18 @@ Page({
     this.mapCtx.moveToLocation();
   },
   changeToSearch() {
-    let search = !this.data.search
-    console.log(search)
+    let search = !this.data.search;
+    console.log(search);
     this.setData({
       search
-    })
+    });
+  },
+  handleSubmit(e) {
+    console.log("submit", e);
+    const searchItems = this.data.items.filter(el => el.title.indexOf(e) > 0);
+    this.setData({
+      searchItems
+    });
   },
   _getAround(opt) {
     getAround(opt)

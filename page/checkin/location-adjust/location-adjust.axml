@@ -1,4 +1,4 @@
-<view a:if="{{search}}" class="flex">
+<view a:if="{{search}}" class="flex flex-col">
   <search-bar 
   placeholder="搜索" 
   onInput="handleInput"
@@ -7,7 +7,24 @@
   onCancel="handleCancel"
   onSubmit="handleSubmit"
   showCancelButton="{{false}}"
-  class="w-4-5 mx-auto"></search-bar>
+  class="w-4-5 mx-auto my-5"></search-bar>
+    <list>
+    <block a:for="{{searchItems}}">
+      <list-item index="{{index}}" onClick="onItemClick" key="items-{{index}}" last="{{index === (items.length - 1)}}" multipleLine="{{true}}">
+        <view class="flex">
+          <view class="w-5-6 no-wrap">
+            <view class="text-sm">
+          {{item.title}}
+            </view>
+            <view class="color-label text-xs">{{item.brief}}</view>
+          </view>
+          <view a:if="{{item.selected}}" class="m-auto">
+            <icon type="success_no_circle"></icon>
+          </view>
+        </view>
+      </list-item>
+    </block>
+  </list>
 </view>
 
 <view a:else>
