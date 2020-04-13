@@ -23,41 +23,19 @@ Page({
 
   onLoad(query) {
     // 页面加载
-    console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
-    const date = new Date();
-    const today = formatDate(date, "YY年MM月DD日");
-    const ctime = formatDate(date, "hh:mm");
-    this.setData({
-      today,
-      ctime
-    });
-    dd.setStorage({
-      key: "checkInDate",
-      data: {
-        date: formatDate(date, "YY-MM-DD hh:mm")
-      },
-      success: function() {
-        console.log({ content: "写入成功" });
-      }
-    });
+    console.info(`首页加载成功: ${JSON.stringify(query)}`)
+    this._getCurrentTime()
+    this._getLoncation()
   },
   onReady() {
     // 页面加载完成
   },
   onShow() {
     // 页面显示
-    this._getLoncation();
-  },
-  getValue(e) {
-    console.log("index page", e);
-    const visitsPerson = e;
-    this.setData({
-      visitsPerson
-    });
   },
   adjustLocation() {
     my.navigateTo({
-      url: '../location-adjust/location-adjust'
+      url: "../location-adjust/location-adjust"
     });
   },
   _getLoncation() {
@@ -77,6 +55,20 @@ Page({
           console.log("写入成功");
         }
       });
+    });
+  },
+  _getCurrentTime(){
+    my.getStorage({
+      key: "checkInDate",
+      success: result => {
+        const checkTime = new Date(result.data.date);
+        const today = formatDate(checkTime, "YY年MM月DD日");
+        const ctime = formatDate(checkTime, "hh:mm");
+        this.setData({
+          today,
+          ctime
+        });
+      }
     });
   }
 });

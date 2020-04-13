@@ -20,6 +20,6 @@
 </view>
 
 <!--选择人员-->
-<s-choose-person onGetvalue="getValue"></s-choose-person>
+<s-choose-person ></s-choose-person>
 <!--签到-->
 <s-check visitsPerson="{{visitsPerson}}" ctime="{{ctime}}"></s-check>

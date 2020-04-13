@@ -2,6 +2,7 @@ App({
   onLaunch(options) {
     console.log("App Launch", options);
     console.log("getSystemInfoSync", dd.getSystemInfoSync());
+    console.log("SDKVersion", dd.SDKVersion);
     my.getSystemInfo({
       success: res => {
         //导航高度
@@ -11,7 +12,17 @@ App({
         console.log(err);
       }
     });
-    console.log("SDKVersion", dd.SDKVersion);
+
+
+    dd.setStorage({
+      key: "checkInDate",
+      data: {
+        date: new Date()
+      },
+      success: function() {
+        console.log({ content: "写入成功" });
+      }
+    });
   },
   onShow() {
     console.log("App Show");
