@@ -1,3 +1,4 @@
+import { formatDate } from "/util/utils.js";
 Page({
   data: {
     month: "2020-04",
@@ -57,5 +58,26 @@ Page({
       }
     ]
   },
-  onLoad() {}
+  onLoad() {
+    const month = formatDate(new Date(),'YY-MM')
+    console.log(month)
+    this.setData({
+      month
+    })
+  },
+  pickMonth() {
+    // 更改月份
+    my.datePicker({
+      format: "yyyy-MM",
+      currentDate: this.data.month,
+      success: res => {
+        this.setData({
+          month:res.date
+        })
+        // TODO 向服务器获取对应月份历史记录
+        // 或者从缓存中获取？
+      }
+    });
+    
+  }
 });

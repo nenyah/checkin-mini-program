@@ -1,5 +1,7 @@
 <view class="sep-line bg-color-white py-2">
-  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2">
+  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2"
+  onTap="pickMonth"
+  >
     <view class="fa fa-calendar mx-1" aria-hidden="true">
     </view>
     <view>
@@ -31,7 +33,9 @@
 </view>
 <view class="bg-color-white">
   <block a:for="{{items}}">
-    <s-card item="{{item}}">
+    <s-card 
+    item="{{item}}"
+    >
     </s-card>
   </block>
 </view>
