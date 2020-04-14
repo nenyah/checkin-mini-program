@@ -1,3 +1,4 @@
+
 <view class="mb-5 bg-color-white shadow">
   <view class="flex py-2">
     <view class="fa fa-clock-o fa-lg color-label mx-2" aria-hidden="true"></view>
@@ -25,19 +26,33 @@
     </view>
   </view>
 </view>
-<view class="my-5 bg-color-white h-48 pt-3">
+<view class="my-5 bg-color-white min-h-48 pt-3">
   <textarea placeholder="请填写签到备注" maxlength="-1"></textarea>
-  <view a:if="{{picUrl.length==0}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-24 radius-5 ml-2 flex" onTap="useCamera">
-    <view class="fa fa-camera fa-3x m-auto color-label">
+
+  <view class="flex flex-wrap">
+    <block a:for="{{picUrls}}">
+      <view class="w-24 h-16 flex m-2" key="{{item}}">
+        <image mode="center" src="{{item}}" class="w-24 h-16 "/>
+        <view 
+        class="pin-right-angel fa fa-minus-circle fa-base color-danger" 
+        aria-hidden="true" 
+        data-index="{{index}}"
+        onTap="removePic">  
+        </view>
+      </view>
+    </block>
+    <view a:if="{{picUrls.length<9}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-16 radius-5 m-2 flex" onTap="useCamera">
+      <view class="fa fa-camera fa-3x m-auto color-label">
+      </view>
     </view>
   </view>
-  <view a:else class="w-24 h-24 radius-5 ml-2 flex">
-    <image mode="aspectFit" src="{{picUrl}}" class="w-24 h-24 radius-5"/>
-  </view>
+
 </view>
-<view class="">
+<view class="mt-5">
   <view class="w-full h-10 bg-color-white px-2 flex items-center color-label">当前企业：
     <text class="color-big-title">华东宁波医药有限公司</text></view>
   <view class="w-full px-2 color-label mt-3 text-sm">你的签到信息，仅对你的主管和本团队成员可以见</view>
 </view>
+
+
 <button size="default" type="default" class="border-none bg-color-white color-primary w-full fixed pin-b shadow">提交</button>

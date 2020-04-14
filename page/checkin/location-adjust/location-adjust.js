@@ -69,7 +69,7 @@ Page({
 
     const address = selectItem.title;
     const location = selectItem.location.split(",");
-    console.log("location", location);
+    // console.log("location", location);
     dd.setStorage({
       key: "location",
       data: {
@@ -86,7 +86,7 @@ Page({
     });
   },
   onSearchItemClick(e) {
-    console.log(e);
+    // console.log(e);
     let items = [e.target.dataset.item]
     items[0].selected = true
     this.setData({

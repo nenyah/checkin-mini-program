@@ -1,0 +1,7 @@
+.pin-right-angel {
+  position: relative;
+  z-index: 1;
+  left: -10rpx;
+  top: -10rpx;
+  color: red;
+}
