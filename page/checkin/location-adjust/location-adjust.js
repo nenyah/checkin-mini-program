@@ -52,16 +52,17 @@ Page({
     this.mapCtx = my.createMapContext("map");
     const longitude = this.data.location[0];
     const latitude = this.data.location[1];
-    // console.log({ longitude, latitude });
     this._getAround({ longitude, latitude });
   },
-
+  // 移动地图，获取地图中心坐标，并重新获取周边地址
   regionchange(e) {
-    // console.log("regionchange", e);
     this.setData({
       "markers[0].latitude": e.latitude,
       "markers[0].longitude": e.longitude
     });
+    const longitude = e.longitude;
+    const latitude = e.latitude;
+    this._getAround({ longitude, latitude });
   },
   // 确认选择
   comfirm() {
