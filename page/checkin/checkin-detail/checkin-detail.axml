@@ -1,3 +1,8 @@
+<map 
+longitude="{{item.location[0]}}" 
+latitude="{{item.location[1]}}"
+markers="{{markers}}" 
+show-location="{{false}}"></map>
 <view>
-  New Page
+  <s-card item="{{item}}"></s-card>
 </view>

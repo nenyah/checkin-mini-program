@@ -1,1 +1,6 @@
-{}
+{
+  "defaultTitle": "签到详情",
+  "usingComponents": {
+    "s-card": "/components/s-card/s-card"
+  }
+}

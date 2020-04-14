@@ -2115,7 +2115,9 @@
 .border-none {
   border: none !important;
 }
-
+.border-1 {
+  border: #191f251f solid 1rpx;
+}
 .sep-line {
   border-bottom: solid 2rpx #191f251f;
 }

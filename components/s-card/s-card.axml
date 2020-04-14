@@ -1,0 +1,38 @@
+<view class="py-2">
+  <view class="w-4-5 mx-auto">
+    <view class="color-label ">
+      {{item.checkIndate}}
+    </view>
+    <view class="w-full min-h-48 border-1 radius-5 px-2 my-2">
+      <view class="flex sep-line py-2">
+        <view class="w-1-5">
+          {{item.ctime}}
+        </view>
+        <view class="w-4-5">
+          {{item.title}}
+        </view>
+      </view>
+      <view>
+        <view class="my-2">
+          <view class="color-label my-1">签到地点</view>
+          <view>{{item.address}}</view>
+        </view>
+        <view class="my-2">
+          <view class="color-label my-1">签到备注</view>
+          <view>{{item.remark}}</view>
+        </view>
+        <view class="my-2">
+          <view class="color-label my-1">签到图片</view>
+          <block a:for="{{item.picUrls}}" a:for-item="pic">
+            <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 m-1"/>
+          </block>
+
+        </view>
+        <view class="my-2">
+          <view class="color-label my-1">拜访对象</view>
+          <view>{{item.visitsPerons}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
