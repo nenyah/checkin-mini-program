@@ -1,4 +1,5 @@
 import { getAround } from "/libs/amap-dd.js";
+import { getStorage } from "/service/storage.js";
 
 Page({
   data: {
@@ -32,21 +33,7 @@ Page({
     search: false
   },
   onLoad() {
-    dd.getStorage({
-      key: "location",
-      success: res => {
-        // console.log("获取缓存", res.data);
-        const location = [res.data.longitude, res.data.latitude];
-        this.setData({
-          location,
-          "markers[0].longitude": location[0],
-          "markers[0].latitude": location[1]
-        });
-      },
-      fail: res => {
-        dd.alert({ content: res.errorMessage });
-      }
-    });
+    this._getStroge("location"); 
   },
   onReady() {
     this.mapCtx = my.createMapContext("map");
@@ -88,12 +75,12 @@ Page({
   },
   onSearchItemClick(e) {
     // console.log(e);
-    let items = [e.target.dataset.item]
-    items[0].selected = true
+    let items = [e.target.dataset.item];
+    items[0].selected = true;
     this.setData({
       items,
-      search:!this.data.search
-    })
+      search: !this.data.search
+    });
   },
   // 选择地址
   onItemClick(e) {
@@ -114,27 +101,7 @@ Page({
       "markers[0].latitude": latitude
     });
   },
-  // 改变标记
-  changeMarkers() {
-    this.setData({
-      markers: [
-        {
-          iconPath: "/assets/images/location.png",
-          id: 1,
-          latitude: 21.21229,
-          longitude: 113.32452,
-          width: 50,
-          height: 50
-        }
-      ],
-      includePoints: [
-        {
-          latitude: 21.21229,
-          longitude: 113.32452
-        }
-      ]
-    });
-  },
+
   controltap(e) {
     console.log("control tap", e);
     this.mapCtx.moveToLocation();
@@ -156,11 +123,9 @@ Page({
   _getAround(opt) {
     getAround(opt)
       .then(res => {
-        // console.log("获得地址", res.regeocode);
         let regeocode = res.regeocode;
         let addressComponent = regeocode.addressComponent;
         let town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
-        // console.log(town);
         const items = regeocode.pois.map((item, index) => {
           return {
             index: index,
@@ -170,11 +135,20 @@ Page({
             selected: index === 0 ? true : false
           };
         });
-        // items.forEach(el => console.log(el));
         this.setData({
           items
         });
       })
       .catch(err => console.log(err));
+  },
+  _getStroge(key) {
+    getStorage(key).then(res => {
+      const location = [res.data.longitude, res.data.latitude];
+      this.setData({
+        location,
+        "markers[0].longitude": location[0],
+        "markers[0].latitude": location[1]
+      });
+    });
   }
 });
