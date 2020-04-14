@@ -18,7 +18,7 @@ Component({
             this.props.visitsPerson
         });
       } else {
-        my.alert({ title: "请选择拜访对象！" });
+        my.alert({ title: "还没有选择拜访对象哦！" });
       }
     }
   }

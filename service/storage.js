@@ -1,11 +1,11 @@
-function getStorage(opt) {
+function getStorage(key) {
   dd.showLoading({
     title: "数据加载中ing"
   });
 
   return new Promise((resolve, reject) => {
     dd.getStorage({
-      key: opt.key,
+      key: key,
       success: res => {
         // console.log("get location success", res);
         resolve(res);

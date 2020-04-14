@@ -1,5 +1,6 @@
 import { formatDate } from "/util/utils.js";
-import { getLocation } from "../../../service/location.js";
+import { getLocation } from "/service/location.js";
+import { getStorage } from "/service/storage.js";
 Page({
   data: {
     longitude: "",
@@ -24,10 +25,7 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
-    const visitsPerson = query.visitsPerson;
-    this.setData({
-      visitsPerson
-    });
+    
     this._getCurrentTime();
     this._getLoncation();
   },
@@ -36,6 +34,7 @@ Page({
   },
   onShow() {
     // 页面显示
+    this._getClient();
   },
   adjustLocation() {
     my.navigateTo({
@@ -48,7 +47,6 @@ Page({
       key: "location",
       success: res => {
         if (!res.data) {
-          console.log('执行if')
           getLocation().then(res => {
             this.setData({
               longitude: res.longitude,
@@ -94,5 +92,14 @@ Page({
         });
       }
     });
+  },
+  _getClient(){
+    getStorage('selectedClient').then(res=>{
+      if(res.data){
+        this.setData({
+          visitsPerson:res.data.mainTitle
+        })
+      }
+    })
   }
 });

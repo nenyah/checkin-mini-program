@@ -3,20 +3,9 @@ import { formatDate } from "/util/utils.js";
 Page({
   data: {
     checkinTime: "00:00",
-    address:
-      "宁波市公安局北仑分局交通警察大队大碶中队，浙江省宁波北仑大碶华东宁波医药公司",
+    address: "",
     visitsPerson: "",
-    picUrls: [
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg",
-      "/image/fake1.jpg"
-    ],
+    picUrls: []
   },
   onLoad(query) {
     // 页面加载
@@ -63,20 +52,20 @@ Page({
   },
   // 移除图片
   removePic(e) {
-    const index = e.target.dataset.index
-    let picUrls = this.data.picUrls
-    picUrls.splice(index,1)
+    const index = e.target.dataset.index;
+    let picUrls = this.data.picUrls;
+    picUrls.splice(index, 1);
 
     this.setData({
       picUrls
     });
   },
   // 预览图片
-  previewPic(e){
-    console.log(e)
-    const src = e.target.dataset.src
+  previewPic(e) {
+    console.log(e);
+    const src = e.target.dataset.src;
     my.previewImage({
       urls: [src]
     });
-  },
+  }
 });
