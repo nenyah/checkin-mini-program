@@ -61,14 +61,22 @@ Page({
       }
     });
   },
+  // 移除图片
   removePic(e) {
-    console.log(e);
     const index = e.target.dataset.index
     let picUrls = this.data.picUrls
     picUrls.splice(index,1)
-    console.log(picUrls)
+
     this.setData({
       picUrls
     });
-  }
+  },
+  // 预览图片
+  previewPic(e){
+    console.log(e)
+    const src = e.target.dataset.src
+    my.previewImage({
+      urls: [src]
+    });
+  },
 });

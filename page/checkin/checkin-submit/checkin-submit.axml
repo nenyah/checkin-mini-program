@@ -32,7 +32,12 @@
   <view class="flex flex-wrap">
     <block a:for="{{picUrls}}">
       <view class="w-24 h-16 flex m-2" key="{{item}}">
-        <image mode="center" src="{{item}}" class="w-24 h-16 "/>
+        <image 
+        mode="aspectFill" 
+        src="{{item}}" 
+        data-src="{{item}}"
+        class="w-24 h-16" 
+        onTap="previewPic" />
         <view 
         class="pin-right-angel fa fa-minus-circle fa-base color-danger" 
         aria-hidden="true" 
