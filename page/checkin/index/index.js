@@ -25,15 +25,15 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
-    
     this._getCurrentTime();
-    this._getLoncation();
+    
   },
   onReady() {
     // 页面加载完成
   },
   onShow() {
     // 页面显示
+    this._getLoncation();
     this._getClient();
   },
   adjustLocation() {

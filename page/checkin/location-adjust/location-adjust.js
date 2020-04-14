@@ -81,7 +81,7 @@ Page({
         // console.log("写入成功");
       }
     });
-    my.redirectTo({
+    my.switchTab({
       url: `../index/index`
     });
   },
