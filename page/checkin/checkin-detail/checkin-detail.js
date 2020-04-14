@@ -32,5 +32,9 @@ Page({
       }
     ]
   },
-  onLoad() {}
+  onLoad(query) {
+    // console.log('签到详情',query)
+    const item = JSON.parse(query.item)
+    console.log("签到详情", item);
+  }
 });

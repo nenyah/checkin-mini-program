@@ -31,14 +31,22 @@ Component({
       //   address: "宁波市公安局北仑分局交通警察大队",
       // }
     ],
-    activeIndex:1,
+    activeIndex: 1,
   },
   didMount() {
-    console.log(this.props.activeIndex)
+    console.log(this.props.activeIndex);
   },
   didUpdate() {
-    console.log(this.props.activeIndex)
+    console.log(this.props.activeIndex);
   },
   didUnmount() {},
-  methods: {}
+  methods: {
+    goToPorfile(e){
+      console.log(e)
+      const item = e.target.dataset.item
+      my.navigateTo({
+        url: `/page/checkin/profile/profile?user=${item.workcode}`,
+      });
+    }
+  },
 });

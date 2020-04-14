@@ -58,7 +58,8 @@ Page({
       }
     ]
   },
-  onLoad() {
+  onLoad(query) {
+    console.log('我的',query.user)
     const month = formatDate(new Date(),'YY-MM')
     console.log(month)
     this.setData({
