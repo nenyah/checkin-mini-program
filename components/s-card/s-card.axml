@@ -17,11 +17,11 @@
           <view class="color-label my-1">签到地点</view>
           <view>{{item.address}}</view>
         </view>
-        <view class="my-2">
+        <view a:if="{{item.remark}}" class="my-2">
           <view class="color-label my-1">签到备注</view>
           <view>{{item.remark}}</view>
         </view>
-        <view class="my-2">
+        <view a:if="{{item.picUrls.length>0}}" class="my-2">
           <view class="color-label my-1">签到图片</view>
           <block a:for="{{item.picUrls}}" a:for-item="pic">
             <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 m-1"/>

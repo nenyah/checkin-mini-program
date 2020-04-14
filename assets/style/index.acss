@@ -2116,10 +2116,10 @@
   border: none !important;
 }
 .border-1 {
-  border: #191f251f solid 1rpx;
+  border: rgba(25, 31, 37, 0.122) solid 1rpx;
 }
 .sep-line {
-  border-bottom: solid 2rpx #191f251f;
+  border-bottom: solid 2rpx rgba(25, 31, 37, 0.122);
 }
 
 /* 圆角 */
