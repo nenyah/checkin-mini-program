@@ -24,7 +24,7 @@
         <view a:if="{{item.picUrls.length>0}}" class="my-2">
           <view class="color-label my-1">签到图片</view>
           <block a:for="{{item.picUrls}}" a:for-item="pic">
-            <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 m-1"/>
+            <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 m-1" />
           </block>
 
         </view>

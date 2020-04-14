@@ -1,6 +1,7 @@
 /* 基础样式 */
 
 @import "./font-awesome.acss";
+
 *,
 *::after,
 *::before {
@@ -1572,6 +1573,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
 /* trbl定位 */
 
 .pin {
@@ -2115,9 +2117,11 @@
 .border-none {
   border: none !important;
 }
+
 .border-1 {
   border: rgba(25, 31, 37, 0.122) solid 1rpx;
 }
+
 .sep-line {
   border-bottom: solid 2rpx rgba(25, 31, 37, 0.122);
 }
