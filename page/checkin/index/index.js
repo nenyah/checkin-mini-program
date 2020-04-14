@@ -19,7 +19,8 @@ Page({
     visitsPerson: "",
     today: "",
     ctime: "",
-    company: "华东宁波医药有限公司"
+    company: "华东宁波医药有限公司",
+    checkTimes:0,
   },
 
   onLoad(query) {

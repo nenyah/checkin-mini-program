@@ -1,7 +1,7 @@
 <block a:if="{{activeIndex==0}}">
   <block a:for="{{items.checkin}}" a:key="index">
-    <view class="mt-5 mx-auto w-5-6 radius-5 p-2 bg-color-white shadow">
-      <view style="border-bottom:solid #e2e2e2 2rpx;" class="flex items-center px-2">
+    <view class="border-1 mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow">
+      <view class="sep-line flex items-center px-2">
         <view class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2">
           <view a:if="{{item.thumbAvatar}}" class="flex">
             <image mode="scaleToFill" src="{{item.thumbAvatar}}" class="w-10 h-10 circle m-auto"/>
@@ -19,7 +19,7 @@
           </view>
         </view>
       </view>
-      <view class="mt-2 px-5">
+      <view class="my-2 px-5">
         <view class="color-label font-bold my-2">签到地点</view>
         <view class="color-big-title font-bold">
         {{item.address}}

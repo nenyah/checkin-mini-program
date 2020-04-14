@@ -4,7 +4,12 @@
       <view class="color-white text-xl">签到</view>
       <view class="color-white text-3xl">{{ctime}}</view>
     </view>
-    <view class="mt-5 color-info">今日你还没有签到</view>
+    <view a:if="{{checkTimes}}" class="mt-5 color-info">
+    <view class="fa fa-check-circle-o color-green mx-1" aria-hidden="true">
+    </view>
+      今日你已签到<text class="color-warning">{{checkTimes}}</text>次
+    </view>
+    <view a:else class="mt-5 color-info">今日你还没有签到</view>
   </view>
   <view class="color-label mt-10">钉钉只会在你主动签到时获取位置信息</view>
 </view>

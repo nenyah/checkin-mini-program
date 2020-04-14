@@ -4,7 +4,8 @@ Component({
   data: {},
   props: {
     visitsPerson: "",
-    ctime: "00:00"
+    ctime: "00:00",
+    checkTimes:0,
   },
   didMount() {},
   didUpdate() {},

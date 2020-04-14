@@ -1,0 +1,3 @@
+.border-1 {
+  border: #191f251f solid 1rpx;
+}

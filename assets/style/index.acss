@@ -2117,7 +2117,7 @@
 }
 
 .sep-line {
-  border-bottom: solid 2rpx #eee;
+  border-bottom: solid 2rpx #191f251f;
 }
 
 /* 圆角 */

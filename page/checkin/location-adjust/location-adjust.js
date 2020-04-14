@@ -101,7 +101,7 @@ Page({
       "markers[0].latitude": latitude
     });
   },
-
+// 控制点
   controltap(e) {
     console.log("control tap", e);
     this.mapCtx.moveToLocation();
