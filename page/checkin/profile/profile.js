@@ -6,7 +6,7 @@ Page({
       avtarImg: "/assets/images/pan_avatar.jpg",
       name: "潘燕燕",
       monthCheckinTimes: 5,
-      company: "华东宁波医药有限公司"
+      company: "华东宁波医药有限公司",
     },
     items: [
       {
@@ -20,9 +20,9 @@ Page({
           "/image/fake1.jpg",
           "/image/fake1.jpg",
           "/image/fake1.jpg",
-          "/image/fake1.jpg"
+          "/image/fake1.jpg",
         ],
-        location: [121.796925, 29.903595]
+        location: [121.796925, 29.903595],
       },
       {
         checkIndate: "4月10日",
@@ -33,7 +33,7 @@ Page({
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum aperiam, mollitia repudiandae alias officiis aliquid aliquam repellat, voluptas necessitatibus rerum quae, explicabo unde accusantium fugit vel debitis! Est, nemo quos!",
         visitsPerons: "华东宁波医药有限公司",
         picUrls: [],
-        location: [121.796925, 29.903595]
+        location: [121.796925, 29.903595],
       },
       {
         checkIndate: "4月14日",
@@ -52,19 +52,19 @@ Page({
           "/image/fake1.jpg",
           "/image/fake1.jpg",
           "/image/fake1.jpg",
-          "/image/fake1.jpg"
+          "/image/fake1.jpg",
         ],
-        location: [121.796925, 29.903595]
-      }
-    ]
+        location: [121.796925, 29.903595],
+      },
+    ],
   },
   onLoad(query) {
-    console.log('我的',query.user)
-    const month = formatDate(new Date(),'YY-MM')
-    console.log(month)
+    console.log("我的", query.user);
+    const month = formatDate(new Date(), "YY-MM");
+    console.log(month);
     this.setData({
-      month
-    })
+      month,
+    });
   },
   pickMonth() {
     // 更改月份
@@ -73,12 +73,18 @@ Page({
       currentDate: this.data.month,
       success: res => {
         this.setData({
-          month:res.date
-        })
+          month: res.date,
+        });
         // TODO 向服务器获取对应月份历史记录
         // 或者从缓存中获取？
-      }
+      },
     });
-    
-  }
+  },
+  onClickCard(item) {
+    console.log("我的页面",item);
+  
+    my.navigateTo({
+      url: `/page/checkin/checkin-detail/checkin-detail?item=${JSON.stringify(item)}`,
+    });
+  },
 });
