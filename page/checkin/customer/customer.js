@@ -2,42 +2,42 @@ const itemsMine = [
   {
     thumbContent: "未激活",
     extraText: "邬顶立 负责",
-    mainTitle: "宁波第一医院-系统测试"
-  }
+    mainTitle: "宁波第一医院-系统测试",
+  },
 ];
 const itemsShare = [
   {
     thumbContent: "未激活",
     extraText: " 李丽 负责",
-    mainTitle: "宁波第一医院-系统测试"
+    mainTitle: "宁波第一医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第二医院-系统测试"
+    mainTitle: "宁波第二医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第三医院-系统测试"
-  }
+    mainTitle: "宁波第三医院-系统测试",
+  },
 ];
 const itemsAll = [
   {
     thumbContent: "未激活",
     extraText: " 陈世明 负责",
-    mainTitle: "宁波第一医院-系统测试"
+    mainTitle: "宁波第一医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第二医院-系统测试"
+    mainTitle: "宁波第二医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第三医院-系统测试"
-  }
+    mainTitle: "宁波第三医院-系统测试",
+  },
 ];
 const itemsFree = [];
 const custCate = [itemsMine, itemsShare, itemsAll, itemsFree];
@@ -47,38 +47,38 @@ Page({
       {
         title: "我负责的",
         subTitle: "",
-        number: "0"
+        number: "0",
       },
       {
         title: "共享给我的",
         subTitle: "",
-        number: "1"
+        number: "1",
       },
       {
         title: "全公司的",
         subTitle: "",
-        number: "2"
+        number: "2",
       },
       {
         title: "无人负责的",
         subTitle: "",
-        number: "3"
-      }
+        number: "3",
+      },
     ],
     activeIndex: 0,
     items: itemsMine,
     numClients: 0,
-    hasContentHeight: false
+    hasContentHeight: false,
   },
   onLoad() {
     let numClients = custCate[this.data.activeIndex].length;
     this.setData({
-      numClients
+      numClients,
     });
   },
   goToCate() {
     my.navigateTo({
-      url: "/page/checkin/customer-cate/customer-cate"
+      url: "/page/checkin/customer-cate/customer-cate",
     });
   },
   handleTabClick({ index, tabsName }) {
@@ -88,12 +88,12 @@ Page({
     this.setData({
       activeIndex: index,
       items,
-      numClients
+      numClients,
     });
   },
   handleTabChange({ index, tabsName }) {
     this.setData({
-      [tabsName]: index
+      [tabsName]: index,
     });
   },
   onItemClick(e) {
@@ -105,9 +105,9 @@ Page({
       data: item,
       success: () => {
         my.switchTab({
-          url: "/page/checkin/index/index"
+          url: "/page/checkin/index/index",
         });
-      }
+      },
     });
-  }
+  },
 });

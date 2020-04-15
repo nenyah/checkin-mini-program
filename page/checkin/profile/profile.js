@@ -71,7 +71,7 @@ Page({
     my.datePicker({
       format: "yyyy-MM",
       currentDate: this.data.month,
-      success: res => {
+      success: (res) => {
         this.setData({
           month: res.date,
         });
@@ -81,10 +81,12 @@ Page({
     });
   },
   onClickCard(item) {
-    console.log("我的页面",item);
-  
+    console.log("我的页面", item);
+
     my.navigateTo({
-      url: `/page/checkin/checkin-detail/checkin-detail?item=${JSON.stringify(item)}`,
+      url: `/page/checkin/checkin-detail/checkin-detail?item=${JSON.stringify(
+        item
+      )}`,
     });
   },
 });

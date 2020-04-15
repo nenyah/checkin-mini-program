@@ -41,12 +41,12 @@ Component({
   },
   didUnmount() {},
   methods: {
-    goToPorfile(e){
-      console.log(e)
-      const item = e.target.dataset.item
+    goToPorfile(e) {
+      console.log(e);
+      const item = e.target.dataset.item;
       my.navigateTo({
         url: `/page/checkin/profile/profile?user=${item.workcode}`,
       });
-    }
+    },
   },
 });

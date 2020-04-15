@@ -5,7 +5,7 @@ Page({
     checkinTime: "00:00",
     address: "",
     visitsPerson: "",
-    picUrls: []
+    picUrls: [],
   },
   onLoad(query) {
     // 页面加载
@@ -14,17 +14,17 @@ Page({
     );
     console.log(query);
     getStorage({ key: "checkInDate" })
-      .then(res => {
+      .then((res) => {
         const ctime = formatDate(new Date(res.data.date), "hh:mm");
         this.setData({
           visitsPerson: query.visitsPerson,
-          checkinTime: ctime
+          checkinTime: ctime,
         });
       })
       .then(() => {
-        getStorage({ key: "location" }).then(res => {
+        getStorage({ key: "location" }).then((res) => {
           this.setData({
-            address: res.data.address
+            address: res.data.address,
           });
         });
       });
@@ -33,7 +33,7 @@ Page({
     my.chooseImage({
       count: 1,
       sourceType: ["camera"],
-      success: res => {
+      success: (res) => {
         console.info(res);
         // 打水印
         // dd.getImageInfo({
@@ -45,9 +45,9 @@ Page({
         let picUrls = this.data.picUrls;
         picUrls.push(res.filePaths[0]);
         this.setData({
-          picUrls
+          picUrls,
         });
-      }
+      },
     });
   },
   // 移除图片
@@ -57,7 +57,7 @@ Page({
     picUrls.splice(index, 1);
 
     this.setData({
-      picUrls
+      picUrls,
     });
   },
   // 预览图片
@@ -65,7 +65,7 @@ Page({
     console.log(e);
     const src = e.target.dataset.src;
     my.previewImage({
-      urls: [src]
+      urls: [src],
     });
-  }
+  },
 });

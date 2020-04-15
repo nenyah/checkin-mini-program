@@ -13,21 +13,20 @@ Page({
         latitude: "",
         longitude: "",
         width: 26,
-        height: 26
-      }
+        height: 26,
+      },
     ],
     visitsPerson: "",
     today: "",
     ctime: "",
     company: "华东宁波医药有限公司",
-    checkTimes:0,
+    checkTimes: 0,
   },
 
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
     this._getCurrentTime();
-    
   },
   onReady() {
     // 页面加载完成
@@ -39,32 +38,31 @@ Page({
   },
   adjustLocation() {
     my.navigateTo({
-      url: "../location-adjust/location-adjust"
+      url: "../location-adjust/location-adjust",
     });
   },
 
   _getLoncation() {
     my.getStorage({
       key: "location",
-      success: res => {
+      success: (res) => {
         if (!res.data) {
-          getLocation().then(res => {
+          getLocation().then((res) => {
             this.setData({
               longitude: res.longitude,
               latitude: res.latitude,
               address: res.address,
               "markers[0].longitude": res.longitude,
-              "markers[0].latitude": res.latitude
+              "markers[0].latitude": res.latitude,
             });
             dd.setStorage({
               key: "location",
               data: {
                 longitude: res.longitude,
                 latitude: res.latitude,
-                address: res.address
+                address: res.address,
               },
-              success: function() {
-              }
+              success: function () {},
             });
           });
         } else {
@@ -73,34 +71,34 @@ Page({
             latitude: res.data.latitude,
             address: res.data.address,
             "markers[0].longitude": res.data.longitude,
-            "markers[0].latitude": res.data.latitude
+            "markers[0].latitude": res.data.latitude,
           });
         }
       },
-      fail: res => {}
+      fail: (res) => {},
     });
   },
   _getCurrentTime() {
     my.getStorage({
       key: "checkInDate",
-      success: result => {
+      success: (result) => {
         const checkTime = new Date(result.data.date);
         const today = formatDate(checkTime, "YY年MM月DD日");
         const ctime = formatDate(checkTime, "hh:mm");
         this.setData({
           today,
-          ctime
+          ctime,
+        });
+      },
+    });
+  },
+  _getClient() {
+    getStorage("selectedClient").then((res) => {
+      if (res.data) {
+        this.setData({
+          visitsPerson: res.data.mainTitle,
         });
       }
     });
   },
-  _getClient(){
-    getStorage('selectedClient').then(res=>{
-      if(res.data){
-        this.setData({
-          visitsPerson:res.data.mainTitle
-        })
-      }
-    })
-  }
 });
