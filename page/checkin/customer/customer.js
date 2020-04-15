@@ -156,35 +156,28 @@ Page({
       },
     });
   },
-  handleInput(e) {
-    console.log("input", e);
-  },
+
   handleClear(e) {
     console.log("clear", e);
   },
   handleFocus(e) {
-    console.log("focus", e);
-    this.setData({
-      show:!this.data.show
-    })
-  },
-  handleBlur(e) {
-    console.log("blur", e);
     this.setData({
       show: !this.data.show,
     });
   },
-  handleCancel(e) {
-    console.log("cancel", e);
+  handleBlur(e) {
+    this.setData({
+      show: !this.data.show,
+    });
   },
+  handleCancel(e) {},
   handleSubmit(e) {
-
     const items = this.data.items.filter((el) => el.mainTitle.includes(e));
     const numClients = items.length;
 
     this.setData({
       items,
-      numClients
+      numClients,
     });
   },
 });

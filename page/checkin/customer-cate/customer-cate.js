@@ -32,7 +32,8 @@ Page({
   },
 
   handleCallBack(e) {
-    console.log(e);
+    console.log("筛选页面", e);
+    // TODO: 筛选客户类型
     my.navigateBack({
       delta: 1,
     });

@@ -6,8 +6,8 @@ swipeable="{{true}}"
 >
 </tabs> -->
 <view class="flex items-center justify-center">
-  <search-bar placeholder="搜索" class="w-5-6" onInput="handleInput" onClear="handleClear" onFocus="handleFocus"
-    onBlur="handleBlur" onCancel="handleCancel" onSubmit="handleSubmit">
+  <search-bar placeholder="搜索" class="w-5-6" onClear="handleClear" onFocus="handleFocus" onBlur="handleBlur"
+    onCancel="handleCancel" onSubmit="handleSubmit">
   </search-bar>
   <view a:if="{{show}}" onTap="goToCate">筛选</view>
 </view>

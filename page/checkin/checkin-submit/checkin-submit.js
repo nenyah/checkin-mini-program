@@ -35,7 +35,7 @@ Page({
       sourceType: ["camera"],
       success: (res) => {
         console.info(res);
-        // 打水印
+        // TODO:打水印
         // dd.getImageInfo({
         //   src: res.filePaths[0],
         //   success: res => {
