@@ -1,5 +1,5 @@
 import { getAround } from "/libs/amap-dd.js";
-import { getStorage } from "/service/storage.js";
+import { getStorageSync, setStorageSync } from "/service/storage.js";
 
 Page({
   data: {
@@ -34,22 +34,23 @@ Page({
   },
   onLoad() {
     this._getStroge("location");
-  },
-  onReady() {
-    this.mapCtx = my.createMapContext("map");
     const longitude = this.data.location[0];
     const latitude = this.data.location[1];
     this._getAround({ longitude, latitude });
   },
+  onReady() {},
   // 移动地图，获取地图中心坐标，并重新获取周边地址
   regionchange(e) {
+    console.log("移动地图操作了", e);
     this.setData({
       "markers[0].latitude": e.latitude,
       "markers[0].longitude": e.longitude,
     });
     const longitude = e.longitude;
     const latitude = e.latitude;
-    this._getAround({ longitude, latitude });
+    if (e.longitude) {
+      this._getAround({ longitude, latitude });
+    }
   },
   // 确认选择
   comfirm() {
@@ -57,20 +58,17 @@ Page({
 
     const address = selectItem.title;
     const location = selectItem.location.split(",");
-    // console.log("location", location);
-    dd.setStorage({
+    setStorageSync({
       key: "location",
       data: {
         longitude: Number(location[0]),
         latitude: Number(location[1]),
         address: address,
       },
-      success: function () {
-        // console.log("写入成功");
-      },
     });
-    my.switchTab({
-      url: `../index/index`,
+
+    my.navigateBack({
+      delta: 1,
     });
   },
   onSearchItemClick(e) {
@@ -115,7 +113,7 @@ Page({
   },
   handleSubmit(e) {
     console.log("submit", e);
-    const searchItems = this.data.items.filter((el) => el.title.indexOf(e) > 0);
+    const searchItems = this.data.items.filter((el) => el.title.includes(e));
     this.setData({
       searchItems,
     });
@@ -139,16 +137,16 @@ Page({
           items,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   },
   _getStroge(key) {
-    getStorage(key).then((res) => {
-      const location = [res.data.longitude, res.data.latitude];
-      this.setData({
-        location,
-        "markers[0].longitude": location[0],
-        "markers[0].latitude": location[1],
-      });
+    let res = getStorageSync(key);
+    const location = [res.data.longitude, res.data.latitude];
+    console.log("地点微调页面获取缓存", location);
+    this.setData({
+      location,
+      "markers[0].longitude": location[0],
+      "markers[0].latitude": location[1],
     });
   },
 });

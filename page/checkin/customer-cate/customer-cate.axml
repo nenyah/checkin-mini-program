@@ -1,8 +1,8 @@
 <list class="h-full ">
-  <list-item arrow="{{arrow}}">
+  <!-- <list-item arrow="{{arrow}}" onClick="onItemClick">
     {{title}}
     <text slot="extra">{{extra}}</text>
-  </list-item>
+  </list-item> -->
   <filter show="{{show}}" max="{{10}}" onChange="handleCallBack" onMaskTap="toggleFilter" class="my-2">
     <block a:for="{{labels}}" a:for-item="item" a:for-index="key">
       <view class="">
@@ -11,7 +11,7 @@
           {{item.cate}}
         </view>
         <view a:for="{{item.tag}}" a:for-item="tag">
-          <filter-item value="{{tag}}" id="{{tag.id}}" selected="{{tag.selected}}" key="filter-item-{{index}}" />
+          <filter-item value="{{tag}}" id="{{index}}" selected="{{tag.selected}}" key="filter-item-{{index}}" />
         </view>
       </view>
     </block>

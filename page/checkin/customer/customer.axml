@@ -1,40 +1,37 @@
-<tabs 
+<!-- <tabs 
 tabs="{{tabs}}" 
 onTabClick="handleTabClick" 
 activeTab="{{activeIndex}}" 
 swipeable="{{true}}"
 >
-</tabs>
+</tabs> -->
 <view class="flex items-center justify-center">
-  <search-bar placeholder="搜索" class="w-5-6"></search-bar>
-  <view onTap="goToCate">筛选</view>
+  <search-bar placeholder="搜索" class="w-5-6" onInput="handleInput" onClear="handleClear" onFocus="handleFocus"
+    onBlur="handleBlur" onCancel="handleCancel" onSubmit="handleSubmit">
+  </search-bar>
+  <view a:if="{{show}}" onTap="goToCate">筛选</view>
 </view>
 <block a:if="{{numClients}}">
   <list>
     <view slot="header" class="ml-5 h-10 flex items-center text-xl">
-				通讯录
+      通讯录
     </view>
     <view class="ml-2">
-    共{{numClients}}人
+      共{{numClients}}人
     </view>
     <block a:for="{{items}}">
-      <list-item 
-      onClick="onItemClick" 
-      index="{{index}}"
-      last="{{index === (items.length - 1)}}"
-      key="items-{{index}}"
-      data-item="{{item}}"
-      multipleLine="{{true}}"
-      class="">
-      {{item.mainTitle}}
-        <view slot="prefix" class="circle w-12 h-12 flex text-sm items-center justify-center" style="background-color:#c7e3fd;">
-        {{item.thumbContent}}
+      <list-item onClick="onItemClick" index="{{index}}" last="{{index === (items.length - 1)}}" key="items-{{index}}"
+        data-item="{{item}}" multipleLine="{{true}}" class="">
+        {{item.mainTitle}}
+        <view slot="prefix" class="circle w-12 h-12 flex text-sm items-center justify-center"
+          style="background-color:#c7e3fd;">
+          {{item.thumbContent}}
         </view>
         <view class="color-green p-1 text-xs radius-1 w-1-3" style="background-color:#d3f6e9;">
-        医药机构
+          医药机构
         </view>
         <view slot="extra" class="color-label text-xs self-start">
-        {{item.extraText}}
+          {{item.extraText}}
         </view>
       </list-item>
     </block>

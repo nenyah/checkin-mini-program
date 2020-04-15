@@ -13,7 +13,7 @@ Page({
       `Checkin-submit Page onLoad with query: ${JSON.stringify(query)}`
     );
     console.log(query);
-    getStorage({ key: "checkInDate" })
+    getStorage("checkInDate")
       .then((res) => {
         const ctime = formatDate(new Date(res.data.date), "hh:mm");
         this.setData({
@@ -22,7 +22,7 @@ Page({
         });
       })
       .then(() => {
-        getStorage({ key: "location" }).then((res) => {
+        getStorage("location").then((res) => {
           this.setData({
             address: res.data.address,
           });

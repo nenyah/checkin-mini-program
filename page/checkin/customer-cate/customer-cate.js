@@ -30,5 +30,16 @@ Page({
       randomColor,
     });
   },
-  methods: [],
+
+  handleCallBack(e) {
+    console.log(e);
+    my.navigateBack({
+      delta: 1,
+    });
+  },
+  toggleFilter() {
+    this.setData({
+      show: !this.data.show,
+    });
+  },
 });
