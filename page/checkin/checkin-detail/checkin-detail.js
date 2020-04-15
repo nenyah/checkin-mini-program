@@ -17,9 +17,9 @@ Page({
         "/image/fake1.jpg",
         "/image/fake1.jpg",
         "/image/fake1.jpg",
-        "/image/fake1.jpg"
+        "/image/fake1.jpg",
       ],
-      location: [121.796925, 29.903595]
+      location: [121.796925, 29.903595],
     },
     markers: [
       {
@@ -28,9 +28,13 @@ Page({
         latitude: 29.903595,
         longitude: 121.796925,
         width: 38,
-        height: 38
-      }
-    ]
+        height: 38,
+      },
+    ],
   },
-  onLoad() {}
+  onLoad(query) {
+    // console.log('签到详情',query)
+    const item = JSON.parse(query.item);
+    console.log("签到详情", item);
+  },
 });

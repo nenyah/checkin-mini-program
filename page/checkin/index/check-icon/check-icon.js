@@ -5,7 +5,7 @@ Component({
   props: {
     visitsPerson: "",
     ctime: "00:00",
-    checkTimes:0,
+    checkTimes: 0,
   },
   didMount() {},
   didUpdate() {},
@@ -16,11 +16,11 @@ Component({
         my.navigateTo({
           url:
             "../checkin-submit/checkin-submit?visitsPerson=" +
-            this.props.visitsPerson
+            this.props.visitsPerson,
         });
       } else {
         my.alert({ title: "还没有选择拜访对象哦！" });
       }
-    }
-  }
+    },
+  },
 });

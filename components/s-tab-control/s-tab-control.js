@@ -4,10 +4,10 @@ Component({
   props: {
     tabs: [
       { title: "title1", subTitle: "subtitle1" },
-      { title: "title2", subTitle: "subtitle2" }
+      { title: "title2", subTitle: "subtitle2" },
     ],
     activeTab: 0,
-    onTabClick: data => console.log(data)
+    onTabClick: (data) => console.log(data),
   },
   didMount() {},
   didUpdate() {},
@@ -17,13 +17,12 @@ Component({
       const activeTab = e.currentTarget.dataset.index;
       // 1.设置最新的index
       this.setData({
-        activeTab
+        activeTab,
       });
 
       // 2.发出信息
       const data = { index: activeTab };
-      // console.log('s-tab',data)
       this.props.onTabClick(data);
-    }
-  }
+    },
+  },
 });

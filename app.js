@@ -4,24 +4,23 @@ App({
     console.log("getSystemInfoSync", dd.getSystemInfoSync());
     console.log("SDKVersion", dd.SDKVersion);
     my.getSystemInfo({
-      success: res => {
+      success: (res) => {
         //导航高度
         this.globalData.navHeight = res.statusBarHeight + 46;
       },
       fail(err) {
         console.log(err);
-      }
+      },
     });
-
 
     dd.setStorage({
       key: "checkInDate",
       data: {
-        date: new Date()
+        date: new Date(),
       },
-      success: function() {
+      success: function () {
         // console.log({ content: "写入成功" });
-      }
+      },
     });
   },
   onShow() {
@@ -33,6 +32,6 @@ App({
   globalData: {
     userInfo: null,
     navHeight: 0,
-    hasLogin: false
-  }
+    hasLogin: false,
+  },
 });

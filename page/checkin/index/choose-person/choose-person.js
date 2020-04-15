@@ -2,7 +2,7 @@ Component({
   mixins: [],
   data: {},
   props: {
-    visitsPerson:""
+    visitsPerson: "",
   },
   didMount() {},
   didUpdate() {},
@@ -10,8 +10,8 @@ Component({
   methods: {
     handleTap() {
       my.navigateTo({
-        url: "/page/checkin/customer/customer"
+        url: "/page/checkin/customer/customer",
       });
     },
-  }
+  },
 });

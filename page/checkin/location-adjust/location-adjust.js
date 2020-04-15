@@ -14,8 +14,8 @@ Page({
         latitude: "",
         longitude: "",
         width: 38,
-        height: 38
-      }
+        height: 38,
+      },
     ],
     controls: [
       {
@@ -25,15 +25,15 @@ Page({
           left: 0,
           top: 300 - 50,
           width: 50,
-          height: 50
+          height: 50,
         },
-        clickable: true
-      }
+        clickable: true,
+      },
     ],
-    search: false
+    search: false,
   },
   onLoad() {
-    this._getStroge("location"); 
+    this._getStroge("location");
   },
   onReady() {
     this.mapCtx = my.createMapContext("map");
@@ -45,7 +45,7 @@ Page({
   regionchange(e) {
     this.setData({
       "markers[0].latitude": e.latitude,
-      "markers[0].longitude": e.longitude
+      "markers[0].longitude": e.longitude,
     });
     const longitude = e.longitude;
     const latitude = e.latitude;
@@ -53,7 +53,7 @@ Page({
   },
   // 确认选择
   comfirm() {
-    const selectItem = this.data.items.filter(el => el.selected === true)[0];
+    const selectItem = this.data.items.filter((el) => el.selected === true)[0];
 
     const address = selectItem.title;
     const location = selectItem.location.split(",");
@@ -63,14 +63,14 @@ Page({
       data: {
         longitude: Number(location[0]),
         latitude: Number(location[1]),
-        address: address
+        address: address,
       },
-      success: function() {
+      success: function () {
         // console.log("写入成功");
-      }
+      },
     });
     my.switchTab({
-      url: `../index/index`
+      url: `../index/index`,
     });
   },
   onSearchItemClick(e) {
@@ -79,7 +79,7 @@ Page({
     items[0].selected = true;
     this.setData({
       items,
-      search: !this.data.search
+      search: !this.data.search,
     });
   },
   // 选择地址
@@ -87,7 +87,7 @@ Page({
     const index = e.index;
     const items = this.data.items;
     const [longitude, latitude] = items[index].location.split(",");
-    items.forEach(el => {
+    items.forEach((el) => {
       if (el.index == index) {
         el.selected = true;
       } else {
@@ -98,10 +98,10 @@ Page({
     this.setData({
       items,
       "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude
+      "markers[0].latitude": latitude,
     });
   },
-// 控制点
+  // 控制点
   controltap(e) {
     console.log("control tap", e);
     this.mapCtx.moveToLocation();
@@ -110,19 +110,19 @@ Page({
     let search = !this.data.search;
     console.log(search);
     this.setData({
-      search
+      search,
     });
   },
   handleSubmit(e) {
     console.log("submit", e);
-    const searchItems = this.data.items.filter(el => el.title.indexOf(e) > 0);
+    const searchItems = this.data.items.filter((el) => el.title.indexOf(e) > 0);
     this.setData({
-      searchItems
+      searchItems,
     });
   },
   _getAround(opt) {
     getAround(opt)
-      .then(res => {
+      .then((res) => {
         let regeocode = res.regeocode;
         let addressComponent = regeocode.addressComponent;
         let town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
@@ -132,23 +132,23 @@ Page({
             title: item.name,
             brief: `${town}${item.address}`,
             location: item.location,
-            selected: index === 0 ? true : false
+            selected: index === 0 ? true : false,
           };
         });
         this.setData({
-          items
+          items,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   },
   _getStroge(key) {
-    getStorage(key).then(res => {
+    getStorage(key).then((res) => {
       const location = [res.data.longitude, res.data.latitude];
       this.setData({
         location,
         "markers[0].longitude": location[0],
-        "markers[0].latitude": location[1]
+        "markers[0].latitude": location[1],
       });
     });
-  }
+  },
 });

@@ -1,7 +1,5 @@
 <view class="sep-line bg-color-white py-2">
-  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2"
-  onTap="pickMonth"
-  >
+  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2" onTap="pickMonth">
     <view class="fa fa-calendar mx-1" aria-hidden="true">
     </view>
     <view>
@@ -12,17 +10,17 @@
   </view>
   <view class="flex justify-around">
     <view class="flex items-center">
-      <image mode="scaleToFill" src="{{userInfo.avtarImg}}" class="w-16 h-16 circle m-2"/>
+      <image mode="scaleToFill" src="{{userInfo.avtarImg}}" class="w-16 h-16 circle m-2" />
       <view>
         <view class="text-lg font-bold">
-        {{userInfo.name}}
+          {{userInfo.name}}
         </view>
         <view class="my-2">
-        本月签到
+          本月签到
           <text class="color-primary">{{userInfo.monthCheckinTimes}}</text>次
         </view>
         <view class="color-label text-xs">
-        {{userInfo.company}}
+          {{userInfo.company}}
         </view>
       </view>
     </view>
@@ -33,9 +31,7 @@
 </view>
 <view class="bg-color-white">
   <block a:for="{{items}}">
-    <s-card 
-    item="{{item}}"
-    >
+    <s-card item="{{item}}" onClickCard="onClickCard">
     </s-card>
   </block>
 </view>
