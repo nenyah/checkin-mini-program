@@ -30,5 +30,17 @@ Page({
       randomColor,
     });
   },
-  methods: [],
+
+  handleCallBack(e) {
+    console.log("筛选页面", e);
+    // TODO: 筛选客户类型
+    my.navigateBack({
+      delta: 1,
+    });
+  },
+  toggleFilter() {
+    this.setData({
+      show: !this.data.show,
+    });
+  },
 });

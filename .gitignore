@@ -17,3 +17,6 @@ debug.log
 *.njsproj
 *.sln
 *.sw*
+
+# mock data
+mock/*

@@ -1,20 +1,19 @@
-import { timeout, Adminuserpermission } from "/config/api.js";
+import { timeout } from "/config/api.js";
 
 function request(options) {
-  dd.showLoading({
+  my.showLoading({
     title: "数据加载中ing",
   });
 
   return new Promise((resolve, reject) => {
-    dd.httpRequest({
+    my.httpRequest({
       url: options.url,
       timeout: timeout,
       method: options.method || "GET",
       data: options.data || {},
       headers: options.headers,
       success: (res) => {
-        console.log("network success");
-        console.log(res);
+        console.log("获取数据成功", res);
         if (!res || res.status != 200) {
           reject({
             errCode: -1,
@@ -29,10 +28,12 @@ function request(options) {
         reject(err);
       },
       complete: (res) => {
-        dd.hideLoading();
+        my.hideLoading();
       },
     });
   });
 }
 
-export default request;
+module.exports = {
+  request,
+};

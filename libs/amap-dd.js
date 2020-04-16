@@ -1,29 +1,5 @@
-function request(opt) {
-  dd.showLoading({
-    title: "数据加载中ing"
-  });
+import request from "/service/network.js";
 
-  return new Promise((resolve, reject) => {
-    dd.httpRequest({
-      url: opt.url,
-      timeout: 5000,
-      method: opt.method || "GET",
-      data: opt.data || {},
-      headers: opt.header,
-      success: res => {
-        console.log("network success");
-        console.log(res);
-        resolve(res.data);
-      },
-      fail: err => {
-        reject(err);
-      },
-      complete: res => {
-        dd.hideLoading();
-      }
-    });
-  });
-}
 function getAround(opt) {
   return request({
     url: "https://restapi.amap.com/v3/geocode/regeo",

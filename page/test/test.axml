@@ -1,1 +1,5 @@
-<canvas id="canvas" width="610" height="610" class="canvas" />
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}"
+    onControlTap="controltap" markers="{{markers}}" onMarkerTap="markertap" circles="{{circles}}"
+    onRegionChange="regionchange" onTap="tap" onCalloutTap="callouttap" show-location
+    style="width: 100%; height: 300px;" include-points="{{includePoints}}">
+</map>
