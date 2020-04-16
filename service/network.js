@@ -1,4 +1,4 @@
-import { timeout, Adminuserpermission } from "/config/api.js";
+import { timeout } from "/config/api.js";
 
 function request(options) {
   my.showLoading({
@@ -34,4 +34,6 @@ function request(options) {
   });
 }
 
-export default request;
+module.exports = {
+  request,
+};
