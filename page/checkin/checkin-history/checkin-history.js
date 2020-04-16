@@ -56,7 +56,7 @@ Page({
     this.setData({
       latitude,
       longitude,
-      history: false,
+      history: true,
       markers,
     });
   },

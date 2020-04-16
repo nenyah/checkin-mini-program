@@ -1,4 +1,5 @@
 import { setStorageSync } from "./service/storage.js";
+import { getUserInfo } from "./service/login.js";
 App({
   onLaunch(options) {
     console.log("App Launch", options);
@@ -11,6 +12,12 @@ App({
         date: new Date(),
       },
     });
+  },
+  getUserInfo(){
+    getUserInfo().then(res=>{
+      console.log('应用开始时加载用户数据',res)
+      this.globalData.userInfo = res.userInfo
+    })
   },
   onShow() {
     console.log("App Show");
