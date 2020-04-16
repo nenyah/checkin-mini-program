@@ -1,7 +1,7 @@
 import { setStorageSync } from "./service/storage.js";
 import { getUserInfo } from "./service/login.js";
 import moment from "moment";
-import { userinfo } from "./mock/userinfo.js";
+
 App({
   onLaunch(options) {
     console.log("App Launch", options);
@@ -14,8 +14,7 @@ App({
         date: moment(),
       },
     });
-    this._getUserInfo();
-    
+    // this._getUserInfo();
   },
   _getUserInfo() {
     try {
