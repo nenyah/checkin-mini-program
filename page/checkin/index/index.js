@@ -1,6 +1,9 @@
 import { formatDate } from "/util/utils.js";
 import { getLocation } from "/service/location.js";
 import { getStorage, setStorageSync } from "/service/storage.js";
+
+var app = getApp();
+
 Page({
   data: {
     longitude: "",
@@ -26,6 +29,8 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
+    // console.log(app.globalData);
+
     this._getCurrentTime();
   },
   onReady() {
@@ -79,7 +84,6 @@ Page({
     });
   },
   _getCurrentTime() {
-    
     my.getStorage({
       key: "checkInDate",
       success: (result) => {

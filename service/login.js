@@ -1,4 +1,4 @@
-import request from "./network.js";
+import { request } from "./network.js";
 import { Userinfo } from "../config/api.js";
 
 function getAuthCode() {
@@ -14,36 +14,18 @@ function getAuthCode() {
   });
 }
 function getUserInfo() {
-  getAuthCode().then((res) => {
-    console.log("获取用户信息", res, Userinfo);
+  return getAuthCode().then((res) => {
     return request({
       url: Userinfo,
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      data: JSON.stringify({ res }),
+      data: JSON.stringify(res),
     });
   });
 }
 
-function getUserInfo1() {
-  my.getAuthCode({
-    success: (res) => {
-      return request({
-        url: Userinfo,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: JSON.stringify({ res }),
-      });
-    },
-    fail: (err) => {
-      console.error(err);
-    },
-  });
-}
 module.exports = {
-  getUserInfo: getUserInfo1,
+  getUserInfo: getUserInfo,
 };

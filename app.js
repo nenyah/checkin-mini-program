@@ -1,5 +1,5 @@
 import { setStorageSync } from "./service/storage.js";
-import { getUserInfo } from "./service/login.js";
+import { getUserInfo } from "/service/login.js";
 import moment from "moment";
 
 App({
@@ -7,30 +7,23 @@ App({
     console.log("App Launch", options);
     console.log("getSystemInfoSync", dd.getSystemInfoSync());
     console.log("SDKVersion", dd.SDKVersion);
-
+    moment.locale("zh-cn");
     setStorageSync({
       key: "checkInDate",
       data: {
-        date: moment(),
+        date: moment().format(),
       },
     });
     this._getUserInfo();
   },
   _getUserInfo() {
-    try {
-      getUserInfo().then((res) => {
-        console.log("应用开始时加载用户数据", res);
-        this.globalData.userInfo = res.userInfo;
-      });
-    } catch (error) {
-      // this.globalData.userInfo = userinfo;
-    }
-    // getUserInfo().then(res=>{
-    //   console.log('应用开始时加载用户数据',res)
-    //   this.globalData.userInfo = res.userInfo
-    // }).catch(err=>{
-
-    // })
+    console.log(typeof getUserInfo);
+    getUserInfo().then((res) =>
+      setStorageSync({
+        key: "userinfo",
+        data: res,
+      })
+    );
   },
   onShow() {
     console.log("App Show");
