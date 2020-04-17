@@ -1,9 +1,9 @@
 import { request } from "./network.js";
 import { Clientsinfo, Clientslabels } from "../config/api.js";
 
-function getClientsinfo() {
+function getClientsinfo(param) {
   return request({
-    url: Clientsinfo,
+    url: Clientsinfo + `/?userid=${param.userid}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -12,7 +12,7 @@ function getClientsinfo() {
 
 function getClientslabels() {
   return request({
-    url: Clientsinfo,
+    url: Clientslabels,
     headers: {
       "Content-Type": "application/json",
     },

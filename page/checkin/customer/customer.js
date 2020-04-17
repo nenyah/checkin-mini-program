@@ -1,3 +1,4 @@
+import { getClientsinfo, getClientslabels } from "../../../service/clients.js";
 const itemsMine = [
   {
     thumbContent: "未激活",
@@ -121,6 +122,9 @@ Page({
     this.setData({
       numClients,
     });
+    this._getClients({
+      userid: "NB1922",
+    });
   },
   goToCate() {
     my.navigateTo({
@@ -178,6 +182,17 @@ Page({
     this.setData({
       items,
       numClients,
+    });
+  },
+  _getClients(param) {
+    getClientsinfo(param).then((res) => {
+      console.log("获取客户信息", res)
+      this._getClientsLabel()
+    });
+  },
+  _getClientsLabel() {
+    getClientslabels().then((res) => {
+      console.log("获取客户标签信息", res);
     });
   },
 });
