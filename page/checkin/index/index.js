@@ -1,6 +1,7 @@
 import { formatDate } from "/util/utils.js";
 import { getLocation } from "/service/location.js";
 import { getStorage, setStorageSync } from "/service/storage.js";
+import moment from "moment";
 
 var app = getApp();
 
@@ -87,9 +88,9 @@ Page({
     my.getStorage({
       key: "checkInDate",
       success: (result) => {
-        const checkTime = new Date(result.data.date);
-        const today = formatDate(checkTime, "YY年MM月DD日");
-        const ctime = formatDate(checkTime, "hh:mm");
+        const mx = moment(result.data.date);
+        const today = mx.format("YYYY年MM月DD日");
+        const ctime = mx.format("hh:mm");
         this.setData({
           today,
           ctime,

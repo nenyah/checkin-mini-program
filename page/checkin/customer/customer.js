@@ -122,8 +122,9 @@ Page({
     this.setData({
       numClients,
     });
+    // TODO: NB1922 医美总监的工号测试 要改成真正用户的工号
     this._getClients({
-      userid: "NB1922",
+      userid: "NB0047",
     });
   },
   goToCate() {
@@ -187,6 +188,7 @@ Page({
   _getClients(param) {
     getClientsinfo(param).then((res) => {
       console.log("获取客户信息", res)
+      // TODO: 处理负责人和机构标签
       const items = res.map(el=>{
         return {
           thumbContent: "未激活",
