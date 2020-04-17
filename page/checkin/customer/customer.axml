@@ -27,9 +27,14 @@ swipeable="{{true}}"
           style="background-color:#c7e3fd;">
           {{item.thumbContent}}
         </view>
-        <view class="color-green p-1 text-xs radius-1 w-1-3" style="background-color:#d3f6e9;">
-          医药机构
+        <view class="flex">
+          <block a:for="{{item.labels}}" a:for-item="label">
+            <text class="tag color-green p-1 text-xs radius-1 mx-1" key="label">
+              {{label}}
+            </text>
+          </block>
         </view>
+
         <view slot="extra" class="color-label text-xs self-start">
           {{item.extraText}}
         </view>

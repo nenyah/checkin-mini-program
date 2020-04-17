@@ -187,6 +187,17 @@ Page({
   _getClients(param) {
     getClientsinfo(param).then((res) => {
       console.log("获取客户信息", res)
+      const items = res.map(el=>{
+        return {
+          thumbContent: "未激活",
+          extraText: "陈世明 负责",
+          mainTitle: el.company_name,
+          labels:['医药机构','CRM']
+          }
+      })
+      this.setData({
+        items
+      })
       this._getClientsLabel()
     });
   },
