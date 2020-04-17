@@ -14,7 +14,7 @@ App({
         date: moment(),
       },
     });
-    // this._getUserInfo();
+    this._getUserInfo();
   },
   _getUserInfo() {
     try {
@@ -23,7 +23,7 @@ App({
         this.globalData.userInfo = res.userInfo;
       });
     } catch (error) {
-      this.globalData.userInfo = userinfo;
+      // this.globalData.userInfo = userinfo;
     }
     // getUserInfo().then(res=>{
     //   console.log('应用开始时加载用户数据',res)

@@ -1,6 +1,6 @@
 import { timeout } from "/config/api.js";
 
-function request(options) {
+export default function request(options) {
   my.showLoading({
     title: "数据加载中ing",
   });
@@ -33,7 +33,3 @@ function request(options) {
     });
   });
 }
-
-module.exports = {
-  request,
-};

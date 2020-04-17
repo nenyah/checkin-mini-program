@@ -1,4 +1,4 @@
-const ApiRootUrl = "http://127.0.0.1:8093/api/";
+const ApiRootUrl = "http://127.0.0.1:8000/api/";
 
 module.exports = {
   Userinfo: ApiRootUrl + "userinfo", //获取用户信息
