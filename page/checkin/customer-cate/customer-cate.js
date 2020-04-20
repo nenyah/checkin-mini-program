@@ -1,3 +1,4 @@
+import { getClientslabels } from "../../../service/clients.js";
 Page({
   data: {
     title: "查看指定员工",
@@ -14,6 +15,7 @@ Page({
     show: true,
     className: ["color-green", "color-yellow", "color-primary"],
     randomColor: [],
+    cates:[],
   },
   onLoad() {
     let cateLen = this.data.labels.length;
@@ -29,11 +31,16 @@ Page({
     this.setData({
       randomColor,
     });
+    this._getClientsLabel()
   },
 
   handleCallBack(e) {
     console.log("筛选页面", e);
     // TODO: 筛选客户类型
+
+    // my.navigateTo({
+    //   url: `./customer/customer?cateId=${e.id}`,
+    // });
     my.navigateBack({
       delta: 1,
     });
@@ -41,6 +48,14 @@ Page({
   toggleFilter() {
     this.setData({
       show: !this.data.show,
+    });
+  },
+  _getClientsLabel() {
+    getClientslabels().then((res) => {
+      console.log("获取客户标签信息", res);
+      this.setData({
+        cates:res
+      })
     });
   },
 });

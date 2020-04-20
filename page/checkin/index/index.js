@@ -1,7 +1,14 @@
-import { formatDate } from "/util/utils.js";
-import { getLocation } from "/service/location.js";
-import { getStorage, setStorageSync } from "/service/storage.js";
 import moment from "moment";
+
+import { getLocation } from "/service/location.js";
+import {
+  getStorage,
+  getStorageSync,
+  setStorage,
+  setStorageSync,
+} from "/service/storage.js";
+import { companyName, markers } from "../../../config/api.js";
+import _ from "lodash/core";
 
 var app = getApp();
 
@@ -10,20 +17,11 @@ Page({
     longitude: "",
     latitude: "",
     address: "",
-    markers: [
-      {
-        iconPath: "/assets/images/location.png",
-        id: 10,
-        latitude: "",
-        longitude: "",
-        width: 26,
-        height: 26,
-      },
-    ],
+    markers: markers,
     visitsPerson: "",
     today: "",
     ctime: "",
-    company: "华东宁波医药有限公司",
+    company: companyName,
     checkTimes: 0,
   },
 
@@ -31,7 +29,7 @@ Page({
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
     // console.log(app.globalData);
-
+    // 获取当前时间
     this._getCurrentTime();
   },
   onReady() {
@@ -41,6 +39,7 @@ Page({
     // 页面显示
     this._getLoncation();
     this._getClient();
+    this._getCheckTimes();
   },
   adjustLocation() {
     my.navigateTo({
@@ -48,17 +47,33 @@ Page({
     });
   },
 
+  /**
+   *@author steven
+   *@function 获取当日签到次数
+   */
+  _getCheckTimes() {
+    const historyRecord = getStorageSync("historyRecord");
+    // FIXME: 不稳定，取length
+    if (historyRecord.data) {
+      this.setData({
+        checkTimes: historyRecord.data.length,
+      });
+    }
+  },
+  /**
+   *@author steven
+   *@function 获取当前定位信息
+   */
   _getLoncation() {
     getStorage("location").then((res) => {
-      console.log("1. 首页获取地址缓存", res);
       if (!res.data) {
         // 没有缓存就重新定位获取地址信息
         getLocation().then((res) => {
-          console.log("2. 首页获取地址", res);
           this.setData({
             longitude: res.longitude,
             latitude: res.latitude,
             address: res.address,
+            "markers[0].id": 1,
             "markers[0].longitude": res.longitude,
             "markers[0].latitude": res.latitude,
           });
@@ -84,20 +99,26 @@ Page({
       }
     });
   },
+  /**
+   *@author steven
+   *@function 获取当前时间
+   */
   _getCurrentTime() {
-    my.getStorage({
-      key: "checkInDate",
-      success: (result) => {
-        const mx = moment(result.data.date);
-        const today = mx.format("YYYY年MM月DD日");
-        const ctime = mx.format("hh:mm");
-        this.setData({
-          today,
-          ctime,
-        });
-      },
-    });
+    const checkInDate = getStorageSync("checkInDate");
+    if (checkInDate) {
+      const mx = moment(checkInDate.data.date);
+      const today = mx.format("YYYY年MM月DD日");
+      const ctime = mx.format("HH:mm");
+      this.setData({
+        today,
+        ctime,
+      });
+    }
   },
+  /**
+   *@author steven
+   *@function 从缓存中获取拜访对象
+   */
   _getClient() {
     getStorage("selectedClient").then((res) => {
       if (res.data) {

@@ -127,6 +127,13 @@ Page({
       userid: "NB0047",
     });
   },
+  onReachBottom(e) {
+    // 页面被拉到底部
+    console.log("页面被拉到底部", e);
+    this._getClients({
+      userid: "NB0047",
+    });
+  },
   goToCate() {
     my.navigateTo({
       url: "/page/checkin/customer-cate/customer-cate",
@@ -187,20 +194,20 @@ Page({
   },
   _getClients(param) {
     getClientsinfo(param).then((res) => {
-      console.log("获取客户信息", res)
+      console.log("获取客户信息", res);
       // TODO: 处理负责人和机构标签
-      const items = res.map(el=>{
+      const items = res.map((el) => {
         return {
           thumbContent: "未激活",
           extraText: "陈世明 负责",
           mainTitle: el.company_name,
-          labels:['医药机构','CRM']
-          }
-      })
+          labels: ["医药机构", "CRM"],
+        };
+      });
       this.setData({
-        items
-      })
-      this._getClientsLabel()
+        items,
+      });
+      this._getClientsLabel();
     });
   },
   _getClientsLabel() {

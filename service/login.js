@@ -5,6 +5,7 @@ function getAuthCode() {
   return new Promise((resolve, reject) => {
     my.getAuthCode({
       success: (res) => {
+        console.log(res);
         resolve(res);
       },
       fail: (err) => {
@@ -19,7 +20,7 @@ function getUserInfo() {
       url: Userinfo,
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        Token: "",
       },
       data: JSON.stringify(res),
     });
