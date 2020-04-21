@@ -44,6 +44,8 @@ App({
     console.log(typeof getUserInfo);
     getUserInfo()
       .then((res) => {
+        console.log('用户信息',res);
+        
         setStorageSync({
           key: "userinfo",
           data: res,

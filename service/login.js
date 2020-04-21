@@ -17,12 +17,8 @@ function getAuthCode() {
 function getUserInfo() {
   return getAuthCode().then((res) => {
     return request({
-      url: Userinfo,
-      method: "POST",
-      headers: {
-        Token: "",
-      },
-      data: JSON.stringify(res),
+      url: Userinfo+'?authCode='+res.authCode,
+      method: "GET",
     });
   });
 }
