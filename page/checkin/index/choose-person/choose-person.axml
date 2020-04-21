@@ -1,11 +1,11 @@
 <view class="flex bg-color-white shadow justify-around">
-  <view class="flex flex-row items-center justify-center h-12 mx-2">
+  <view class="flex flex-row items-center justify-center h-12 mx-2 w-4-5">
     <text class="text-lg color-big-title font-bold w-32">拜访对象</text>
-    <view class="p-2 ml-5 w-2-3 text-sm {{visitsPerson.length===0?'color-label':'color-big-title'}} no-wrap">
+    <view class="p-2 ml-2 w-2-3 text-sm {{visitsPerson.length===0?'color-label':'color-big-title'}} no-wrap">
       {{visitsPerson.length>0?visitsPerson:"请选择拜访客户"}}
     </view>
   </view>
-  <view onTap="handleTap" class="w-10 flex flex-col items-center justify-center">
+  <view onTap="handleTap" class="w-1-5 flex flex-col items-center justify-center">
     <view class="fa fa-address-book-o fa-lg color-primary my-2" aria-hidden="true"></view>
     <view class="text-xs color-primary">选择</view>
   </view>

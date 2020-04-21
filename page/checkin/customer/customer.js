@@ -89,29 +89,29 @@ const itemsFree = [];
 const custCate = [itemsMine, itemsShare, itemsAll, itemsFree];
 Page({
   data: {
-    // tabs: [
-    //   {
-    //     title: "我负责的",
-    //     subTitle: "",
-    //     number: "0",
-    //   },
-    //   {
-    //     title: "共享给我的",
-    //     subTitle: "",
-    //     number: "1",
-    //   },
-    //   {
-    //     title: "全公司的",
-    //     subTitle: "",
-    //     number: "2",
-    //   },
-    //   {
-    //     title: "无人负责的",
-    //     subTitle: "",
-    //     number: "3",
-    //   },
-    // ],
-    // activeIndex: 0,
+    tabs: [
+      {
+        title: "我负责的",
+        subTitle: "",
+        number: "0",
+      },
+      {
+        title: "共享给我的",
+        subTitle: "",
+        number: "1",
+      },
+      {
+        title: "全公司的",
+        subTitle: "",
+        number: "2",
+      },
+      {
+        title: "无人负责的",
+        subTitle: "",
+        number: "3",
+      },
+    ],
+    activeIndex: 0,
     items: itemsMine,
     numClients: 0,
     hasContentHeight: false,

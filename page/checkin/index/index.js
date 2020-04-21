@@ -54,7 +54,9 @@ Page({
   _getCheckTimes() {
     const historyRecord = getStorageSync("historyRecord");
     // FIXME: 不稳定，取length
-    if (historyRecord.data) {
+
+    
+    if (historyRecord.data.length) {
       this.setData({
         checkTimes: historyRecord.data.length,
       });
