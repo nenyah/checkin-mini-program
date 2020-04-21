@@ -1,5 +1,6 @@
 import { getStorage } from "../../../service/storage.js";
 import { formatDate } from "/util/utils.js";
+import {  } from "/service/record.js";
 Page({
   data: {
     checkinTime: "00:00",
@@ -68,4 +69,9 @@ Page({
       urls: [src],
     });
   },
+  // 创建签到信息
+  createRecord(){
+
+  }
+
 });
