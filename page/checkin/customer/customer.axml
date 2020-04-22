@@ -6,7 +6,7 @@
     <search-bar placeholder="搜索" class="w-5-6" onClear="handleClear" onFocus="handleFocus" onBlur="handleBlur"
       onCancel="handleCancel" onSubmit="handleSubmit">
     </search-bar>
-    <view a:if="{{show}}" onTap="goToCate">筛选</view>
+    <!-- <view a:if="{{show}}" onTap="goToCate">筛选</view> -->
   </view>
   <block a:if="{{numClients}}">
     <list>
@@ -27,16 +27,14 @@
             {{item.address}}
           </view>
           <view class="flex">
-            <block a:for="{{item.labels}}" a:for-item="label">
-              <text class="tag color-green p-1 text-xs radius-1 mx-1" key="label">
-                {{label}}
-              </text>
-            </block>
+            <text class="tag color-green p-1 text-xs radius-1 mx-1" key="label">
+              {{item.orgGroup.name}}
+            </text>
           </view>
 
-          <view slot="extra" class="color-label text-xs self-start">
+          <!-- <view slot="extra" class="color-label text-xs self-start">
             {{item.extraText}}
-          </view>
+          </view> -->
         </list-item>
       </block>
     </list>

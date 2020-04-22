@@ -12,7 +12,7 @@ module.exports = {
   Userinfo: ApiRootUrl + "auth", // 获取用户信息
   CheckInRecord: ApiRootUrl + "signin", // 签到历史记录
   Clientsinfo: ApiRootUrl + "org", // 客户信息
-  Clientslabels: ApiRootUrl + "orgGroup", //客户标签
+
   timeout: 5000, // 超时
 
   companyName: "华东宁波医药有限公司", //默认公司名

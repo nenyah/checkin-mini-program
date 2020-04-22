@@ -53,6 +53,7 @@ Page({
     pages: 1,
     noMore: false,
     loadingFailed: false,
+    orgName: "",
   },
   onLoad() {
     this._getClients();
@@ -108,13 +109,13 @@ Page({
   },
   handleCancel(e) {},
   handleSubmit(e) {
-    const items = this.data.items.filter((el) => el.name.includes(e));
-    const numClients = items.length;
-
     this.setData({
-      items,
-      numClients,
+      orgName: e,
+      current: 0,
+      items: [],
     });
+
+    this._getClients();
   },
   upper(e) {
     console.log("向上", e);
@@ -136,29 +137,27 @@ Page({
   },
 
   _getClients() {
-    const current = this.data.current;
+    const current = this.data.current + 1;
     const pages = this.data.pages;
+    const orgName = this.data.orgName;
     if (current > pages) {
       this.setData({
         noMore: true,
       });
     }
-    getClients({ current })
+    getClients({ current, orgName })
       .then((res) => {
         console.log("获取客户信息", res);
-
-        // TODO: 处理负责人和机构标签
         let oldItems = this.data.items;
         const items = oldItems.concat(res.records);
         const numClients = res.total;
         const pages = res.pages;
         this.setData({
           items,
-          current: current + 1,
+          current: current,
           numClients,
           pages,
         });
-        // this._getClientsLabel();
       })
       .catch((err) => {
         console.error(err);
@@ -166,10 +165,5 @@ Page({
           loadingFailed: true,
         });
       });
-  },
-  _getClientsLabel() {
-    getClientslabels().then((res) => {
-      console.log("获取客户标签信息", res);
-    });
   },
 });

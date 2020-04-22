@@ -1,22 +1,17 @@
 import { request } from "./network.js";
-import { Clientsinfo, Clientslabels } from "../config/api.js";
+import { Clientsinfo } from "../config/api.js";
 
 function getClients(param) {
   const current = param.current || 1;
+  const orgName = param.orgName || "";
+  const paramCurrent = current ? `?current=${current}` : "";
+  const paramOrgName = orgName ? `&orgName=${encodeURI(orgName)}` : "";
   return request({
-    url: Clientsinfo + `?current=${current}`,
-    method: "GET",
-  });
-}
-
-function getClientslabels() {
-  return request({
-    url: Clientslabels,
+    url: Clientsinfo + paramCurrent + paramOrgName,
     method: "GET",
   });
 }
 
 module.exports = {
   getClients,
-  getClientslabels,
 };
