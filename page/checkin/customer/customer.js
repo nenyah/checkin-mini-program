@@ -107,16 +107,17 @@ Page({
       show: !this.data.show,
     });
   },
-  handleCancel(e) {},
-  handleSubmit(e) {
+  handleInput(e) {
+    console.log(e);
     this.setData({
       orgName: e,
       current: 0,
       items: [],
     });
-
     this._getClients();
   },
+  handleCancel(e) {},
+  handleSubmit(e) {},
   upper(e) {
     console.log("向上", e);
   },

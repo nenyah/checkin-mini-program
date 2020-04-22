@@ -3,8 +3,8 @@
 <scroll-view scroll-y="{{true}}" style="height: 100vh;" onScrollToUpper="upper" onScrollToLower="lower"
   onScroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <view class="{{navShow?'nav':''}} flex items-center justify-center py-2 bg-color-white">
-    <search-bar placeholder="搜索" class="w-5-6" onClear="handleClear" onFocus="handleFocus" onBlur="handleBlur"
-      onCancel="handleCancel" onSubmit="handleSubmit">
+    <search-bar placeholder="搜索" class="w-5-6" onInput="handleInput" onClear="handleClear" onFocus="handleFocus"
+      onBlur="handleBlur" onCancel="handleCancel" onSubmit="handleSubmit">
     </search-bar>
     <!-- <view a:if="{{show}}" onTap="goToCate">筛选</view> -->
   </view>
@@ -39,6 +39,6 @@
       </block>
     </list>
   </block>
-  <view a:if="{{noMore}}" style="font-size:20px;">---- 我也是有底线的！---</view>
+  <view a:if="{{noMore}}" style="font-size:12px;text-align: center;">---- 我也是有底线的！---</view>
   <view a:if="{{loadingFailed}}">数据加载失败,请重试</view>
 </scroll-view>
