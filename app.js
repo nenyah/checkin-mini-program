@@ -2,6 +2,7 @@ import { setStorageSync, getStorageSync } from "./service/storage.js";
 import { getUserInfo } from "./service/login.js";
 import { getRecord } from "./service/record.js";
 import moment from "moment";
+import { debug } from "/config/api.js";
 
 App({
   onLaunch(options) {
@@ -12,6 +13,7 @@ App({
 
   onShow() {
     console.log("App Show");
+    if(debug) return
     // 设置当前时间
     this._setCurrentTime();
     // 获取用户信息

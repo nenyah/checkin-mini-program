@@ -17,5 +17,7 @@ module.exports = {
 
   companyName: "华东宁波医药有限公司", //默认公司名
 
-  markers: markers,
+  markers: markers, // 地图标签
+
+  debug: false,
 };

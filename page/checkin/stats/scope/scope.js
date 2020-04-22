@@ -30,7 +30,7 @@ Component({
       });
     },
     choosePerson() {
-      dd.complexChoose({
+      my.complexChoose({
         title: "选择查看对象", //标题
         multiple: true, //是否多选
         limitTips: "超出了", //超过限定人数返回提示
@@ -42,11 +42,11 @@ Component({
         requiredUsers: [], //必选用户（不可取消选中状态）
         requiredDepartments: [], //必选部门（不可取消选中状态）
         permissionType: "xxx", //可添加权限校验，选人权限，目前只有GLOBAL这个参数
-        responseUserOnly: false, //返回人，或者返回人和部门
-        success: function (res) {
-          console.log('选人结束',res);
+        responseUserOnly: true, //返回人，或者返回人和部门
+        success: (res) => {
+          console.log("选人结束", res);
         },
-        fail: function (err) {},
+        fail: (err) => {},
       });
     },
   },

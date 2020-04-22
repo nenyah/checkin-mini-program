@@ -78,7 +78,9 @@ Page({
   createRecord() {
     let checkInRecord = {
       detailPlace: this.data.location.address,
-      imageList: ["test"],
+      imageList: [
+        "https://static.dingtalk.com/media/lADPGoGu6xXnOdfNBQDNAuY_742_1280.jpg",
+      ],
       latitude: `${this.data.location.latitude}`,
       longitude: `${this.data.location.longitude}`,
       org: {

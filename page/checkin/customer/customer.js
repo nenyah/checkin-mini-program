@@ -1,4 +1,4 @@
-import { getClientsinfo, getClientslabels } from "../../../service/clients.js";
+import { getClients, getClientslabels } from "../../../service/clients.js";
 const itemsMine = [
   {
     id: 0,
@@ -18,85 +18,8 @@ const itemsMine = [
     extraText: "李丽 负责",
     name: "宁波第二医院-系统测试",
   },
-  {
-    id: 3,
-    thumbContent: "未激活",
-    extraText: "李丽 负责",
-    name: "宁波第三医院-系统测试",
-  },
-  {
-    id: 4,
-    thumbContent: "未激活",
-    extraText: " 陈世明 负责",
-    name: "宁波第一医院-系统测试",
-  },
-  {
-    id: 5,
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波第二医院-系统测试",
-  },
-  {
-    id: 6,
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波第三医院-系统测试",
-  },
-  {
-    id: 7,
-    thumbContent: "未激活",
-    extraText: " 陈世明 负责",
-    name: "宁波李惠利医院-系统测试",
-  },
-  {
-    id: 8,
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波中医院-系统测试",
-  },
-  {
-    id: 9,
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波妇幼医院-系统测试",
-  },
 ];
-const itemsShare = [
-  {
-    thumbContent: "未激活",
-    extraText: " 李丽 负责",
-    name: "宁波第一医院-系统测试",
-  },
-  {
-    thumbContent: "未激活",
-    extraText: "李丽 负责",
-    name: "宁波第二医院-系统测试",
-  },
-  {
-    thumbContent: "未激活",
-    extraText: "李丽 负责",
-    name: "宁波第三医院-系统测试",
-  },
-];
-const itemsAll = [
-  {
-    thumbContent: "未激活",
-    extraText: " 陈世明 负责",
-    name: "宁波第一医院-系统测试",
-  },
-  {
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波第二医院-系统测试",
-  },
-  {
-    thumbContent: "未激活",
-    extraText: "陈世明 负责",
-    name: "宁波第三医院-系统测试",
-  },
-];
-const itemsFree = [];
-const custCate = [itemsMine, itemsShare, itemsAll, itemsFree];
+const custCate = [itemsMine];
 Page({
   data: {
     tabs: [
@@ -122,28 +45,19 @@ Page({
       },
     ],
     activeIndex: 0,
-    items: itemsMine,
+    items: [],
     numClients: 0,
     hasContentHeight: false,
     show: true,
+    current: 0,
+    pages: 1,
+    noMore: false,
+    loadingFailed: false,
   },
   onLoad() {
-    const numClients = this.data.items.length;
-    this.setData({
-      numClients,
-    });
-    // TODO: NB1922 医美总监的工号测试 要改成真正用户的工号
-    this._getClients({
-      userid: "NB0047",
-    });
+    this._getClients();
   },
-  onReachBottom(e) {
-    // 页面被拉到底部
-    console.log("页面被拉到底部", e);
-    this._getClients({
-      userid: "NB0047",
-    });
-  },
+
   goToCate() {
     my.navigateTo({
       url: "/page/checkin/customer-cate/customer-cate",
@@ -202,23 +116,56 @@ Page({
       numClients,
     });
   },
-  _getClients(param) {
-    getClientsinfo(param).then((res) => {
-      console.log("获取客户信息", res);
-      // TODO: 处理负责人和机构标签
-      const items = res.map((el) => {
-        return {
-          thumbContent: "未激活",
-          extraText: "陈世明 负责",
-          name: el.company_name,
-          labels: ["医药机构", "CRM"],
-        };
-      });
+  upper(e) {
+    console.log("向上", e);
+  },
+  lower(e) {
+    console.log("向下", e);
+    this._getClients();
+  },
+  scroll(e) {
+    if (e.detail.scrollTop > 100) {
       this.setData({
-        items,
+        navShow: true,
       });
-      this._getClientsLabel();
-    });
+    } else {
+      this.setData({
+        navShow: false,
+      });
+    }
+  },
+
+  _getClients() {
+    const current = this.data.current;
+    const pages = this.data.pages;
+    if (current > pages) {
+      this.setData({
+        noMore: true,
+      });
+    }
+    getClients({ current })
+      .then((res) => {
+        console.log("获取客户信息", res);
+
+        // TODO: 处理负责人和机构标签
+        let oldItems = this.data.items;
+        const items = oldItems.concat(res.records);
+        const numClients = res.total;
+        const pages = res.pages;
+        this.setData({
+          items,
+          current: current + 1,
+          numClients,
+          pages,
+        });
+        // this._getClientsLabel();
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setData({
+          loadingFailed: true,
+        });
+      });
   },
   _getClientsLabel() {
     getClientslabels().then((res) => {

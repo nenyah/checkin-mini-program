@@ -10,7 +10,7 @@ function getRecord(options) {
 function setRecord(options) {
   return request({
     url: CheckInRecord,
-    data: JSON.stringify(options.data),
+    data: JSON.stringify(options),
   });
 }
 

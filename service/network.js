@@ -30,7 +30,7 @@ function request(options) {
       headers: headers,
       success: (res) => {
         console.log("获取数据成功", res);
-        if (!res || res.status != 200) {
+        if (!res) {
           reject({
             errCode: -1,
             errMsg: "网络问题",

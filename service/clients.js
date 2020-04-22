@@ -1,9 +1,10 @@
 import { request } from "./network.js";
 import { Clientsinfo, Clientslabels } from "../config/api.js";
 
-function getClientsinfo(param) {
+function getClients(param) {
+  const current = param.current || 1;
   return request({
-    url: Clientsinfo + `/?userid=${param.userid}`,
+    url: Clientsinfo + `?current=${current}`,
     method: "GET",
   });
 }
@@ -16,6 +17,6 @@ function getClientslabels() {
 }
 
 module.exports = {
-  getClientsinfo,
+  getClients,
   getClientslabels,
 };

@@ -1,3 +1,15 @@
 .tag {
-    background-color:#d3f6e9;
+    background-color: #d3f6e9;
+}
+
+.gradient-blue {
+    background-image: radial-gradient(circle, white 5%, #bddefb 95%);
+}
+
+.nav {
+    position: fixed;
+    top: 0rpx;
+    z-index: 99;
+    background: #fff;
+    width: 100%;
 }
