@@ -1,11 +1,13 @@
 import { getStorage } from "../../../service/storage.js";
-import { formatDate } from "/util/utils.js";
-import {  } from "/service/record.js";
+import { setRecord } from "../../../service/record.js";
+import moment from "moment";
 Page({
   data: {
     checkinTime: "00:00",
-    address: "",
-    visitsPerson: "",
+    timeStamp: "",
+    location: "",
+    client: "",
+    hasClient: false,
     picUrls: [],
   },
   onLoad(query) {
@@ -14,21 +16,9 @@ Page({
       `Checkin-submit Page onLoad with query: ${JSON.stringify(query)}`
     );
     console.log(query);
-    getStorage("checkInDate")
-      .then((res) => {
-        const ctime = formatDate(new Date(res.data.date), "hh:mm");
-        this.setData({
-          visitsPerson: query.visitsPerson,
-          checkinTime: ctime,
-        });
-      })
-      .then(() => {
-        getStorage("location").then((res) => {
-          this.setData({
-            address: res.data.address,
-          });
-        });
-      });
+    this._setVisitPerson(query);
+    this._getAddress();
+    this._getTime();
   },
   useCamera() {
     my.chooseImage({
@@ -51,7 +41,12 @@ Page({
       },
     });
   },
-  // 移除图片
+  //
+  /**
+   *@author steven
+   *@function 移除图片
+   *@param {*} e
+   */
   removePic(e) {
     const index = e.target.dataset.index;
     let picUrls = this.data.picUrls;
@@ -61,7 +56,13 @@ Page({
       picUrls,
     });
   },
-  // 预览图片
+
+  /**
+   *@author steven
+   *@function 预览图片
+   *
+   * @param {*} e
+   */
   previewPic(e) {
     console.log(e);
     const src = e.target.dataset.src;
@@ -69,9 +70,71 @@ Page({
       urls: [src],
     });
   },
-  // 创建签到信息
-  createRecord(){
 
-  }
+  /**
+   *@author steven
+   *@function 创建签到信息
+   */
+  createRecord() {
+    let checkInRecord = {
+      detailPlace: this.data.location.address,
+      imageList: ["test"],
+      latitude: `${this.data.location.latitude}`,
+      longitude: `${this.data.location.longitude}`,
+      org: {
+        id: this.data.client.id,
+        name: this.data.client.name,
+      },
+      place: this.data.location.name,
+      remark: "",
+      timeStamp: this.data.timeStamp,
+    };
+    console.log(checkInRecord);
 
+    setRecord(checkInRecord)
+      .then((res) => {
+        console.log("上传签到信息", res);
+      })
+      .catch((err) => console.error(err));
+  },
+  /**
+   *@author steven
+   *@function 获取时间
+   */
+  _getTime() {
+    getStorage("checkInDate")
+      .then((res) => {
+        const checkinTime = moment(res.data.date).format("HH:mm");
+        const timeStamp = moment(res.data.date).valueOf();
+        this.setData({
+          checkinTime,
+          timeStamp,
+        });
+      })
+      .catch((err) => console.error(err));
+  },
+  /**
+   *@author steven
+   *@function 设置拜访客户
+   * @param {*} query
+   */
+  _setVisitPerson(query) {
+    this.setData({
+      client: query,
+      hasClient: !this.data.hasClient,
+    });
+  },
+  /**
+   *@author steven
+   *@function 获取地址
+   */
+  _getAddress() {
+    getStorage("location")
+      .then((res) => {
+        this.setData({
+          location: res.data,
+        });
+      })
+      .catch((err) => console.error(err));
+  },
 });

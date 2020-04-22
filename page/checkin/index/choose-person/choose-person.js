@@ -1,10 +1,18 @@
 Component({
   mixins: [],
-  data: {},
-  props: {
-    visitsPerson: "",
+  data: {
+    isSelected: false,
   },
-  didMount() {},
+  props: {
+    client: "",
+  },
+  didMount() {
+    if (Object.keys(this.props.client)) {
+      this.setData({
+        isSelected: !this.data.isSelected,
+      });
+    }
+  },
   didUpdate() {},
   didUnmount() {},
   methods: {

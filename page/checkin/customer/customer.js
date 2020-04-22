@@ -1,88 +1,98 @@
 import { getClientsinfo, getClientslabels } from "../../../service/clients.js";
 const itemsMine = [
   {
+    id: 0,
     thumbContent: "未激活",
     extraText: "邬顶立 负责",
-    mainTitle: "宁波第一医院-系统测试",
+    name: "宁波第一医院-系统测试",
   },
   {
+    id: 1,
     thumbContent: "未激活",
     extraText: " 李丽 负责",
-    mainTitle: "宁波第一医院-系统测试",
+    name: "宁波第一医院-系统测试",
   },
   {
+    id: 2,
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第二医院-系统测试",
+    name: "宁波第二医院-系统测试",
   },
   {
+    id: 3,
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第三医院-系统测试",
+    name: "宁波第三医院-系统测试",
   },
   {
+    id: 4,
     thumbContent: "未激活",
     extraText: " 陈世明 负责",
-    mainTitle: "宁波第一医院-系统测试",
+    name: "宁波第一医院-系统测试",
   },
   {
+    id: 5,
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第二医院-系统测试",
+    name: "宁波第二医院-系统测试",
   },
   {
+    id: 6,
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第三医院-系统测试",
+    name: "宁波第三医院-系统测试",
   },
   {
+    id: 7,
     thumbContent: "未激活",
     extraText: " 陈世明 负责",
-    mainTitle: "宁波李惠利医院-系统测试",
+    name: "宁波李惠利医院-系统测试",
   },
   {
+    id: 8,
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波中医院-系统测试",
+    name: "宁波中医院-系统测试",
   },
   {
+    id: 9,
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波妇幼医院-系统测试",
+    name: "宁波妇幼医院-系统测试",
   },
 ];
 const itemsShare = [
   {
     thumbContent: "未激活",
     extraText: " 李丽 负责",
-    mainTitle: "宁波第一医院-系统测试",
+    name: "宁波第一医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第二医院-系统测试",
+    name: "宁波第二医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "李丽 负责",
-    mainTitle: "宁波第三医院-系统测试",
+    name: "宁波第三医院-系统测试",
   },
 ];
 const itemsAll = [
   {
     thumbContent: "未激活",
     extraText: " 陈世明 负责",
-    mainTitle: "宁波第一医院-系统测试",
+    name: "宁波第一医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第二医院-系统测试",
+    name: "宁波第二医院-系统测试",
   },
   {
     thumbContent: "未激活",
     extraText: "陈世明 负责",
-    mainTitle: "宁波第三医院-系统测试",
+    name: "宁波第三医院-系统测试",
   },
 ];
 const itemsFree = [];
@@ -184,7 +194,7 @@ Page({
   },
   handleCancel(e) {},
   handleSubmit(e) {
-    const items = this.data.items.filter((el) => el.mainTitle.includes(e));
+    const items = this.data.items.filter((el) => el.name.includes(e));
     const numClients = items.length;
 
     this.setData({
@@ -200,7 +210,7 @@ Page({
         return {
           thumbContent: "未激活",
           extraText: "陈世明 负责",
-          mainTitle: el.company_name,
+          name: el.company_name,
           labels: ["医药机构", "CRM"],
         };
       });

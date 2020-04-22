@@ -1,9 +1,4 @@
-<tabs 
-tabs="{{tabs}}" 
-onTabClick="handleTabClick" 
-activeTab="{{activeIndex}}" 
-swipeable="{{true}}"
->
+<tabs tabs="{{tabs}}" onTabClick="handleTabClick" activeTab="{{activeIndex}}" swipeable="{{true}}">
 </tabs>
 <view class="flex items-center justify-center">
   <search-bar placeholder="搜索" class="w-5-6" onClear="handleClear" onFocus="handleFocus" onBlur="handleBlur"
@@ -22,7 +17,7 @@ swipeable="{{true}}"
     <block a:for="{{items}}">
       <list-item onClick="onItemClick" index="{{index}}" last="{{index === (items.length - 1)}}" key="items-{{index}}"
         data-item="{{item}}" multipleLine="{{true}}" class="">
-        {{item.mainTitle}}
+        {{item.name}}
         <view slot="prefix" class="circle w-12 h-12 flex text-sm items-center justify-center"
           style="background-color:#c7e3fd;">
           {{item.thumbContent}}

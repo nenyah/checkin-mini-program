@@ -10,16 +10,11 @@
 </view>
 <!-- 地图 -->
 <view style="border-bottom:#e2e2e2 solid 1rpx;" class="px-2 pb-2 bg-color-white">
-  <map 
-  longitude="{{longitude}}" 
-  latitude="{{latitude}}" 
-  show-location="{{false}}" 
-  markers="{{markers}}"
-  onTap="adjustLocation"
-  style="width:100%;height:100px;" ></map>
+  <map longitude="{{longitude}}" latitude="{{latitude}}" show-location="{{false}}" markers="{{markers}}"
+    onTap="adjustLocation" style="width:100%;height:100px;"></map>
 </view>
 
 <!--选择人员-->
-<s-choose-person visitsPerson="{{visitsPerson}}"></s-choose-person>
+<s-choose-person client="{{client}}"></s-choose-person>
 <!--签到-->
-<s-check visitsPerson="{{visitsPerson}}" ctime="{{ctime}}" checkTimes="{{checkTimes}}"></s-check>
+<s-check client="{{client}}" ctime="{{ctime}}" checkTimes="{{checkTimes}}"></s-check>

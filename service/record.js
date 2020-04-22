@@ -3,15 +3,18 @@ import { CheckInRecord } from "../config/api.js";
 
 function getRecord(options) {
   return request({
+    url: `${CheckInRecord}?userIds=${options.userids}`,
+    method: "GET",
+  });
+}
+function setRecord(options) {
+  return request({
     url: CheckInRecord,
-    method: "POST",
-    data: JSON.stringify({ userid: options.userid, date: options.date }),
-    headers: {
-      Token: options.Token || "",
-    },
+    data: JSON.stringify(options.data),
   });
 }
 
 module.exports = {
   getRecord,
+  setRecord,
 };

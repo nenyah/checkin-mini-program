@@ -18,7 +18,7 @@ Page({
     latitude: "",
     address: "",
     markers: markers,
-    visitsPerson: "",
+    client: "",
     today: "",
     ctime: "",
     company: companyName,
@@ -55,11 +55,12 @@ Page({
     const historyRecord = getStorageSync("historyRecord");
     // FIXME: 不稳定，取length
 
-    
-    if (historyRecord.data.length) {
-      this.setData({
-        checkTimes: historyRecord.data.length,
-      });
+    if (historyRecord.data) {
+      console.log("historyRecord", historyRecord);
+
+      // this.setData({
+      //   checkTimes: historyRecord.data.length,
+      // });
     }
   },
   /**
@@ -107,7 +108,7 @@ Page({
    */
   _getCurrentTime() {
     const checkInDate = getStorageSync("checkInDate");
-    if (checkInDate) {
+    if (checkInDate.data) {
       const mx = moment(checkInDate.data.date);
       const today = mx.format("YYYY年MM月DD日");
       const ctime = mx.format("HH:mm");
@@ -125,7 +126,7 @@ Page({
     getStorage("selectedClient").then((res) => {
       if (res.data) {
         this.setData({
-          visitsPerson: res.data.mainTitle,
+          client: res.data,
         });
       }
     });

@@ -1,27 +1,32 @@
-function formatDate(time, format = "YY-MM-DD hh:mm:ss") {
-  var date = new Date(time);
-
-  var year = date.getFullYear(),
-    month = date.getMonth() + 1, //月份是从0开始的
-    day = date.getDate(),
-    hour = date.getHours(),
-    min = date.getMinutes(),
-    sec = date.getSeconds();
-  var preArr = Array.apply(null, Array(10)).map(function (elem, index) {
-    return "0" + index;
-  }); //开个长度为10的数组 格式为 ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09"]
-
-  var newTime = format
-    .replace(/YY/g, year)
-    .replace(/MM/g, preArr[month] || month)
-    .replace(/DD/g, preArr[day] || day)
-    .replace(/hh/g, preArr[hour] || hour)
-    .replace(/mm/g, preArr[min] || min)
-    .replace(/ss/g, preArr[sec] || sec);
-
-  return newTime;
+/**
+ * param 将要转为URL参数字符串的对象
+ * key URL参数字符串的前缀
+ * encode true/false 是否进行URL编码,默认为true
+ *
+ * return URL参数字符串
+ */
+function urlEncode(param, key, encode) {
+  if (param == null) return "";
+  let paramStr = "";
+  let t = typeof param;
+  if (t == "string" || t == "number" || t == "boolean") {
+    paramStr +=
+      "&" +
+      key +
+      "=" +
+      (encode == null || encode ? encodeURIComponent(param) : param);
+  } else {
+    for (let i in param) {
+      let k =
+        key == null
+          ? i
+          : key + (param instanceof Array ? "[" + i + "]" : "." + i);
+      paramStr += urlEncode(param[i], k, encode);
+    }
+  }
+  return paramStr;
 }
 
 module.exports = {
-  formatDate: formatDate,
+  urlEncode,
 };

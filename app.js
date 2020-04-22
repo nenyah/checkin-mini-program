@@ -44,16 +44,16 @@ App({
     console.log(typeof getUserInfo);
     getUserInfo()
       .then((res) => {
-        console.log('用户信息',res);
-        
+        console.log("用户信息", res);
+
         setStorageSync({
           key: "userinfo",
           data: res,
         });
         // 获取用户历史签到信息
-        this._getHistoryRecord();
+        // this._getHistoryRecord();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error('获取用户信息报错',err));
   },
   /**
    * 获取历史信息

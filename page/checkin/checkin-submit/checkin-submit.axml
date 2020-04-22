@@ -1,4 +1,3 @@
-
 <view class="mb-5 bg-color-white shadow">
   <view class="flex py-2">
     <view class="fa fa-clock-o fa-lg color-label mx-2" aria-hidden="true"></view>
@@ -13,16 +12,16 @@
       签到地点:
     </view>
     <view class="color-big-title ml-2 w-3-5 no-wrap-2">
-      {{address}}
+      {{location.address}}
     </view>
   </view>
-  <view a:if="{{visitsPerson}}" class="flex py-2">
+  <view a:if="{{hasClient}}" class="flex py-2">
     <view class="fa fa-user fa-lg color-label ml-3" aria-hidden="true"></view>
     <view class="color-label ml-2">
       拜访对象:
     </view>
     <view class="color-big-title ml-2 w-3-5 no-wrap-2">
-      {{visitsPerson}}
+      {{client.name}}
     </view>
   </view>
 </view>
@@ -32,21 +31,14 @@
   <view class="flex flex-wrap">
     <block a:for="{{picUrls}}">
       <view class="w-24 h-16 flex m-2" key="{{item}}">
-        <image 
-        mode="aspectFill" 
-        src="{{item}}" 
-        data-src="{{item}}"
-        class="w-24 h-16" 
-        onTap="previewPic" />
-        <view 
-        class="pin-right-angel fa fa-minus-circle fa-base color-danger" 
-        aria-hidden="true" 
-        data-index="{{index}}"
-        onTap="removePic">  
+        <image mode="aspectFill" src="{{item}}" data-src="{{item}}" class="w-24 h-16" onTap="previewPic" />
+        <view class="pin-right-angel fa fa-minus-circle fa-base color-danger" aria-hidden="true" data-index="{{index}}"
+          onTap="removePic">
         </view>
       </view>
     </block>
-    <view a:if="{{picUrls.length<9}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-16 radius-5 m-2 flex" onTap="useCamera">
+    <view a:if="{{picUrls.length<9}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-16 radius-5 m-2 flex"
+      onTap="useCamera">
       <view class="fa fa-camera fa-3x m-auto color-label">
       </view>
     </view>
@@ -60,4 +52,5 @@
 </view>
 
 
-<button size="default" type="default" class="border-none bg-color-white color-primary w-full fixed pin-b shadow" onTap="createRecord">提交</button>
+<button size="default" type="default" class="border-none bg-color-white color-primary w-full fixed pin-b shadow"
+  onTap="createRecord">提交</button>

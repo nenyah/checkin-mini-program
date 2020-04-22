@@ -1,9 +1,9 @@
-import { formatDate } from "/util/utils.js";
+import { urlEncode } from "/util/utils.js";
 Component({
   mixins: [],
   data: {},
   props: {
-    visitsPerson: "",
+    client: "",
     ctime: "00:00",
     checkTimes: 0,
   },
@@ -12,11 +12,10 @@ Component({
   didUnmount() {},
   methods: {
     goSubmit() {
-      if (this.props.visitsPerson) {
+      if (this.props.client) {
         my.navigateTo({
           url:
-            "../checkin-submit/checkin-submit?visitsPerson=" +
-            this.props.visitsPerson,
+            "../checkin-submit/checkin-submit?" + urlEncode(this.props.client),
         });
       } else {
         my.alert({ title: "还没有选择拜访对象哦！" });
