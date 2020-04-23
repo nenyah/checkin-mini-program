@@ -100,7 +100,7 @@ Page({
     setRecord(checkInRecord)
       .then((res) => {
         console.log("上传签到信息", res);
-        // TODO: 签到成功动画
+        // 签到动画
         this._sucessAnimation();
         setTimeout(() => {
           my.navigateBack({
