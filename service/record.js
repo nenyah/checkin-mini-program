@@ -2,8 +2,9 @@ import { request } from "./network.js";
 import { CheckInRecord } from "../config/api.js";
 
 function getRecord(options) {
+  const paramDate = options.date ? `&date=${options.date}` : "";
   return request({
-    url: `${CheckInRecord}?userIds=${options.userids}`,
+    url: `${CheckInRecord}?userIds=${options.userids}` + paramDate,
     method: "GET",
   });
 }

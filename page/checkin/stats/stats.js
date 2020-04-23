@@ -1,3 +1,6 @@
+import { getRecord } from "/service/record.js";
+import { getStorageSync } from "/service/storage.js";
+import { getDeptInfo } from "/service/dept.js";
 // 有签到信息
 const items = {
   checkin: [
@@ -74,15 +77,40 @@ Page({
   data: {
     tabs: [
       { title: "1", subTitle: "最新签到" },
-      { title: "7", subTitle: "未签到" }
+      { title: "7", subTitle: "未签到" },
     ],
     activeTab: 0,
-    items: items
+    items: items,
+    dept:""
   },
-  onLoad() {},
+  onLoad() {
+    //
+    this._getRecord();
+    this._getDeptInfo();
+  },
   onTabClick(e) {
     this.setData({
-      activeTab: e.index
+      activeTab: e.index,
     });
-  }
+  },
+  _getRecord() {
+    const userids = getStorageSync("userinfo").data.user.dingUserId;
+
+    getRecord({ userids })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+  },
+  _getDeptInfo() {
+    const dingUserId = getStorageSync("userinfo").data.user.dingUserId;
+    getDeptInfo({ dingUserId })
+      .then((res) => {
+        console.log(res);
+        this.setData({
+          dept: res.deptName,
+        });
+      })
+      .catch((err) => console.error(err));
+  },
 });

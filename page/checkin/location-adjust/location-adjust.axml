@@ -46,7 +46,6 @@
   show-location="{{hasLocation}}" 
   controls="{{controls}}" 
   markers="{{markers}}" 
-  onRegionChange="regionchange" 
   style="width:100%;height:50vh;"></map>
   <list>
     <block a:for="{{items}}">

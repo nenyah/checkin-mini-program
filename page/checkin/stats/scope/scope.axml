@@ -1,7 +1,7 @@
 <view>
   <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-3-5 justify-center shadow" onTap="choosePerson">
     <view class="fa fa-globe mx-1" aria-hidden="true"></view>
-    <view>范围：信息管理中心</view>
+    <view>范围：{{dept}}</view>
     <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
   </view>
   <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-2-5 justify-center shadow" onTap="chooseDate">
@@ -12,5 +12,6 @@
 </view>
 <view class="flex flex-row-reverse">
   <view class="color-primary">签到历史分布
-    <view class="fa fa-angle-right mx-1" aria-hidden="true"></view></view>
+    <view class="fa fa-angle-right mx-1" aria-hidden="true"></view>
+  </view>
 </view>

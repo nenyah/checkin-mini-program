@@ -1,4 +1,4 @@
-import { formatDate } from "/util/utils.js";
+import moment from "moment";
 Page({
   data: {
     month: "2020-04",
@@ -60,7 +60,7 @@ Page({
   },
   onLoad(query) {
     console.log("我的", query.user);
-    const month = formatDate(new Date(), "YY-MM");
+    const month = moment(new Date()).format("YYYY-MM");
     console.log(month);
     this.setData({
       month,

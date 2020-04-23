@@ -32,7 +32,8 @@
         </view>
         <view a:if="{{item.picUrl}}">
           <view class="color-label font-bold my-2">签到图片</view>
-          <image src="{{item.picUrl}}" mode="aspectFill" class="w-16 h-16" />
+          <image src="{{item.picUrl}}" mode="aspectFill" class="w-16 h-16" data-src="{{item.picUrl}}"
+            catchTap="previewImg" />
         </view>
       </view>
     </view>

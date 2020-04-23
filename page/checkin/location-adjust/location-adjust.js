@@ -102,10 +102,10 @@ Page({
   // 控制点
   controltap(e) {
     console.log("control tap", e);
-    this.mapCtx.moveToLocation();
+    // this.mapCtx.moveToLocation();
   },
   changeToSearch() {
-    let search = !this.data.search;
+    const search = !this.data.search;
     console.log(search);
     this.setData({
       search,
@@ -121,9 +121,9 @@ Page({
   _getAround(opt) {
     getAround(opt)
       .then((res) => {
-        let regeocode = res.regeocode;
-        let addressComponent = regeocode.addressComponent;
-        let town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
+        const regeocode = res.regeocode;
+        const addressComponent = regeocode.addressComponent;
+        const town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
         const items = regeocode.pois.map((item, index) => {
           return {
             index: index,

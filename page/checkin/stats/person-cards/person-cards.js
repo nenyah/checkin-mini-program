@@ -48,5 +48,9 @@ Component({
         url: `/page/checkin/profile/profile?user=${item.workcode}`,
       });
     },
+    previewImg(e){
+      console.log('',e);
+      
+    },
   },
 });

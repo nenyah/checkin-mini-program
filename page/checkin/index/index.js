@@ -1,5 +1,6 @@
 import moment from "moment";
-
+import { getUserInfo } from "/service/login.js";
+import { getRecord } from "/service/record.js";
 import { getLocation } from "/service/location.js";
 import {
   getStorage,
@@ -7,7 +8,7 @@ import {
   setStorage,
   setStorageSync,
 } from "/service/storage.js";
-import { companyName, markers } from "../../../config/api.js";
+import { companyName, markers } from "/config/api.js";
 import _ from "lodash/core";
 
 var app = getApp();
@@ -28,17 +29,21 @@ Page({
   onLoad(query) {
     // 页面加载
     console.info(`首页加载成功: ${JSON.stringify(query)}`);
-    // console.log(app.globalData);
-    // 获取当前时间
-    this._getCurrentTime();
+    let userinfo = getStorageSync("userinfo");
+    if (!userinfo.data) {
+      // 获取用户信息
+      this._getUserInfo();
+    }
   },
   onReady() {
     // 页面加载完成
   },
   onShow() {
     // 页面显示
-    this._getLoncation();
+    // 获取当前时间
+    this._getCurrentTime();
     this._getClient();
+    this._getLoncation();
     this._getCheckTimes();
   },
   adjustLocation() {
@@ -52,15 +57,16 @@ Page({
    *@function 获取当日签到次数
    */
   _getCheckTimes() {
-    const historyRecord = getStorageSync("historyRecord");
+    const record = getStorageSync("Record");
+
     // FIXME: 不稳定，取length
 
-    if (historyRecord.data) {
-      console.log("historyRecord", historyRecord);
-
-      // this.setData({
-      //   checkTimes: historyRecord.data.length,
-      // });
+    if (record.data) {
+      console.log("record", record);
+      const checkTimes = record.data.records.length;
+      this.setData({
+        checkTimes,
+      });
     }
   },
   /**
@@ -130,5 +136,42 @@ Page({
         });
       }
     });
+  },
+  /**
+   *获取用户信息
+   *
+   */
+  _getUserInfo() {
+    getUserInfo()
+      .then((res) => {
+        console.log("用户信息", res);
+        setStorageSync({
+          key: "userinfo",
+          data: res,
+        });
+        // 获取用户历史签到信息
+        this._getRecord();
+      })
+      .catch((err) => console.error("获取用户信息报错", err));
+  },
+
+  /**
+   * 获取历史信息
+   *
+   */
+  _getRecord() {
+    const userids = getStorageSync("userinfo").data.user.dingUserId;
+    getRecord({ userids })
+      .then((res) => {
+        console.log("首页获取当日历史信息", res);
+        setStorageSync({
+          key: "Record",
+          data: res,
+        });
+        this.setData({
+          checkTimes: res.records.length,
+        });
+      })
+      .catch((err) => console.error(err));
   },
 });

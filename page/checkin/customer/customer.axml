@@ -39,6 +39,6 @@
       </block>
     </list>
   </block>
-  <view a:if="{{noMore}}" style="font-size:12px;text-align: center;">---- 我也是有底线的！---</view>
+  <view a:if="{{noMore}}" class="text-xs text-center mt-2">---- 没有更多数据了！---</view>
   <view a:if="{{loadingFailed}}">数据加载失败,请重试</view>
 </scroll-view>

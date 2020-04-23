@@ -4,7 +4,9 @@ Component({
     today: "2020-04-01",
     control: [{}],
   },
-  props: {},
+  props: {
+    dept:""
+  },
   didMount() {
     my.getStorage({
       key: "checkInDate",

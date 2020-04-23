@@ -6,13 +6,13 @@ function request(options) {
   if (getStorageSync("userinfo").data) {
     token = getStorageSync("userinfo").data.token;
     headers = {
-      "Content-Type": "application/json",
+      "Content-Type": 'application/x-www-form-urlencoded',
       Authorization: token,
       ...options.headers,
     };
   } else {
     headers = {
-      "Content-Type": "application/json",
+      "Content-Type": 'application/x-www-form-urlencoded',
       ...options.headers,
     };
   }
@@ -26,7 +26,7 @@ function request(options) {
       data: options.data,
       headers: headers,
       success: (res) => {
-        console.log("获取数据成功", res);
+        // console.log("获取数据成功", res);
         if (!res) {
           reject({
             errCode: -1,
