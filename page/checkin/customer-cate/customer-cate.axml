@@ -10,7 +10,7 @@
           <view class="fa fa-circle text-xs mr-1" aria-hidden="true"></view>
           {{item.name}}
         </view>
-        <view a:for="{{item.labels}}" a:for-item="tag">
+        <view a:for="{{item.labels}}" a:key="{{item.id}}" a:for-item="tag">
           <filter-item value="{{tag.name}}" id="{{tag.id}}" selected="{{tag.selected}}" key="filter-item-{{tag.id}}" />
         </view>
       </view>

@@ -6,13 +6,13 @@ function request(options) {
   if (getStorageSync("userinfo").data) {
     token = getStorageSync("userinfo").data.token;
     headers = {
-      "Content-Type": 'application/x-www-form-urlencoded',
+      "Content-Type": 'application/json',
       Authorization: token,
       ...options.headers,
     };
   } else {
     headers = {
-      "Content-Type": 'application/x-www-form-urlencoded',
+      "Content-Type": 'application/json',
       ...options.headers,
     };
   }
