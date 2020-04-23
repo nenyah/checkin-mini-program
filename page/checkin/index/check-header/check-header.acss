@@ -1,0 +1,3 @@
+.bottom-line {
+  border-bottom:#e2e2e2 solid 1rpx;
+}

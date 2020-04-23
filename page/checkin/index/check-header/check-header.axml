@@ -1,4 +1,4 @@
-<view style="border-bottom:#e2e2e2 solid 1rpx;" class="flex w-full color-label bg-color-white p-2 text-xs">
+<view class="bottom-line flex w-full color-label bg-color-white p-2 text-xs">
   <view class="flex no-wrap w-2-5">
     <view class="fa fa-clock-o mx-1" aria-hidden="true"></view>
     <view class="">{{today}}</view>
