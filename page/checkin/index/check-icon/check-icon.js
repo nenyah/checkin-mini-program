@@ -18,7 +18,11 @@ Component({
             "../checkin-submit/checkin-submit?" + urlEncode(this.props.client),
         });
       } else {
-        my.alert({ title: "还没有选择拜访对象哦！" });
+        my.showToast({
+          type: "fail",
+          content: "还没有选择拜访对象哦！",
+          duration: 2000,
+        });
       }
     },
   },

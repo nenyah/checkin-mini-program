@@ -2,15 +2,12 @@ import { timeout } from "/config/api.js";
 import { getStorageSync } from "/service/storage.js";
 
 function request(options) {
-  my.showLoading({
-    title: "数据加载中ing",
-  });
   let token, headers;
-  if (getStorageSync("userinfo")) {
+  if (getStorageSync("userinfo").data) {
     token = getStorageSync("userinfo").data.token;
     headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      Authorization: token,
       ...options.headers,
     };
   } else {
@@ -43,9 +40,7 @@ function request(options) {
       fail: (err) => {
         reject(err);
       },
-      complete: (res) => {
-        my.hideLoading();
-      },
+      complete: (res) => {},
     });
   });
 }

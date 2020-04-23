@@ -1,5 +1,6 @@
 import { getStorage } from "../../../service/storage.js";
 import { setRecord } from "../../../service/record.js";
+import { companyName } from "/config/api.js";
 import moment from "moment";
 Page({
   data: {
@@ -7,8 +8,10 @@ Page({
     timeStamp: "",
     location: "",
     client: "",
-    hasClient: false,
     picUrls: [],
+    companyName: companyName,
+    animationInfo: {},
+    isShow: false,
   },
   onLoad(query) {
     // 页面加载
@@ -20,6 +23,7 @@ Page({
     this._getAddress();
     this._getTime();
   },
+  onShow() {},
   useCamera() {
     my.chooseImage({
       count: 1,
@@ -96,6 +100,13 @@ Page({
     setRecord(checkInRecord)
       .then((res) => {
         console.log("上传签到信息", res);
+        // TODO: 签到成功动画
+        this._sucessAnimation();
+        setTimeout(() => {
+          my.navigateBack({
+            delta: 1,
+          });
+        }, 1000);
       })
       .catch((err) => console.error(err));
   },
@@ -123,7 +134,6 @@ Page({
   _setVisitPerson(query) {
     this.setData({
       client: query,
-      hasClient: !this.data.hasClient,
     });
   },
   /**
@@ -138,5 +148,20 @@ Page({
         });
       })
       .catch((err) => console.error(err));
+  },
+  _sucessAnimation() {
+    var animation = dd.createAnimation({
+      duration: 1000,
+      timeFunction: "ease-in-out",
+    });
+
+    this.animation = animation;
+
+    animation.translate(150, -20).rotate(-45).step();
+
+    this.setData({
+      isShow: true,
+      animationInfo: animation.export(),
+    });
   },
 });

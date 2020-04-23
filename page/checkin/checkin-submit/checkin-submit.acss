@@ -5,3 +5,10 @@
   top: -10rpx;
   color: red;
 }
+
+.sucess-stamp {
+  width: 150px;
+  height: 150px;
+  background: no-repeat url("/assets/images/checkinstamp.png");
+  background-size: 150px;
+}
