@@ -1,5 +1,5 @@
-import { request } from "/service/network.js";
-import { limitRange } from "/config/api.js";
+import { request } from "/service/network";
+import { limitRange } from "/config/api";
 function getAround(opt) {
   return request({
     url: "https://restapi.amap.com/v3/geocode/regeo",

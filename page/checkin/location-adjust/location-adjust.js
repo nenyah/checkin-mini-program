@@ -1,5 +1,5 @@
-import { getAround } from "/libs/amap-dd.js";
-import { getStorageSync, setStorageSync } from "/service/storage.js";
+import { getAround } from "/libs/amap-dd";
+import { getStorageSync, setStorageSync } from "/service/storage";
 
 Page({
   data: {

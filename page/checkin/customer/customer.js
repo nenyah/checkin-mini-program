@@ -1,4 +1,4 @@
-import { getClients, getClientslabels } from "../../../service/clients.js";
+import { getClients, getClientslabels } from "../../../service/clients";
 const itemsMine = [
   {
     id: 0,

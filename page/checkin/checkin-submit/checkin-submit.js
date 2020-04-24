@@ -1,6 +1,6 @@
-import { getStorage } from "../../../service/storage.js";
-import { setRecord } from "../../../service/record.js";
-import { companyName } from "/config/api.js";
+import { getStorage } from "../../../service/storage";
+import { setRecord } from "../../../service/record";
+import { companyName } from "/config/api";
 import moment from "moment";
 Page({
   data: {
@@ -103,8 +103,8 @@ Page({
         // 签到动画
         this._sucessAnimation();
         setTimeout(() => {
-          my.navigateBack({
-            delta: 1,
+          my.reLaunch({
+            url: "../index/index?sucess=true",
           });
         }, 1000);
       })

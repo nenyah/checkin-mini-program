@@ -1,14 +1,14 @@
 import moment from "moment";
-import { getUserInfo } from "/service/login.js";
-import { getRecord } from "/service/record.js";
-import { getLocation } from "/service/location.js";
+import { getUserInfo } from "/service/login";
+import { getRecord } from "/service/record";
+import { getLocation } from "/service/location";
 import {
   getStorage,
   getStorageSync,
   setStorage,
   setStorageSync,
-} from "/service/storage.js";
-import { companyName, markers } from "/config/api.js";
+} from "/service/storage";
+import { companyName, markers } from "/config/api";
 import _ from "lodash/core";
 
 var app = getApp();
@@ -45,6 +45,8 @@ Page({
     this._getClient();
     this._getLoncation();
     this._getCheckTimes();
+    // 获取用户历史签到信息
+    this._getRecord();
   },
   adjustLocation() {
     my.navigateTo({
@@ -149,8 +151,6 @@ Page({
           key: "userinfo",
           data: res,
         });
-        // 获取用户历史签到信息
-        this._getRecord();
       })
       .catch((err) => console.error("获取用户信息报错", err));
   },

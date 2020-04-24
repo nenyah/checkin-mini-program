@@ -1,4 +1,4 @@
-import { formatDate } from "/util/utils.js";
+import { formatDate } from "/util/utils";
 Component({
   mixins: [],
   data: {},

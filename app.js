@@ -1,7 +1,7 @@
-import { setStorageSync, getStorageSync } from "./service/storage.js";
+import { setStorageSync, getStorageSync } from "./service/storage";
 
 import moment from "moment";
-import { debug } from "/config/api.js";
+import { debug } from "/config/api";
 
 App({
   onLaunch(options) {
@@ -18,6 +18,19 @@ App({
   },
   onHide() {
     console.log("App Hide");
+    // 清除缓存
+    my.removeStorage({
+      key: "selectedClient",
+      success: function () {
+        dd.alert({ content: "删除选择用户成功" });
+      },
+    });
+    my.removeStorage({
+      key: "checkInDate",
+      success: function () {
+        dd.alert({ content: "删除签到时间成功" });
+      },
+    });
   },
   globalData: {
     userInfo: null,

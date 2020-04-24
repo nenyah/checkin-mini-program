@@ -1,6 +1,6 @@
-import { getRecord } from "/service/record.js";
-import { getStorageSync } from "/service/storage.js";
-import { getDeptInfo } from "/service/dept.js";
+import { getRecord } from "/service/record";
+import { getStorageSync } from "/service/storage";
+import { getDeptInfo } from "/service/dept";
 // 有签到信息
 const items = {
   checkin: [

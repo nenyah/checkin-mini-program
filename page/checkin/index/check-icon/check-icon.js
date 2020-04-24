@@ -1,4 +1,4 @@
-import { urlEncode } from "/util/utils.js";
+import { urlEncode } from "/util/utils";
 Component({
   mixins: [],
   data: {},

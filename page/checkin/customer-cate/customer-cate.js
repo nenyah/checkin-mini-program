@@ -1,4 +1,4 @@
-import { getClientslabels } from "../../../service/clients.js";
+import { getClientslabels } from "../../../service/clients";
 Page({
   data: {
     title: "查看指定员工",
