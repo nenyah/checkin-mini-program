@@ -20,7 +20,7 @@
         <list-item onClick="onItemClick" index="{{index}}" last="{{index === (items.length - 1)}}" key="items-{{index}}"
           data-item="{{item}}" multipleLine="{{true}}" class="">
           {{item.name}}
-          <view slot="prefix" class="gradient-blue circle w-12 h-12 flex text-xs items-center justify-center">
+          <view slot="prefix" class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center">
             {{item.name.length>3?item.name.substr(0,3):item.name}}
           </view>
           <view class="text-xs">

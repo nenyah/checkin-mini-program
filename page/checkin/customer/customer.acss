@@ -2,9 +2,7 @@
     background-color: #d3f6e9;
 }
 
-.gradient-blue {
-    background-image: radial-gradient(circle, white 5%, #bddefb 95%);
-}
+
 
 .nav {
     position: fixed;

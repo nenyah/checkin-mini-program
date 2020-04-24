@@ -1,0 +1,3 @@
+.bg-border {
+    border: #eeeeee solid 1rpx;
+}

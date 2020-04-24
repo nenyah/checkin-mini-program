@@ -10,17 +10,20 @@
   </view>
   <view class="flex justify-around">
     <view class="flex items-center">
-      <image mode="scaleToFill" src="{{userInfo.avtarImg}}" class="w-16 h-16 circle m-2" />
+      <view
+        class="w-16 h-16 circle m-2 bg-color-primary color-white font-black text-xl flex justify-center items-center">
+        {{userInfo.username.length>2?userInfo.username.substr(0,2):userInfo.username}}
+      </view>
       <view>
         <view class="text-lg font-bold">
-          {{userInfo.name}}
+          {{userInfo.username}}
         </view>
         <view class="my-2">
           本月签到
-          <text class="color-primary">{{userInfo.monthCheckinTimes}}</text>次
+          <text class="color-primary">{{total}}</text>次
         </view>
         <view class="color-label text-xs">
-          {{userInfo.company}}
+          {{company}}
         </view>
       </view>
     </view>
@@ -29,9 +32,29 @@
     </view>
   </view>
 </view>
-<view class="bg-color-white">
-  <block a:for="{{items}}">
-    <s-card item="{{item}}" onClickCard="onClickCard">
-    </s-card>
-  </block>
+<view class="bg-color-disabled-white">
+  <view a:for="{{items}}" a:key="{{item.id}}" class="bg-color-white my-3 py-2">
+    <view class="text-xs color-label m-2">
+      {{item.date}}
+    </view>
+    <block a:for="{{item.signInHisVOS}}" a:for-item="card">
+      <view class="bg-border m-2 radius-5 px-5" onTap="handleItemClick" data-item="{{card}}">
+        <view class="flex sep-line py-2 my-2">
+          <view>{{card.time}}</view>
+          <view>{{card.place}}</view>
+        </view>
+        <view class="my-2">
+          <view class="text-sm color-label my-2">签到地点</view>
+          <view class="text-sm">{{card.detailPlace}}</view>
+        </view>
+        <view class="my-2">
+          <view class="text-sm color-label my-2">签到图片</view>
+          <view>
+            <image style="background-color: #eeeeee; width: 100rpx; height:100rpx;" mode="aspectFill"
+              src='{{card.imgUrl}}' />
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>

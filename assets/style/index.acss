@@ -1978,6 +1978,9 @@
   background-color: #15bc83;
 }
 
+.bg-color-gradient-blue {
+  background-image: radial-gradient(circle, white 5%, #bddefb 95%);
+}
 .color-link {
   color: #576a95;
 }

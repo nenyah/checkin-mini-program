@@ -17,7 +17,7 @@ Component({
       console.log('跳转我的页面',e);
       const item = e.currentTarget.dataset.item;
       my.navigateTo({
-        url: `/page/checkin/profile/profile?user=${item.jobNumber}`,
+        url: `/page/checkin/profile/profile?userid=${item.jobNumber}&username=${item.userName}`,
       });
     },
     previewImg(e) {
