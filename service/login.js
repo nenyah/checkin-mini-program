@@ -1,5 +1,5 @@
-import { request } from "./network.js";
-import { Userinfo } from "../config/api.js";
+import { request } from "./network";
+import { Userinfo } from "../config/api";
 
 function getAuthCode() {
   return new Promise((resolve, reject) => {

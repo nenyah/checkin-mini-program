@@ -1,6 +1,6 @@
-import { watermark } from "/util/watermark.js";
-import { request } from "../../service/network.js";
-import { CheckInRecord } from "../../config/api.js";
+import { watermark } from "/util/watermark";
+import { request } from "../../service/network";
+import { CheckInRecord } from "../../config/api";
 const markers = [
   {
     id: 10,

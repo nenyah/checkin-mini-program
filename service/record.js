@@ -1,5 +1,5 @@
-import { request } from "./network.js";
-import { CheckInRecord } from "../config/api.js";
+import { request } from "./network";
+import { CheckInRecord } from "../config/api";
 
 function getRecord(options) {
   const paramDate = options.date ? `&date=${options.date}` : "";

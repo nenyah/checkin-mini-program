@@ -1,5 +1,5 @@
-import { timeout } from "/config/api.js";
-import { getStorageSync } from "/service/storage.js";
+import { timeout } from "/config/api";
+import { getStorageSync } from "/service/storage";
 
 function request(options) {
   let token, headers;

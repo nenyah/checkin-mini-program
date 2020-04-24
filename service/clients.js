@@ -1,5 +1,5 @@
-import { request } from "./network.js";
-import { Clientsinfo } from "../config/api.js";
+import { request } from "./network";
+import { Clientsinfo } from "../config/api";
 
 function getClients(param) {
   const current = param.current || 1;

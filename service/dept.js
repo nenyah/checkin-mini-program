@@ -1,5 +1,5 @@
-import { request } from "./network.js";
-import { DeptInfo } from "../config/api.js";
+import { request } from "./network";
+import { DeptInfo } from "../config/api";
 
 function getDeptInfo(options) {
   return request({
