@@ -10,9 +10,14 @@ const markers = [
 
 module.exports = {
   Userinfo: ApiRootUrl + "auth", // 获取用户信息
-  CheckInRecord: ApiRootUrl + "signin", // 签到历史记录
   Clientsinfo: ApiRootUrl + "org", // 客户信息
-  DeptInfo: ApiRootUrl + "dept", //部门信息
+  DeptInfo: ApiRootUrl + "dept", //所在部门信息
+
+  CheckInRecord: ApiRootUrl + "signin", // 个人签到历史记录
+  StaffDayRecord: ApiRootUrl + "signin/oneDay", // 指定用户指定日期签到信息
+  StaffMonthRecord: ApiRootUrl + "signin/monthStatistic", // 指定用户当月签到信息
+  DeptRecord: ApiRootUrl + "signin/ownDept", //所在部门签到信息
+
   timeout: 5000, // 超时
 
   companyName: "华东宁波医药有限公司", //默认公司名
@@ -20,5 +25,5 @@ module.exports = {
   markers: markers, // 地图标签
 
   debug: false,
-  limitRange: 500,
+  limitRange: 50,
 };

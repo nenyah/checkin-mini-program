@@ -166,9 +166,9 @@ Page({
       record.data.signInHisPage.records[0].time.substr(0, 4) != this.data.ctime
     ) {
       const userinfo = await getStorage("userinfo");
-      const userids = userinfo.data.user.dingUserId;
+      const userIds = userinfo.data.user.dingUserId;
 
-      getRecord({ userids })
+      getRecord({ userIds })
         .then((res) => {
           console.log("首页获取当日历史信息", res);
           res.currentTime = this.data.currentTime;

@@ -1,4 +1,4 @@
-import { getRecord } from "/service/record";
+import { getRecord, getOwnDeptRecord } from "/service/record";
 import { getStorageSync } from "/service/storage";
 import { getDeptInfo } from "/service/dept";
 // 有签到信息
@@ -81,11 +81,11 @@ Page({
     ],
     activeTab: 0,
     items: items,
-    dept:""
+    dept: "",
   },
   onLoad() {
     //
-    this._getRecord();
+    this._getOwnDeptRecord();
     this._getDeptInfo();
   },
   onTabClick(e) {
@@ -93,17 +93,23 @@ Page({
       activeTab: e.index,
     });
   },
-  _getRecord() {
-    const userids = getStorageSync("userinfo").data.user.dingUserId;
-
-    getRecord({ userids })
+  async _getOwnDeptRecord() {
+    getOwnDeptRecord({})
       .then((res) => {
         console.log(res);
+        const checkinNums = res.signInQty;
+        const uncheckinNums = res.notSignInList.length;
+        const items = res;
+        this.setData({
+          "tabs[0].title": checkinNums,
+          "tabs[1].title": uncheckinNums,
+          items,
+        });
       })
       .catch((err) => console.error(err));
   },
-  _getDeptInfo() {
-    const dingUserId = getStorageSync("userinfo").data.user.dingUserId;
+  async _getDeptInfo() {
+    const dingUserId = await getStorageSync("userinfo").data.user.dingUserId;
     getDeptInfo({ dingUserId })
       .then((res) => {
         console.log(res);

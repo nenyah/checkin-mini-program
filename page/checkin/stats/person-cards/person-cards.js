@@ -14,14 +14,17 @@ Component({
   didUnmount() {},
   methods: {
     goToPorfile(e) {
-      console.log(e);
-      const item = e.target.dataset.item;
+      console.log('跳转我的页面',e);
+      const item = e.currentTarget.dataset.item;
       my.navigateTo({
-        url: `/page/checkin/profile/profile?user=${item.workcode}`,
+        url: `/page/checkin/profile/profile?user=${item.jobNumber}`,
       });
     },
     previewImg(e) {
-      console.log("", e);
+      console.log("预览图片", e);
+      my.previewImage({
+        urls: [e.currentTarget.dataset.src],
+      });
     },
   },
 });
