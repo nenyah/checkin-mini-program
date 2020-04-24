@@ -158,7 +158,7 @@ Page({
    * 获取历史信息
    *
    */
-  _getRecord() {
+  async _getRecord() {
     const record = await getStorage("Record");
 
     if (
