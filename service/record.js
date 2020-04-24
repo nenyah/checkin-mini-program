@@ -60,7 +60,7 @@ function getMonthRecord(options) {
     .map((key) => key + "=" + options[key])
     .join("&");
   return request({
-    url: StaffMonthRecord + `?${queryString}`,
+    url: StaffMonthRecord + `?${encodeURI(queryString)}`,
     method: "GET",
   });
 }

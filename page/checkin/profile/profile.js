@@ -29,11 +29,13 @@ Page({
       format: "yyyy-MM",
       currentDate: this.data.month,
       success: (res) => {
+        this._getMonthRecord({
+          month: res.date,
+          dingUserId: this.data.userInfo.userid,
+        });
         this.setData({
           month: res.date,
         });
-        // TODO 向服务器获取对应月份历史记录
-        // 或者从缓存中获取？
       },
     });
   },
@@ -47,7 +49,7 @@ Page({
     });
   },
   _getMonthRecord(options) {
-    getMonthRecord({ ...options, size: 200 })
+    getMonthRecord({ ...options})
       .then((res) => {
         console.log("月记录", res);
         let items = res
