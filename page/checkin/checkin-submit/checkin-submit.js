@@ -104,7 +104,7 @@ Page({
         this._sucessAnimation();
         setTimeout(() => {
           my.reLaunch({
-            url: "../index/index?sucess=true",
+            url: "../index/index",
           });
         }, 1000);
       })

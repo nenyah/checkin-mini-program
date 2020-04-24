@@ -26,51 +26,44 @@ Page({
     checkTimes: 0,
   },
 
-  onLoad(query) {
-    // 页面加载
-    console.info(`首页加载成功: ${JSON.stringify(query)}`);
-    let userinfo = getStorageSync("userinfo");
-    if (!userinfo.data) {
-      // 获取用户信息
-      this._getUserInfo();
-    }
+  onLoad() {
+    // 首页加载 初始化数据
+    // 日期 时间 地址 历史签到 签到次数
+    // 获取当前时间
+    this._getCurrentTime();
+    this._getLoncation();
+    this._getRecord();
+    this._checkRecordTimes();
+    this._getUserInfo();
   },
   onReady() {
     // 页面加载完成
   },
   onShow() {
     // 页面显示
-    // 获取当前时间
-    this._getCurrentTime();
     this._getClient();
     this._getLoncation();
-    this._getCheckTimes();
-    // 获取用户历史签到信息
-    this._getRecord();
   },
   adjustLocation() {
     my.navigateTo({
       url: "../location-adjust/location-adjust",
     });
   },
-
   /**
    *@author steven
    *@function 获取当日签到次数
    */
-  _getCheckTimes() {
-    const record = getStorageSync("Record");
+  _checkRecordTimes() {
+    const checkTimes = getStorageSync("Record").data;
+    console.log(checkTimes);
 
-    // FIXME: 不稳定，取length
-
-    if (record.data) {
-      console.log("record", record);
-      const checkTimes = record.data.records.length;
+    if (checkTimes) {
       this.setData({
-        checkTimes,
+        checkTimes: checkTimes.signInHisPage.records[0].quantity,
       });
     }
   },
+
   /**
    *@author steven
    *@function 获取当前定位信息
@@ -144,15 +137,21 @@ Page({
    *
    */
   _getUserInfo() {
-    getUserInfo()
-      .then((res) => {
-        console.log("用户信息", res);
-        setStorageSync({
-          key: "userinfo",
-          data: res,
-        });
-      })
-      .catch((err) => console.error("获取用户信息报错", err));
+    let userinfo = getStorageSync("userinfo");
+    if (!userinfo.data) {
+      // 获取用户信息
+      console.log("没有用户缓存，执行获取用户");
+      getUserInfo()
+        .then((res) => {
+          console.log("用户信息", res);
+          setStorageSync({
+            key: "userinfo",
+            data: res,
+          });
+          this._getRecord();
+        })
+        .catch((err) => console.error("获取用户信息报错", err));
+    }
   },
 
   /**
@@ -160,18 +159,31 @@ Page({
    *
    */
   _getRecord() {
-    const userids = getStorageSync("userinfo").data.user.dingUserId;
-    getRecord({ userids })
-      .then((res) => {
-        console.log("首页获取当日历史信息", res);
-        setStorageSync({
-          key: "Record",
-          data: res,
-        });
-        this.setData({
-          checkTimes: res.records.length,
-        });
-      })
-      .catch((err) => console.error(err));
+    const record = await getStorage("Record");
+
+    if (
+      !record.data ||
+      record.data.signInHisPage.records[0].time.substr(0, 4) != this.data.ctime
+    ) {
+      const userinfo = await getStorage("userinfo");
+      const userids = userinfo.data.user.dingUserId;
+
+      getRecord({ userids })
+        .then((res) => {
+          console.log("首页获取当日历史信息", res);
+          res.currentTime = this.data.currentTime;
+          setStorageSync({
+            key: "Record",
+            data: res,
+          });
+          this.setData({
+            checkTimes: res.signInHisPage.records[0].quantity,
+          });
+        })
+        .catch((err) => console.error(err));
+    }
+    this.setData({
+      checkTimes: record.data.signInHisPage.records[0].quantity,
+    });
   },
 });
