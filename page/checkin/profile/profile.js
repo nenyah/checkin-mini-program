@@ -50,19 +50,17 @@ Page({
     getMonthRecord({ ...options, size: 200 })
       .then((res) => {
         console.log("月记录", res);
-        const items = res;
-        const total = res
-          .map((el) => {
-            return el.signInHisVOS.length;
-          })
-          .reduce((acc, cur) => {
-            return acc + cur;
+        let items = res
+        items.signInMonthDTOS.forEach(element => {
+          element.date = moment(element.date).format('MM月DD日');
+          element.signInHisVOS.forEach(element => {
+            element.place = element.detailPlace;
+            return  element
           });
-        console.log(total);
-
+          return element
+        });
         this.setData({
-          items,
-          total,
+          items:res,
         });
       })
       .catch((err) => console.error(err));

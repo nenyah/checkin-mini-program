@@ -1,4 +1,5 @@
 import moment from "moment";
+import { markers } from "/config/api";
 Page({
   data: {
     item: {
@@ -13,25 +14,19 @@ Page({
       latitude: "29.903595",
       longitude: "121.79692",
     },
-    markers: [
-      {
-        iconPath: "/assets/images/location.png",
-        id: 1,
-        latitude: 29.903595,
-        longitude: 121.796925,
-        width: 38,
-        height: 38,
-      },
-    ],
+    markers: [],
   },
   onLoad(query) {
     // console.log('签到详情',query)
     const item = JSON.parse(query.item);
-    item.date = moment(item.date, "YYYY-MM-DD").format("MM月dd日");
+    item.date = moment(item.date, "YYYY-MM-DD").format("MM月DD日");
     item.time = moment(item.time, "hh:mm:ss").format("hh:mm");
     console.log("签到详情", item);
+    markers[0].latitude = item.latitude;
+    markers[0].longitude = item.longitude;
     this.setData({
       item,
+      markers,
     });
   },
 });

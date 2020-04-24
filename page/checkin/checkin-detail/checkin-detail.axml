@@ -1,6 +1,6 @@
 <map 
-longitude="{{item.location[0]}}" 
-latitude="{{item.location[1]}}"
+longitude="{{item.longitude}}"
+latitude="{{item.latitude}}"
 markers="{{markers}}" 
 show-location="{{false}}"></map>
 <view>
