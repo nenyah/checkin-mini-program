@@ -93,8 +93,16 @@ Page({
       activeTab: e.index,
     });
   },
-  async _getOwnDeptRecord() {
-    getOwnDeptRecord({})
+  onGetNewDate(data) {
+    console.log("统计页获得日期数据", data);
+    this._getOwnDeptRecord({ date: data });
+  },
+  onGetNewDept(data) {
+    console.log("统计页获得部门数据", data);
+    this._getOwnDeptRecord({ date: data });
+  },
+  async _getOwnDeptRecord(opt) {
+    getOwnDeptRecord({ ...opt })
       .then((res) => {
         console.log(res);
         const checkinNums = res.signInQty;
@@ -108,9 +116,9 @@ Page({
       })
       .catch((err) => console.error(err));
   },
-  async _getDeptInfo() {
+  async _getDeptInfo(opt) {
     const dingUserId = await getStorageSync("userinfo").data.user.dingUserId;
-    getDeptInfo({ dingUserId })
+    getDeptInfo({ dingUserId, ...opt })
       .then((res) => {
         console.log(res);
         this.setData({

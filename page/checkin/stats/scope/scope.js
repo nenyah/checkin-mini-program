@@ -5,7 +5,9 @@ Component({
     control: [{}],
   },
   props: {
-    dept:""
+    dept: "",
+    onGetNewDate: (day) => console.log(day),
+    onGetNewDept: (dept) => console.log(dept),
   },
   didMount() {
     my.getStorage({
@@ -25,8 +27,9 @@ Component({
         format: "yyyy-MM-dd",
         currentDate: this.data.today,
         success: (res) => {
-          dd.alert({
-            content: res.date,
+          this.props.onGetNewDate(res.date);
+          this.setData({
+            today: res.date,
           });
         },
       });

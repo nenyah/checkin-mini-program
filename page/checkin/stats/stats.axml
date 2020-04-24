@@ -1,5 +1,5 @@
 <view class="bg-color-white">
-  <s-scope dept="{{dept}}"></s-scope>
+  <s-scope dept="{{dept}}" onGetNewDate="onGetNewDate" onGetNewDept="onGetNewDept"></s-scope>
   <s-tab-control tabs="{{tabs}}" activeTab="{{activeTab}}" onTabClick="onTabClick"></s-tab-control>
   <s-person-cards items="{{items}}" activeIndex="{{activeTab}}"></s-person-cards>
   <s-button></s-button>
