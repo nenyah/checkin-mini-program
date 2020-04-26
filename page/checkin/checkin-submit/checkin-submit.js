@@ -2,6 +2,7 @@ import { getStorage } from "../../../service/storage";
 import { setRecord } from "../../../service/record";
 import { companyName } from "/config/api";
 import moment from "moment";
+var app = getApp();
 Page({
   data: {
     checkinTime: "00:00",
@@ -11,6 +12,7 @@ Page({
     picUrls: [],
     companyName: companyName,
     animationInfo: {},
+    remark: "",
     isShow: false,
     disabled: false,
   },
@@ -69,7 +71,16 @@ Page({
       urls: [src],
     });
   },
+  handComfirm(e) {
+    console.log("完成输入文字", e.detail.value);
+  },
 
+  handleTextAreaInput(e) {
+    console.log("输入文字", e.detail.value);
+    this.setData({
+      remark: e.detail.value,
+    });
+  },
   /**
    *@author steven
    *@function 创建签到信息
@@ -81,9 +92,7 @@ Page({
     }
     let checkInRecord = {
       detailPlace: this.data.location.address,
-      imageList: [
-        "https://static.dingtalk.com/media/lADPGoGu6xXnOdfNBQDNAuY_742_1280.jpg",
-      ],
+      imageList: this.data.picUrls,
       latitude: `${this.data.location.latitude}`,
       longitude: `${this.data.location.longitude}`,
       org: {
@@ -91,7 +100,7 @@ Page({
         name: this.data.client.name,
       },
       place: this.data.location.name,
-      remark: "",
+      remark: this.data.remark,
       timeStamp: this.data.timeStamp,
     };
     console.log(checkInRecord);
@@ -101,6 +110,7 @@ Page({
     setRecord(checkInRecord)
       .then((res) => {
         console.log("上传签到信息", res);
+        app.globalData.selectedClient = null;
         // 签到动画
         this._sucessAnimation();
         setTimeout(() => {

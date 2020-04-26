@@ -35,7 +35,9 @@ App({
   globalData: {
     userInfo: null,
     records: null,
+    selectedClient: null,
     checkinTimes: 0,
+    location: null,
   },
   /**
    *获取当前时间

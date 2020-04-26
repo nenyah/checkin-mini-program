@@ -101,11 +101,13 @@ Page({
   },
   onGetNewUser(users) {
     console.log("统计页获得人员数据", users);
+    const userNum = users.length;
     const myusers = users.map((el) => {
       return el.userId;
     });
     this.setData({
       userIds: myusers,
+      userNum,
     });
     this._getRecord({ userIds: myusers });
   },
@@ -136,14 +138,12 @@ Page({
     getRecord({ ...opt })
       .then((res) => {
         console.log("获取选择人员签到信息", res);
-        const userNum = res.length
         const checkinNums = res.signInQty;
         const uncheckinNums = res.notSignInList.length;
         const items = res;
         this.setData({
           "tabs[0].title": checkinNums,
           "tabs[1].title": uncheckinNums,
-          userNum,
           items,
         });
       })

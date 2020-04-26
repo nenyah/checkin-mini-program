@@ -25,5 +25,5 @@ module.exports = {
   markers: markers, // 地图标签
 
   debug: false,
-  limitRange: 50,
+  limitRange: 100,
 };

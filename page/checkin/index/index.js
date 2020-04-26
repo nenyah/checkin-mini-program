@@ -69,39 +69,58 @@ Page({
    *@function 获取当前定位信息
    */
   _getLoncation() {
-    getStorage("location").then((res) => {
-      if (!res.data) {
-        // 没有缓存就重新定位获取地址信息
-        getLocation().then((res) => {
-          this.setData({
-            longitude: res.longitude,
-            latitude: res.latitude,
-            address: res.address,
-            "markers[0].id": 1,
-            "markers[0].longitude": res.longitude,
-            "markers[0].latitude": res.latitude,
-          });
-          // 同步存入缓存
-          setStorageSync({
-            key: "location",
-            data: {
-              longitude: res.longitude,
-              latitude: res.latitude,
-              address: res.address,
-            },
-          });
-        });
-      } else {
-        // 有缓存就直接用缓存数据渲染页面
+    getLocation()
+      .then((res) => {
+        console.log("获取地址成功", res);
+        app.globalData.location = {
+          longitude: res.longitude,
+          latitude: res.latitude,
+          address: res.address,
+        };
         this.setData({
-          longitude: res.data.longitude,
-          latitude: res.data.latitude,
-          address: res.data.address,
-          "markers[0].longitude": res.data.longitude,
-          "markers[0].latitude": res.data.latitude,
+          longitude: res.longitude,
+          latitude: res.latitude,
+          address: res.address,
+          "markers[0].id": 1,
+          "markers[0].longitude": res.longitude,
+          "markers[0].latitude": res.latitude,
         });
-      }
-    });
+      })
+      .catch((err) => console.error(err));
+
+    // getStorage("location").then((res) => {
+    //   if (!res.data) {
+    //     // 没有缓存就重新定位获取地址信息
+    //     getLocation().then((res) => {
+    //       this.setData({
+    //         longitude: res.longitude,
+    //         latitude: res.latitude,
+    //         address: res.address,
+    //         "markers[0].id": 1,
+    //         "markers[0].longitude": res.longitude,
+    //         "markers[0].latitude": res.latitude,
+    //       });
+    //       // 同步存入缓存
+    //       setStorageSync({
+    //         key: "location",
+    //         data: {
+    //           longitude: res.longitude,
+    //           latitude: res.latitude,
+    //           address: res.address,
+    //         },
+    //       });
+    //     });
+    //   } else {
+    //     // 有缓存就直接用缓存数据渲染页面
+    //     this.setData({
+    //       longitude: res.data.longitude,
+    //       latitude: res.data.latitude,
+    //       address: res.data.address,
+    //       "markers[0].longitude": res.data.longitude,
+    //       "markers[0].latitude": res.data.latitude,
+    //     });
+    //   }
+    // });
   },
   /**
    *@author steven
@@ -121,16 +140,16 @@ Page({
   },
   /**
    *@author steven
-   *@function 从缓存中获取拜访对象
+   *@function 从全局中获取拜访对象
    */
   _getClient() {
-    getStorage("selectedClient").then((res) => {
-      if (res.data) {
-        this.setData({
-          client: res.data,
-        });
-      }
-    });
+    const client = app.globalData.selectedClient;
+    if (client) {
+      console.log("从全局获得选择对象", client);
+      this.setData({
+        client,
+      });
+    }
   },
   /**
    *获取用户信息
@@ -157,29 +176,22 @@ Page({
    *
    */
   async _getRecord() {
-    const record = await app.globalData.records;
+    const userinfo = await app.globalData.userInfo;
+    const userIds = userinfo.user.dingUserId;
+    console.log("获取记录时，用户信息", userIds);
 
-    if (!record) {
-      const userinfo = await app.globalData.userInfo;
-      const userIds = userinfo.user.dingUserId;
-      console.log("获取记录时，用户信息", userIds);
-
-      return getRecord({ userIds })
-        .then((res) => {
-          console.log("首页获取当日历史信息", res);
-          res.currentTime = this.data.currentTime;
-          app.globalData.records = res.signInHisPage.records;
-          if (!res.signInHisPage.records.length) {
-            return;
-          }
-          this.setData({
-            checkTimes: res.signInHisPage.records[0].quantity,
-          });
-        })
-        .catch((err) => console.error(err));
-    }
-    this.setData({
-      checkTimes: record.signInHisPage.records[0].quantity,
-    });
+    return getRecord({ userIds })
+      .then((res) => {
+        console.log("首页获取当日历史信息", res);
+        res.currentTime = this.data.currentTime;
+        app.globalData.records = res.signInHisPage.records;
+        if (!res.signInHisPage.records.length) {
+          return;
+        }
+        this.setData({
+          checkTimes: res.signInHisPage.records[0].quantity,
+        });
+      })
+      .catch((err) => console.error(err));
   },
 });

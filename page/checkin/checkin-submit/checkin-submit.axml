@@ -28,7 +28,7 @@
 <view a:if="{{isShow}}" class="sucess-stamp" animation="{{animationInfo}}"
   style="position: absolute; top:100rpx; left: 100rpx; z-index: 100;"></view>
 <view class="my-5 bg-color-white min-h-48 pt-3">
-  <textarea placeholder="请填写签到备注" maxlength="-1"></textarea>
+  <textarea placeholder="请填写签到备注" maxlength="-1" focus="{{true}}" onInput="handleTextAreaInput" onConfirm="handComfirm"></textarea>
 
   <view class="flex flex-wrap">
     <block a:for="{{picUrls}}">

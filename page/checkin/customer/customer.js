@@ -1,4 +1,5 @@
 import { getClients, getClientslabels } from "../../../service/clients";
+var app = getApp();
 const itemsMine = [
   {
     id: 0,
@@ -83,15 +84,19 @@ Page({
     console.log("客户页面选择客户", e);
     // 把选择的客户传回首页
     const item = e.target.dataset.item;
-    my.setStorage({
-      key: "selectedClient",
-      data: item,
-      success: () => {
-        my.navigateBack({
-          delta: 1,
-        });
-      },
+    app.globalData.selectedClient = item;
+    my.navigateBack({
+      delta: 1,
     });
+    // my.setStorage({
+    //   key: "selectedClient",
+    //   data: item,
+    //   success: () => {
+    //     my.navigateBack({
+    //       delta: 1,
+    //     });
+    //   },
+    // });
   },
 
   handleClear(e) {

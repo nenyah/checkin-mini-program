@@ -6,18 +6,13 @@ Component({
   props: {
     client: "",
   },
-  didMount() {
-    
-  },
+  didMount() {},
   didUpdate() {
-    console.log("选择客户组件", this.props.client);
-    console.log("选择客户组件Keys", Object.keys(this.props.client));
-
     if (Object.keys(this.props.client).length) {
       this.setData({
         isSelected: true,
       });
-    } 
+    }
   },
   didUnmount() {},
   methods: {

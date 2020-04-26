@@ -1,6 +1,6 @@
 import { getAround } from "/libs/amap-dd";
 import { getStorageSync, setStorageSync } from "/service/storage";
-
+var app = getApp();
 Page({
   data: {
     items: [],
@@ -33,9 +33,13 @@ Page({
     search: false,
   },
   onLoad() {
-    this._getStroge("location");
-    const longitude = this.data.location[0];
-    const latitude = this.data.location[1];
+    const longitude = app.globalData.location.longitude;
+    const latitude = app.globalData.location.latitude;
+    this.setData({
+      "markers[0].longitude": longitude,
+      "markers[0].latitude": latitude,
+      location: [longitude, latitude],
+    });
     this._getAround({ longitude, latitude });
   },
   onReady() {},
@@ -58,14 +62,11 @@ Page({
 
     const address = selectItem.title;
     const location = selectItem.location.split(",");
-    setStorageSync({
-      key: "location",
-      data: {
-        longitude: Number(location[0]),
-        latitude: Number(location[1]),
-        address: address,
-      },
-    });
+    app.globalData.location = {
+      longitude: Number(location[0]),
+      latitude: Number(location[1]),
+      address: address,
+    };
 
     my.navigateBack({
       delta: 1,
@@ -118,6 +119,11 @@ Page({
       searchItems,
     });
   },
+  /**
+   *@function 获取钉钉定位周边地址
+   *
+   * @param {*} opt
+   */
   _getAround(opt) {
     getAround(opt)
       .then((res) => {
@@ -138,15 +144,5 @@ Page({
         });
       })
       .catch((err) => console.error(err));
-  },
-  _getStroge(key) {
-    let res = getStorageSync(key);
-    const location = [res.data.longitude, res.data.latitude];
-    console.log("地点微调页面获取缓存", location);
-    this.setData({
-      location,
-      "markers[0].longitude": location[0],
-      "markers[0].latitude": location[1],
-    });
   },
 });
