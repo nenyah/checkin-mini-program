@@ -5,8 +5,6 @@ var app = getApp();
 function request(options) {
   let token, headers;
   if (app.globalData.userInfo) {
-    console.log("执行网络请求", app.globalData.userInfo.token);
-
     token = app.globalData.userInfo.token;
     headers = {
       "Content-Type": "application/json",
