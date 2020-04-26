@@ -29,12 +29,12 @@ Page({
   onLoad() {
     // 首页加载 初始化数据
     // 日期 时间 地址 历史签到 签到次数
+    this._getUserInfo();
     // 获取当前时间
     this._getCurrentTime();
     this._getLoncation();
-    this._getRecord();
+    // this._getRecord();
     this._checkRecordTimes();
-    this._getUserInfo();
   },
   onReady() {
     // 页面加载完成
@@ -54,14 +54,14 @@ Page({
    *@function 获取当日签到次数
    */
   _checkRecordTimes() {
-    const checkTimes = getStorageSync("Record").data;
-    console.log(checkTimes);
+    const record = app.globalData.records;
 
-    if (checkTimes) {
-      this.setData({
-        checkTimes: checkTimes.signInHisPage.records[0].quantity,
-      });
-    }
+    if (!record) return;
+    const checkTimes = record[0].quantity;
+    console.log("获取当日签到次数", checkTimes);
+    this.setData({
+      checkTimes,
+    });
   },
 
   /**
@@ -136,18 +136,16 @@ Page({
    *获取用户信息
    *
    */
-  _getUserInfo() {
-    let userinfo = getStorageSync("userinfo");
-    if (!userinfo.data) {
+  async _getUserInfo() {
+    let userinfo = await app.globalData.userInfo;
+
+    if (!userinfo) {
       // 获取用户信息
-      console.log("没有用户缓存，执行获取用户");
+      console.log("没有用户信息，执行获取用户");
       getUserInfo()
         .then((res) => {
           console.log("用户信息", res);
-          setStorageSync({
-            key: "userinfo",
-            data: res,
-          });
+          app.globalData.userInfo = res;
           this._getRecord();
         })
         .catch((err) => console.error("获取用户信息报错", err));
@@ -159,23 +157,21 @@ Page({
    *
    */
   async _getRecord() {
-    const record = await getStorage("Record");
+    const record = await app.globalData.records;
 
-    if (
-      !record.data ||
-      record.data.signInHisPage.records[0].time.substr(0, 4) != this.data.ctime
-    ) {
-      const userinfo = await getStorage("userinfo");
-      const userIds = userinfo.data.user.dingUserId;
+    if (!record) {
+      const userinfo = await app.globalData.userInfo;
+      const userIds = userinfo.user.dingUserId;
+      console.log("获取记录时，用户信息", userIds);
 
-      getRecord({ userIds })
+      return getRecord({ userIds })
         .then((res) => {
           console.log("首页获取当日历史信息", res);
           res.currentTime = this.data.currentTime;
-          setStorageSync({
-            key: "Record",
-            data: res,
-          });
+          app.globalData.records = res;
+          if (!res.signInHisPage.records.length) {
+            return;
+          }
           this.setData({
             checkTimes: res.signInHisPage.records[0].quantity,
           });
@@ -183,7 +179,7 @@ Page({
         .catch((err) => console.error(err));
     }
     this.setData({
-      checkTimes: record.data.signInHisPage.records[0].quantity,
+      checkTimes: record.signInHisPage.records[0].quantity,
     });
   },
 });

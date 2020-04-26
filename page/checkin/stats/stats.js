@@ -72,7 +72,7 @@ const items = {
     },
   ],
 };
-
+var app = getApp();
 Page({
   data: {
     tabs: [
@@ -101,6 +101,13 @@ Page({
     console.log("统计页获得部门数据", data);
     this._getOwnDeptRecord({ date: data });
   },
+  onToHistory() {
+    console.log('到历史页面');
+    my.navigateTo({
+      url: "/page/checkin/checkin-history/checkin-history?page=stats&items="+JSON.stringify(this.data.items),
+    });
+    
+  },
   async _getOwnDeptRecord(opt) {
     getOwnDeptRecord({ ...opt })
       .then((res) => {
@@ -117,7 +124,7 @@ Page({
       .catch((err) => console.error(err));
   },
   async _getDeptInfo(opt) {
-    const dingUserId = await getStorageSync("userinfo").data.user.dingUserId;
+    const dingUserId = await app.globalData.userInfo.user.dingUserId;
     getDeptInfo({ dingUserId, ...opt })
       .then((res) => {
         console.log(res);

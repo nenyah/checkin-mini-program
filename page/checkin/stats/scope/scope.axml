@@ -10,7 +10,7 @@
     <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
   </view>
 </view>
-<view class="flex flex-row-reverse">
+<view class="flex flex-row-reverse" onTap="goToHistory">
   <view class="color-primary">签到历史分布
     <view class="fa fa-angle-right mx-1" aria-hidden="true"></view>
   </view>

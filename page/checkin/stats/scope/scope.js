@@ -8,6 +8,7 @@ Component({
     dept: "",
     onGetNewDate: (day) => console.log(day),
     onGetNewDept: (dept) => console.log(dept),
+    onToHistory: () => {},
   },
   didMount() {
     my.getStorage({
@@ -53,6 +54,9 @@ Component({
         },
         fail: (err) => {},
       });
+    },
+    goToHistory() {
+      this.props.onToHistory();
     },
   },
 });

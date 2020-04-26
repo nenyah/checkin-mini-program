@@ -12,9 +12,9 @@
       <view class="text-center m-2">
         <image a:if="{{item.avarta}}" mode="aspectFill" src="{{item.avarta}}" class="w-12 h-12 circle my-1" />
         <view a:else class="w-12 h-12 circle bg-color-primary color-white my-1 flex justify-center items-center">
-          {{item.user.length>2?item.user.substr(0,2):item.user}}
+          {{item.userName.length>2?item.userName.substr(0,2):item.userName}}
         </view>
-        <view>{{item.user}}</view>
+        <view>{{item.userName}}</view>
       </view>
     </block>
   </view>

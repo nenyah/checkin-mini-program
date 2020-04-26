@@ -1,0 +1,4 @@
+.noresult {
+    background: url(/assets/images/error-view/empty.png);
+    background-size: 100%;
+}

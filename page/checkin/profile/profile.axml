@@ -27,7 +27,7 @@
         </view>
       </view>
     </view>
-    <view class="color-primary self-end">
+    <view class="color-primary self-end" onTap="goToHistory">
       签到历史分布 >
     </view>
   </view>

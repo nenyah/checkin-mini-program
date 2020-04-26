@@ -48,21 +48,29 @@ Page({
       )}`,
     });
   },
+  goToHistory() {
+    console.log("到历史页面");
+    my.navigateTo({
+      url:
+        "/page/checkin/checkin-history/checkin-history?page=profile&items=" +
+        JSON.stringify(this.data.items),
+    });
+  },
   _getMonthRecord(options) {
-    getMonthRecord({ ...options})
+    getMonthRecord({ ...options })
       .then((res) => {
         console.log("月记录", res);
-        let items = res
-        items.signInMonthDTOS.forEach(element => {
-          element.date = moment(element.date).format('MM月DD日');
-          element.signInHisVOS.forEach(element => {
+        let items = res;
+        items.signInMonthDTOS.forEach((element) => {
+          element.date = moment(element.date).format("MM月DD日");
+          element.signInHisVOS.forEach((element) => {
             element.place = element.detailPlace;
-            return  element
+            return element;
           });
-          return element
+          return element;
         });
         this.setData({
-          items:res,
+          items: res,
         });
       })
       .catch((err) => console.error(err));

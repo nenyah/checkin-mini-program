@@ -34,6 +34,7 @@ App({
   },
   globalData: {
     userInfo: null,
+    records: null,
     checkinTimes: 0,
   },
   /**

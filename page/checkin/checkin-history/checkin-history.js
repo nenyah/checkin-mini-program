@@ -1,28 +1,32 @@
+import { markers } from "/config/api";
 Page({
   data: {
     today: "2020-04-15",
-    checkininfo: [
-      {
-        user: "张三",
-        latitude: 29.904152,
-        longitude: 121.795956,
-      },
-      {
-        user: "李四",
-        avarta: "/assets/images/pan_avatar.jpg",
-        latitude: 29.903595,
-        longitude: 121.79692,
-      },
-    ],
+    checkininfo: [],
     history: false,
     markers: [],
     latitude: 29.903595,
     longitude: 121.796925,
   },
   onLoad(query) {
-    // 页面加载时获取历史数据
-    const date = query.date || new Date();
-    this._getHistory(date);
+    const page = query.page;
+    if (page == "stats") {
+      const checkininfo = JSON.parse(query.items).signInHisPage.records;
+      console.log("历史页面", checkininfo);
+      if (!checkininfo.length) {
+        return;
+      }
+      this._parseItem(checkininfo);
+    } else {
+      console.log("历史页面", JSON.parse(query.items).signInMonthDTOS[0]);
+      const checkininfo = JSON.parse(query.items).signInMonthDTOS[0]
+        .signInHisVOS;
+
+      if (!checkininfo.length) {
+        return;
+      }
+      this._parseItem(checkininfo);
+    }
   },
   onShow() {
     // 页面显示
@@ -36,28 +40,24 @@ Page({
   onUnload() {
     // 页面被关闭
   },
-  _getHistory(date) {
-    // TODO: 从服务器中下载还是从缓存中获取
-    console.log("历史记录", date);
-    let checkininfo = this.data.checkininfo;
-    const markers = checkininfo.map((el, idx) => {
-      console.log(el, idx);
+  _parseItem(checkininfo) {
+    // 处理markers
+    const mymarkers = checkininfo.map((el, idx) => {
       return {
-        iconPath: "/assets/images/location.png",
+        ...markers[0],
         id: idx + 1,
-        latitude: el.latitude,
         longitude: el.longitude,
-        width: 38,
-        height: 38,
+        latitude: el.latitude,
       };
     });
     const latitude = checkininfo[0].latitude;
     const longitude = checkininfo[0].longitude;
     this.setData({
+      checkininfo,
+      markers: mymarkers,
       latitude,
       longitude,
       history: true,
-      markers,
     });
   },
 });
