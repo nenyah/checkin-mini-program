@@ -1,5 +1,3 @@
-import us from "lodash/core";
-
 function getStorage(key) {
   return new Promise((resolve, reject) => {
     my.getStorage({

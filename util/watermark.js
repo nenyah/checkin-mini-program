@@ -1,6 +1,6 @@
 function watermark(canvasid, src, msg = "水印") {
   let ctx = my.createCanvasContext(canvasid);
-  dd.getImageInfo({
+  my.getImageInfo({
     src: src,
     success: res => {
       console.log(JSON.stringify(res));

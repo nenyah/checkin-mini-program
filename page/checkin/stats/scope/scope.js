@@ -23,7 +23,7 @@ Component({
   didUnmount() {},
   methods: {
     chooseDate() {
-      dd.datePicker({
+      my.datePicker({
         format: "yyyy-MM-dd",
         currentDate: this.data.today,
         success: (res) => {

@@ -1,4 +1,4 @@
-const ApiRootUrl = "http://192.168.10.115:9104/ding/";
+const ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
 // 地图标签
 const markers = [
   {

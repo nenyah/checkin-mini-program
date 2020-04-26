@@ -31,7 +31,7 @@ Page({
       success: (res) => {
         console.info(res);
         // TODO:打水印
-        // dd.getImageInfo({
+        // my.getImageInfo({
         //   src: res.filePaths[0],
         //   success: res => {
         //     console.log(JSON.stringify(res));
@@ -150,7 +150,7 @@ Page({
       .catch((err) => console.error(err));
   },
   _sucessAnimation() {
-    var animation = dd.createAnimation({
+    var animation = my.createAnimation({
       duration: 1000,
       timeFunction: "ease-in-out",
     });

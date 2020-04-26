@@ -6,8 +6,8 @@ import { debug } from "/config/api";
 App({
   onLaunch(options) {
     console.log("App Launch", options);
-    console.log("getSystemInfoSync", dd.getSystemInfoSync());
-    console.log("SDKVersion", dd.SDKVersion);
+    console.log("getSystemInfoSync", my.getSystemInfoSync());
+    console.log("SDKVersion", my.SDKVersion);
   },
 
   onShow() {
@@ -22,13 +22,13 @@ App({
     my.removeStorage({
       key: "selectedClient",
       success: function () {
-        dd.alert({ content: "删除选择用户成功" });
+        my.alert({ content: "删除选择用户成功" });
       },
     });
     my.removeStorage({
       key: "checkInDate",
       success: function () {
-        dd.alert({ content: "删除签到时间成功" });
+        my.alert({ content: "删除签到时间成功" });
       },
     });
   },

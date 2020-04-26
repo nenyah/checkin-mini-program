@@ -1,10 +1,10 @@
 function getLocation() {
-  dd.showLoading({
+  my.showLoading({
     title: "数据加载中ing",
   });
 
   return new Promise((resolve, reject) => {
-    dd.getLocation({
+    my.getLocation({
       success: (res) => {
         resolve(res);
       },
@@ -12,7 +12,7 @@ function getLocation() {
         reject(err);
       },
       complete: (res) => {
-        dd.hideLoading();
+        my.hideLoading();
       },
     });
   });
