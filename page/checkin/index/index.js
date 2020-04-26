@@ -9,7 +9,6 @@ import {
   setStorageSync,
 } from "/service/storage";
 import { companyName, markers } from "/config/api";
-import _ from "lodash/core";
 
 var app = getApp();
 
@@ -33,7 +32,6 @@ Page({
     // 获取当前时间
     this._getCurrentTime();
     this._getLoncation();
-    // this._getRecord();
     this._checkRecordTimes();
   },
   onReady() {
@@ -43,10 +41,12 @@ Page({
     // 页面显示
     this._getClient();
     this._getLoncation();
+    this._getRecord();
+    this._checkRecordTimes();
   },
   adjustLocation() {
     my.navigateTo({
-      url: "../location-adjust/location-adjust",
+      url: "/page/checkin/location-adjust/location-adjust",
     });
   },
   /**
@@ -168,7 +168,7 @@ Page({
         .then((res) => {
           console.log("首页获取当日历史信息", res);
           res.currentTime = this.data.currentTime;
-          app.globalData.records = res;
+          app.globalData.records = res.signInHisPage.records;
           if (!res.signInHisPage.records.length) {
             return;
           }

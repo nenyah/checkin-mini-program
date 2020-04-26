@@ -1,7 +1,7 @@
 <view>
   <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-3-5 justify-center shadow" onTap="choosePerson">
     <view class="fa fa-globe mx-1" aria-hidden="true"></view>
-    <view>范围：{{dept}}</view>
+    <view>范围：{{userNum>0?userNum+'人':dept.deptName}}</view>
     <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
   </view>
   <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-2-5 justify-center shadow" onTap="chooseDate">

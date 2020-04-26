@@ -17,7 +17,7 @@ function getRecord(options) {
     .map((key) => key + "=" + options[key])
     .join("&");
   return request({
-    url: CheckInRecord + `?${queryString}`,
+    url: CheckInRecord + `?${encodeURI(queryString)}`,
     method: "GET",
   });
 }

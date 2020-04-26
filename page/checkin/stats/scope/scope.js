@@ -6,8 +6,10 @@ Component({
   },
   props: {
     dept: "",
+    userNum: 0,
     onGetNewDate: (day) => console.log(day),
     onGetNewDept: (dept) => console.log(dept),
+    onGetNewUser: (users) => console.log(users),
     onToHistory: () => {},
   },
   didMount() {
@@ -51,6 +53,8 @@ Component({
         responseUserOnly: true, //返回人，或者返回人和部门
         success: (res) => {
           console.log("选人结束", res);
+
+          this.props.onGetNewUser(res.users);
         },
         fail: (err) => {},
       });

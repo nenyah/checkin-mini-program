@@ -7,6 +7,7 @@ Page({
     markers: [],
     latitude: 29.903595,
     longitude: 121.796925,
+    pageProfile: false,
   },
   onLoad(query) {
     const page = query.page;
@@ -25,6 +26,9 @@ Page({
       if (!checkininfo.length) {
         return;
       }
+      this.setData({
+        pageProfile: true,
+      });
       this._parseItem(checkininfo);
     }
   },

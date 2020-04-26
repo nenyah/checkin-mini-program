@@ -2,16 +2,6 @@
 # yarn lockfile v1
 
 
-lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.15.tgz?cache=0&sync_timestamp=1571657272199&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
-
-mini-ali-ui@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npm.taobao.org/mini-ali-ui/download/mini-ali-ui-1.0.6.tgz#46ed787ca4c30eabc81d7190faa25d3d7931651d"
-  integrity sha1-Ru14fKTDDqvIHXGQ+qJdPXkxZR0=
-
 mini-antui@^0.4.35:
   version "0.4.35"
   resolved "https://registry.npm.taobao.org/mini-antui/download/mini-antui-0.4.35.tgz#e32d8df1c64ac558f8471db2e46073b20de4dd2c"

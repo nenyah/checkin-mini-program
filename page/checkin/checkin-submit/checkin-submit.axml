@@ -55,4 +55,4 @@
 
 
 <button size="default" type="default" class="border-none bg-color-white color-primary w-full fixed pin-b shadow"
-  onTap="createRecord">提交</button>
+  disabled={{disabled}} onTap="createRecord">提交</button>

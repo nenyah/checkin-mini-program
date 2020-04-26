@@ -12,6 +12,7 @@ Page({
     companyName: companyName,
     animationInfo: {},
     isShow: false,
+    disabled: false,
   },
   onLoad(query) {
     // 页面加载
@@ -31,12 +32,6 @@ Page({
       success: (res) => {
         console.info(res);
         // TODO:打水印
-        // my.getImageInfo({
-        //   src: res.filePaths[0],
-        //   success: res => {
-        //     console.log(JSON.stringify(res));
-        //   }
-        // });
         let picUrls = this.data.picUrls;
         picUrls.push(res.filePaths[0]);
         this.setData({
@@ -80,6 +75,10 @@ Page({
    *@function 创建签到信息
    */
   createRecord() {
+    const disabled = this.data.disabled;
+    if (disabled) {
+      return;
+    }
     let checkInRecord = {
       detailPlace: this.data.location.address,
       imageList: [
@@ -96,7 +95,9 @@ Page({
       timeStamp: this.data.timeStamp,
     };
     console.log(checkInRecord);
-
+    this.setData({
+      disabled: true,
+    });
     setRecord(checkInRecord)
       .then((res) => {
         console.log("上传签到信息", res);
