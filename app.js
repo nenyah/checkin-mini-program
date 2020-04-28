@@ -36,6 +36,7 @@ App({
     userInfo: null,
     records: null,
     selectedClient: null,
+    selectedLocation: null,
     checkinTimes: 0,
     location: null,
   },

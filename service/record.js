@@ -1,4 +1,4 @@
-import { request } from "./network";
+import { request, uploadFile } from "./network";
 import {
   CheckInRecord,
   StaffDayRecord,
@@ -21,6 +21,7 @@ function getRecord(options) {
     method: "GET",
   });
 }
+
 /**
  *@function 上传签到信息
  *
@@ -34,6 +35,13 @@ function setRecord(options) {
   });
 }
 
+function setRecordFile(options) {
+  return uploadFile({
+    url: CheckInRecord,
+    filePath: options.filePath,
+    formData: options.formData,
+  });
+}
 /**
  *@function 获取用户固定日期的签到记录
  *
@@ -86,4 +94,5 @@ module.exports = {
   getOneDayRecord,
   getMonthRecord,
   getOwnDeptRecord,
+  setRecordFile,
 };

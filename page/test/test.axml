@@ -1,1 +1,1 @@
-<view class="sucess-stamp">测试</view>
+<view class="sucess-stamp" onTap="test">测试</view>

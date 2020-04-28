@@ -69,6 +69,17 @@ Page({
    *@function 获取当前定位信息
    */
   _getLoncation() {
+    if (app.globalData.selectedLocation) {
+      const res = app.globalData.selectedLocation;
+      this.setData({
+        longitude: res.longitude,
+        latitude: res.latitude,
+        address: res.address,
+        "markers[0].id": 1,
+        "markers[0].longitude": res.longitude,
+        "markers[0].latitude": res.latitude,
+      });
+    }
     getLocation()
       .then((res) => {
         console.log("获取地址成功", res);
@@ -87,40 +98,6 @@ Page({
         });
       })
       .catch((err) => console.error(err));
-
-    // getStorage("location").then((res) => {
-    //   if (!res.data) {
-    //     // 没有缓存就重新定位获取地址信息
-    //     getLocation().then((res) => {
-    //       this.setData({
-    //         longitude: res.longitude,
-    //         latitude: res.latitude,
-    //         address: res.address,
-    //         "markers[0].id": 1,
-    //         "markers[0].longitude": res.longitude,
-    //         "markers[0].latitude": res.latitude,
-    //       });
-    //       // 同步存入缓存
-    //       setStorageSync({
-    //         key: "location",
-    //         data: {
-    //           longitude: res.longitude,
-    //           latitude: res.latitude,
-    //           address: res.address,
-    //         },
-    //       });
-    //     });
-    //   } else {
-    //     // 有缓存就直接用缓存数据渲染页面
-    //     this.setData({
-    //       longitude: res.data.longitude,
-    //       latitude: res.data.latitude,
-    //       address: res.data.address,
-    //       "markers[0].longitude": res.data.longitude,
-    //       "markers[0].latitude": res.data.latitude,
-    //     });
-    //   }
-    // });
   },
   /**
    *@author steven

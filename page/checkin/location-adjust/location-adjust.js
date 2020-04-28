@@ -62,7 +62,7 @@ Page({
 
     const address = selectItem.title;
     const location = selectItem.location.split(",");
-    app.globalData.location = {
+    app.globalData.selectedLocation = {
       longitude: Number(location[0]),
       latitude: Number(location[1]),
       address: address,

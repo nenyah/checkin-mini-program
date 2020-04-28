@@ -25,5 +25,10 @@ Component({
         });
       }
     },
+    goTest(){
+      my.navigateTo({
+        url:'/page/test/test'
+      })
+    },
   },
 });

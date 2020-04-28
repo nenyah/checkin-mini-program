@@ -1,5 +1,5 @@
 import { getStorage } from "../../../service/storage";
-import { setRecord } from "../../../service/record";
+import { setRecord, setRecordFile } from "../../../service/record";
 import { companyName } from "/config/api";
 import moment from "moment";
 var app = getApp();
@@ -90,13 +90,13 @@ Page({
     if (disabled) {
       return;
     }
+    const imageList = this.data.picUrls;
     let checkInRecord = {
       detailPlace: this.data.location.address,
-      imageList: this.data.picUrls,
       latitude: `${this.data.location.latitude}`,
       longitude: `${this.data.location.longitude}`,
       org: {
-        id: this.data.client.id,
+        id: Number(this.data.client.id),
         name: this.data.client.name,
       },
       place: this.data.location.name,
@@ -107,19 +107,28 @@ Page({
     this.setData({
       disabled: true,
     });
-    setRecord(checkInRecord)
+    setRecordFile({
+      filePath: imageList[0],
+      formData: checkInRecord,
+    })
       .then((res) => {
-        console.log("上传签到信息", res);
-        app.globalData.selectedClient = null;
-        // 签到动画
-        this._sucessAnimation();
-        setTimeout(() => {
-          my.reLaunch({
-            url: "../index/index",
-          });
-        }, 1000);
+        console.log("返回数据", res);
       })
       .catch((err) => console.error(err));
+
+    // setRecord(checkInRecord)
+    //   .then((res) => {
+    //     console.log("上传签到信息", res);
+    //     app.globalData.selectedClient = null;
+    //     // 签到动画
+    //     this._sucessAnimation();
+    //     setTimeout(() => {
+    //       my.reLaunch({
+    //         url: "../index/index",
+    //       });
+    //     }, 1000);
+    //   })
+    //   .catch((err) => console.error(err));
   },
   /**
    *@author steven
