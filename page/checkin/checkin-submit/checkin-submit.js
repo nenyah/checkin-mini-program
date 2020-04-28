@@ -1,6 +1,6 @@
 import { getStorage } from "../../../service/storage";
 import { setRecord, setRecordFile } from "../../../service/record";
-import { companyName } from "/config/api";
+import { companyName, compressLevel } from "/config/api";
 import moment from "moment";
 var app = getApp();
 Page({
@@ -40,10 +40,17 @@ Page({
       sourceType: ["camera"],
       success: (res) => {
         console.info("拍照成功", res);
-        let picUrls = this.data.picUrls;
-        picUrls.push(res.filePaths[0]);
-        this.setData({
-          picUrls,
+        my.compressImage({
+          apFilePaths: res.apFilePaths,
+          level: compressLevel,
+          success: (res) => {
+            console.log("压缩成功", res);
+            let picUrls = this.data.picUrls;
+            picUrls.push(res.filePaths[0]);
+            this.setData({
+              picUrls,
+            });
+          },
         });
       },
     });
