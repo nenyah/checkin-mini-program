@@ -5,7 +5,6 @@ function getAuthCode() {
   return new Promise((resolve, reject) => {
     my.getAuthCode({
       success: (res) => {
-        console.log(res);
         resolve(res);
       },
       fail: (err) => {

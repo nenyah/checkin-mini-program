@@ -1,6 +1,7 @@
-const ApiRootUrl = "http://192.168.10.115:9102/ding/";
+const ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
+//www2.huadongbio.com:9102/swagger-ui.html
 // 地图标签
-const markers = [
+http: const markers = [
   {
     iconPath: "/assets/images/location.png",
     width: 26,
@@ -17,6 +18,7 @@ module.exports = {
   StaffDayRecord: ApiRootUrl + "signin/oneDay", // 指定用户指定日期签到信息
   StaffMonthRecord: ApiRootUrl + "signin/monthStatistic", // 指定用户当月签到信息
   DeptRecord: ApiRootUrl + "signin/ownDept", //所在部门签到信息
+  UploadFile: ApiRootUrl + "signin/uploadImg", //上传图片
 
   timeout: 5000, // 超时
 

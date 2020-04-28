@@ -109,26 +109,38 @@ Page({
     });
     setRecordFile({
       filePath: imageList[0],
-      formData: checkInRecord,
+      formData: { detailPlace: checkInRecord.detailPlace },
     })
       .then((res) => {
-        console.log("返回数据", res);
-      })
-      .catch((err) => console.error(err));
+        console.log("返回数据", JSON.parse(res));
+        checkInRecord.imageUrlList = JSON.parse(res);
+        console.log("ready to upload", checkInRecord);
 
-    // setRecord(checkInRecord)
-    //   .then((res) => {
-    //     console.log("上传签到信息", res);
-    //     app.globalData.selectedClient = null;
-    //     // 签到动画
-    //     this._sucessAnimation();
-    //     setTimeout(() => {
-    //       my.reLaunch({
-    //         url: "../index/index",
-    //       });
-    //     }, 1000);
-    //   })
-    //   .catch((err) => console.error(err));
+        setRecord(checkInRecord)
+          .then((res) => {
+            console.log("上传签到信息", res);
+            app.globalData.selectedClient = null;
+            // 签到动画
+            this._sucessAnimation();
+            setTimeout(() => {
+              my.reLaunch({
+                url: "../index/index",
+              });
+            }, 1000);
+          })
+          .catch((err) => {
+            console.error(err);
+            this.setData({
+              disabled: false,
+            });
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setData({
+          disabled: false,
+        });
+      });
   },
   /**
    *@author steven
@@ -161,13 +173,9 @@ Page({
    *@function 获取地址
    */
   _getAddress() {
-    getStorage("location")
-      .then((res) => {
-        this.setData({
-          location: res.data,
-        });
-      })
-      .catch((err) => console.error(err));
+    this.setData({
+      location: app.globalData.selectedLocation,
+    });
   },
   _sucessAnimation() {
     var animation = my.createAnimation({

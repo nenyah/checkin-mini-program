@@ -47,18 +47,11 @@ function request(options) {
 }
 
 function uploadFile(options) {
-  let token, headers;
+  let token, header;
   if (app.globalData.userInfo) {
     token = app.globalData.userInfo.token;
-    headers = {
-      "Content-Type": "application/json",
+    header = {
       Authorization: token,
-      ...options.headers,
-    };
-  } else {
-    headers = {
-      "Content-Type": "application/json",
-      ...options.headers,
     };
   }
   return new Promise((resolve, reject) => {
@@ -70,7 +63,7 @@ function uploadFile(options) {
       fileName: "file",
       filePath: options.filePath,
       formData: options.formData || {},
-      headers: headers,
+      header: header,
       success: (res) => {
         // console.log("获取数据成功", res);
         if (!res) {

@@ -4,6 +4,7 @@ import {
   StaffDayRecord,
   StaffMonthRecord,
   DeptRecord,
+  UploadFile,
 } from "../config/api";
 
 /**
@@ -35,9 +36,15 @@ function setRecord(options) {
   });
 }
 
+/**
+ *@function 上传文件
+ *
+ * @param {*} options
+ * @returns
+ */
 function setRecordFile(options) {
   return uploadFile({
-    url: CheckInRecord,
+    url: UploadFile,
     filePath: options.filePath,
     formData: options.formData,
   });
