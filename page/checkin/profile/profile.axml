@@ -1,5 +1,5 @@
-<view class="sep-line bg-color-white py-2">
-  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2" onTap="pickMonth">
+<view class="sep-line bg-color-white py-2 map-bg">
+  <view class="flex border-1 radius-5 w-32 justify-center p-1 m-2 bg-color-white color-label" onTap="pickMonth">
     <view class="fa fa-calendar mx-1" aria-hidden="true">
     </view>
     <view>
@@ -49,10 +49,16 @@
         </view>
         <view class="my-2">
           <view class="text-sm color-label my-2">签到图片</view>
-          <view>
+          <view class="flex">
+            <block a:for="{{card.imgUrlList}}" a:for-item="pic">
+              <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 mx-1 bg-color-white" data-src="{{pic}}"
+                catchTap="previewImg" key="{{pic}}" />
+            </block>
+          </view>
+          <!-- <view>
             <image style="background-color: #eeeeee; width: 100rpx; height:100rpx;" mode="aspectFill"
               src='{{card.imgUrl}}' />
-          </view>
+          </view>-->
         </view>
       </view>
     </block>

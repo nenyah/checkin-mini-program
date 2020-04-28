@@ -1,5 +1,4 @@
 import { getAround } from "/libs/amap-dd";
-import { getStorageSync, setStorageSync } from "/service/storage";
 var app = getApp();
 Page({
   data: {

@@ -1,4 +1,11 @@
-const ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
+let dev = true
+let ApiRootUrl;
+if (dev) {
+  ApiRootUrl = "http://192.168.10.115:9102/ding/";
+} else {
+  ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
+}
+;
 
 // 地图标签
 http: const markers = [

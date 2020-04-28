@@ -1,5 +1,5 @@
 <view class="bg-color-white h-full">
-  <view class="text-center my-2">
+  <view class="text-center py-2">
     <view class="fa fa-shield color-green mx-2" aria-hidden="true"></view>
     以下定位信息均为员工签到时候主动上传
   </view>

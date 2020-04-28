@@ -48,6 +48,12 @@ Page({
       )}`,
     });
   },
+  previewImg(e) {
+    console.log("预览图片", e);
+    my.previewImage({
+      urls: [e.currentTarget.dataset.src],
+    });
+  },
   goToHistory() {
     console.log("到历史页面");
     my.navigateTo({

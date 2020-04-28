@@ -1,3 +1,9 @@
 .bg-border {
     border: #eeeeee solid 1rpx;
 }
+
+.map-bg {
+    background: url('/assets/images/map_bg.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
