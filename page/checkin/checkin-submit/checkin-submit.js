@@ -33,18 +33,10 @@ Page({
       sourceType: ["camera"],
       success: (res) => {
         console.info("拍照成功", res);
-        my.compressImage({
-          filePaths: res.filePaths,
-          compressLevel: 1,
-          success: (res) => {
-            console.log("压缩成功返回", JSON.stringify(res));
-            // // TODO:打水印
-            let picUrls = this.data.picUrls;
-            picUrls.push(res.filePaths[0]);
-            this.setData({
-              picUrls,
-            });
-          },
+        let picUrls = this.data.picUrls;
+        picUrls.push(res.filePaths[0]);
+        this.setData({
+          picUrls,
         });
       },
     });

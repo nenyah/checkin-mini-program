@@ -1,6 +1,5 @@
-const ApiRootUrl = "http://192.168.10.115:9102/ding/";
+const ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
 
-//www2.huadongbio.com:9102/swagger-ui.html
 // 地图标签
 http: const markers = [
   {
