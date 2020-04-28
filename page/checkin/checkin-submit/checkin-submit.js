@@ -32,12 +32,19 @@ Page({
       count: 1,
       sourceType: ["camera"],
       success: (res) => {
-        console.info(res);
-        // TODO:打水印
-        let picUrls = this.data.picUrls;
-        picUrls.push(res.filePaths[0]);
-        this.setData({
-          picUrls,
+        console.info("拍照成功", res);
+        my.compressImage({
+          filePaths: res.filePaths,
+          compressLevel: 1,
+          success: (res) => {
+            console.log("压缩成功返回", JSON.stringify(res));
+            // // TODO:打水印
+            let picUrls = this.data.picUrls;
+            picUrls.push(res.filePaths[0]);
+            this.setData({
+              picUrls,
+            });
+          },
         });
       },
     });
@@ -85,7 +92,7 @@ Page({
    *@author steven
    *@function 创建签到信息
    */
-  createRecord() {
+  async createRecord() {
     const disabled = this.data.disabled;
     if (disabled) {
       return;
@@ -113,33 +120,31 @@ Page({
     this.setData({
       disabled: true,
     });
-    setRecordFile({
-      filePath: imageList[0],
-      formData: { detailPlace: checkInRecord.detailPlace },
-    })
-      .then((res) => {
-        console.log("返回数据", JSON.parse(res));
-        checkInRecord.imageUrlList = JSON.parse(res);
-        console.log("ready to upload", checkInRecord);
+    let response = [];
+    for (let i in imageList) {
+      console.log(`第${Number(i) + 1}张照片：`, imageList[i]);
+      let res = await setRecordFile({
+        filePath: imageList[i],
+        formData: { detailPlace: checkInRecord.detailPlace },
+      });
+      response.push(res);
+    }
+    console.log("提交页:照片提交成功返回数据", response);
 
-        setRecord(checkInRecord)
-          .then((res) => {
-            console.log("上传签到信息", res);
-            app.globalData.selectedClient = null;
-            // 签到动画
-            this._sucessAnimation();
-            setTimeout(() => {
-              my.reLaunch({
-                url: "../index/index",
-              });
-            }, 1000);
-          })
-          .catch((err) => {
-            console.error(err);
-            this.setData({
-              disabled: false,
-            });
+    checkInRecord.imageUrlList = response;
+    console.log("ready to upload", checkInRecord);
+
+    setRecord(checkInRecord)
+      .then((res) => {
+        console.log("提交页:上传签到信息", res);
+        app.globalData.selectedClient = null;
+        // 签到动画
+        this._sucessAnimation();
+        setTimeout(() => {
+          my.reLaunch({
+            url: "../index/index",
           });
+        }, 1000);
       })
       .catch((err) => {
         console.error(err);

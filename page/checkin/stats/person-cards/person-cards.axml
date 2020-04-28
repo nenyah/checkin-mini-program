@@ -33,9 +33,12 @@
           </view>
           <view a:if="{{item.imgUrlList.length}}">
             <view class="color-label font-bold my-2">签到图片</view>
-            <block a:for="{{item.imgUrlList}}" a:for-item="pic">
-              <image src="{{pic}}" mode="aspectFill" class="w-16 h-16" data-src="{{pic}}" catchTap="previewImg" />
-            </block>
+            <view class="flex">
+              <block a:for="{{item.imgUrlList}}" a:for-item="pic">
+                <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 mx-1" data-src="{{pic}}" catchTap="previewImg"
+                  key="{{pic}}" />
+              </block>
+            </view>
           </view>
         </view>
       </view>

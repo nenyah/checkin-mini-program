@@ -65,7 +65,7 @@ function uploadFile(options) {
       formData: options.formData || {},
       header: header,
       success: (res) => {
-        // console.log("获取数据成功", res);
+        console.log("获取数据成功", res);
         if (!res) {
           reject({
             errCode: -1,
@@ -73,7 +73,7 @@ function uploadFile(options) {
             data: {},
           });
         } else {
-          resolve(res.data);
+          resolve(JSON.parse(res.data));
         }
       },
       fail: (err) => {
