@@ -1,6 +1,6 @@
 import moment from "moment";
 import { getUserInfo } from "/service/login";
-import { getRecord } from "/service/record";
+import { getRecord, getTodayCount } from "/service/record";
 import { getLocation } from "/service/location";
 import {
   getStorage,
@@ -31,13 +31,9 @@ Page({
     // 获取当前时间
     this._getCurrentTime();
   },
-  onReady() {
-    // 页面加载完成
-    this._getUserInfo();
-  },
   onShow() {
     // 页面显示
-
+    this._getUserInfo();
     this._getClient();
     this._getLoncation();
   },
@@ -52,10 +48,7 @@ Page({
    *@function 获取当日签到次数
    */
   async _checkRecordTimes() {
-    const record = app.globalData.records;
-
-    if (!record) return;
-    const checkTimes = record[0].quantity;
+    const checkTimes = await getTodayCount();
     console.log("首页：获取当日签到次数", checkTimes);
     this.setData({
       checkTimes,
@@ -96,7 +89,20 @@ Page({
             "markers[0].latitude": res.latitude,
           });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          if (err.error === 4) {
+            my.showToast({
+              type: "fail",
+              content: "还没有打开定位哦！",
+            });
+          } else if (err.error === 12) {
+            my.showToast({
+              type: "fail",
+              content: "网络异常，请检查网络！",
+            });
+          }
+        });
     }
   },
   /**
@@ -142,35 +148,37 @@ Page({
         .then((res) => {
           console.log("首页：获得用户信息", res);
           app.globalData.userInfo = res;
-          this._getRecord();
+          // this._getRecord();
+          this._checkRecordTimes();
         })
         .catch((err) => console.error("首页：获取用户信息报错", err));
     }
-    this._getRecord();
+    // this._getRecord();
+    this._checkRecordTimes();
   },
 
   /**
    * 获取历史信息
    *
    */
-  async _getRecord() {
-    const userinfo = app.globalData.userInfo;
-    const userIds = userinfo.user.dingUserId;
-    console.log("首页：获取记录时，用户信息", userIds);
+  // async _getRecord() {
+  //   const userinfo = app.globalData.userInfo;
+  //   const userIds = userinfo.user.dingUserId;
+  //   console.log("首页：获取记录时，用户信息", userIds);
 
-    getRecord({ userIds })
-      .then((res) => {
-        console.log("首页：获取当日历史信息", res);
-        res.currentTime = this.data.currentTime;
-        app.globalData.records = res.signInHisPage.records;
-        if (!res.signInHisPage.records.length) {
-          return;
-        }
-        this._checkRecordTimes();
-        // this.setData({
-        //   checkTimes: res.signInHisPage.records[0].quantity,
-        // });
-      })
-      .catch((err) => console.error(err));
-  },
+  //   getRecord({ userIds })
+  //     .then((res) => {
+  //       console.log("首页：获取当日历史信息", res);
+  //       res.currentTime = this.data.currentTime;
+  //       app.globalData.records = res.signInHisPage.records;
+  //       if (!res.signInHisPage.records.length) {
+  //         return;
+  //       }
+  //       this._checkRecordTimes();
+  //       // this.setData({
+  //       //   checkTimes: res.signInHisPage.records[0].quantity,
+  //       // });
+  //     })
+  //     .catch((err) => console.error(err));
+  // },
 });

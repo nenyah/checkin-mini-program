@@ -3,5 +3,5 @@
     onGetNewUser="onGetNewUser" userNum="{{userNum}}"></s-scope>
   <s-tab-control tabs="{{tabs}}" activeTab="{{activeTab}}" onTabClick="onTabClick"></s-tab-control>
   <s-person-cards items="{{items}}" activeIndex="{{activeTab}}"></s-person-cards>
-  <s-button></s-button>
+  <!-- <s-button></s-button> -->
 </view>

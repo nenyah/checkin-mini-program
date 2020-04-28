@@ -4,6 +4,7 @@
         "s-choose-person": "./choose-person/choose-person",
         "s-check": "./check-icon/check-icon"
     },
-    "defaultTitle": "签到"
-    
+    "defaultTitle": "签到",
+    "pullRefresh": true
+
 }

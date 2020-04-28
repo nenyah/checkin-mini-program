@@ -6,10 +6,8 @@ Component({
     activeIndex: 1,
   },
   didMount() {
-    console.log(this.props.activeIndex);
   },
   didUpdate() {
-    console.log(this.props.activeIndex);
   },
   didUnmount() {},
   methods: {

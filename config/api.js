@@ -1,12 +1,10 @@
-let dev = true
+let dev = false;
 let ApiRootUrl;
 if (dev) {
   ApiRootUrl = "http://192.168.10.115:9102/ding/";
 } else {
   ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
 }
-;
-
 // 地图标签
 http: const markers = [
   {
@@ -26,6 +24,7 @@ module.exports = {
   StaffMonthRecord: ApiRootUrl + "signin/monthStatistic", // 指定用户当月签到信息
   DeptRecord: ApiRootUrl + "signin/ownDept", //所在部门签到信息
   UploadFile: ApiRootUrl + "signin/uploadImg", //上传图片
+  TodayCount: ApiRootUrl + "signin/todayCount", //当前用户当天签到记录
 
   timeout: 5000, // 超时
 
@@ -33,6 +32,6 @@ module.exports = {
 
   markers: markers, // 地图标签
 
-  debug: false,
+  debug: dev,
   limitRange: 100,
 };

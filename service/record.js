@@ -5,8 +5,15 @@ import {
   StaffMonthRecord,
   DeptRecord,
   UploadFile,
+  TodayCount,
 } from "../config/api";
 
+function getTodayCount() {
+  return request({
+    url: TodayCount,
+    method: "GET",
+  });
+}
 /**
  *@function 获取某人某天签到次数和最新一条签到记录
  *
@@ -96,6 +103,7 @@ function getOwnDeptRecord(options) {
 }
 
 module.exports = {
+  getTodayCount,
   getRecord,
   setRecord,
   getOneDayRecord,

@@ -47,7 +47,7 @@
           <view class="text-sm color-label my-2">签到地点</view>
           <view class="text-sm">{{card.detailPlace}}</view>
         </view>
-        <view class="my-2">
+        <view class="my-2" a:if="{{card.imgUrlList}}">
           <view class="text-sm color-label my-2">签到图片</view>
           <view class="flex">
             <block a:for="{{card.imgUrlList}}" a:for-item="pic">
@@ -55,10 +55,6 @@
                 catchTap="previewImg" key="{{pic}}" />
             </block>
           </view>
-          <!-- <view>
-            <image style="background-color: #eeeeee; width: 100rpx; height:100rpx;" mode="aspectFill"
-              src='{{card.imgUrl}}' />
-          </view>-->
         </view>
       </view>
     </block>

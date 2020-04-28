@@ -23,10 +23,11 @@ Page({
     );
     console.log(query);
     this._setVisitPerson(query);
-    this._getAddress();
     this._getTime();
   },
-  onShow() {},
+  onShow() {
+    this._getAddress();
+  },
   useCamera() {
     my.chooseImage({
       count: 1,
@@ -90,12 +91,12 @@ Page({
       return;
     }
     const imageList = this.data.picUrls;
-    if (imageList.length < 1) {
-      my.showToast({
-        type: "fail",
-        content: "还没有添加照片哦！",
-      });
-    }
+    // if (imageList.length < 1) {
+    //   my.showToast({
+    //     type: "fail",
+    //     content: "还没有添加照片哦！",
+    //   });
+    // }
     let checkInRecord = {
       detailPlace: this.data.location.address,
       latitude: `${this.data.location.latitude}`,
@@ -176,9 +177,17 @@ Page({
    *@function 获取地址
    */
   _getAddress() {
-    this.setData({
-      location: app.globalData.selectedLocation,
-    });
+    console.log("签到提交:获取地址", app.globalData.selectedLocation);
+    
+    if (app.globalData.selectedLocation) {
+      this.setData({
+        location: app.globalData.selectedLocation,
+      });
+    } else {
+      this.setData({
+        location: app.globalData.location,
+      });
+    }
   },
   _sucessAnimation() {
     var animation = my.createAnimation({
