@@ -91,6 +91,12 @@ Page({
       return;
     }
     const imageList = this.data.picUrls;
+    if (imageList.length < 1) {
+      my.showToast({
+        type: "fail",
+        content: "还没有添加照片哦！",
+      });
+    }
     let checkInRecord = {
       detailPlace: this.data.location.address,
       latitude: `${this.data.location.latitude}`,

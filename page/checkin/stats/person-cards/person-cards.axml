@@ -31,10 +31,11 @@
               {{item.remark}}
             </view>
           </view>
-          <view a:if="{{item.imgUrl}}">
+          <view a:if="{{item.imgUrlList.length}}">
             <view class="color-label font-bold my-2">签到图片</view>
-            <image src="{{item.imgUrl}}" mode="aspectFill" class="w-16 h-16" data-src="{{item.imgUrl}}"
-              catchTap="previewImg" />
+            <block a:for="{{item.imgUrlList}}" a:for-item="pic">
+              <image src="{{pic}}" mode="aspectFill" class="w-16 h-16" data-src="{{pic}}" catchTap="previewImg" />
+            </block>
           </view>
         </view>
       </view>
@@ -42,7 +43,7 @@
   </block>
   <block a:else>
     <image style="background-color: #ffffff; width: 100%; height:300px;" mode="aspectFill"
-      src="/assets/images/error-view/empty.png"/>
+      src="/assets/images/error-view/empty.png" />
   </block>
 
 </block>
