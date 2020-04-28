@@ -28,6 +28,12 @@ Page({
   onShow() {
     this._getAddress();
   },
+  onHide() {
+    // 清除信息
+    this.setData({
+      picUrls: [],
+    });
+  },
   useCamera() {
     my.chooseImage({
       count: 1,
