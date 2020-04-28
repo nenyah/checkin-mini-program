@@ -134,6 +134,9 @@ Page({
         // 签到动画
         this._sucessAnimation();
         setTimeout(() => {
+          this.setData({
+            picUrls: [],
+          });
           my.reLaunch({
             url: "../index/index",
           });
@@ -178,7 +181,7 @@ Page({
    */
   _getAddress() {
     console.log("签到提交:获取地址", app.globalData.selectedLocation);
-    
+
     if (app.globalData.selectedLocation) {
       this.setData({
         location: app.globalData.selectedLocation,
