@@ -143,6 +143,8 @@ Page({
   },
 
   _getClients() {
+    console.log("开始请求客户时间:", new Date().toLocaleString());
+
     const current = this.data.current + 1;
     const pages = this.data.pages;
     const orgName = this.data.orgName;
@@ -153,6 +155,7 @@ Page({
     }
     getClients({ current, orgName })
       .then((res) => {
+        console.log("获取客户时间:", new Date().toLocaleString());
         console.log("获取客户信息", res);
         let oldItems = this.data.items;
         const items = oldItems.concat(res.records);

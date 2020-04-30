@@ -52,8 +52,7 @@ Page({
   },
   async _getCanvasImg(index, failNum, tempFilePaths) {
     my.getImageInfo({
-
-      src: tempFilePaths[0], 
+      src: tempFilePaths[0],
       success: (res) => {
         console.log("获取手机信息", res);
         if (index < tempFilePaths.length) {
@@ -157,10 +156,15 @@ Page({
    *@function 创建签到信息
    */
   async createRecord() {
-    const disabled = this.data.disabled;
-    if (disabled) {
-      return;
-    }
+    this.setData({
+      disabled: true,
+    });
+    // const disabled = this.data.disabled;
+    // if (disabled) {
+    //   return;
+    // }
+    console.log(checkInRecord);
+
     const imageList = this.data.picUrls;
     // if (imageList.length < 1) {
     //   my.showToast({
@@ -180,10 +184,7 @@ Page({
       remark: this.data.remark,
       timeStamp: this.data.timeStamp,
     };
-    console.log(checkInRecord);
-    this.setData({
-      disabled: true,
-    });
+
     let response = [];
     for (let i in imageList) {
       console.log(`第${Number(i) + 1}张照片：`, imageList[i]);

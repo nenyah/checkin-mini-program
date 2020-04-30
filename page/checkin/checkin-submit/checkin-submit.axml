@@ -105,6 +105,5 @@
   width="{{imageSize.imageWidth}}"
   height="{{imageSize.imageHeight}}"
   class="canvas"
-  style="width:
-            {{imageSize.imageWidth}}px;height:{{imageSize.imageHeight}}px;"
+  style="width:{{imageSize.imageWidth}}px;height:{{imageSize.imageHeight}}px;"
 />
