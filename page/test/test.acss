@@ -1,14 +1,17 @@
-.canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: transparent;
-}
 .sucess-stamp {
   width: 150rpx;
   height: 150rpx;
   background: no-repeat url("/assets/images/checkinstamp.png");
   background-size: 150rpx
+}
+
+.canvas-view {
+  display: flex;
+  justify-content: center;
+}
+
+.canvas {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
 }

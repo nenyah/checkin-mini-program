@@ -1,1 +1,16 @@
-<view class="sucess-stamp" onTap="test">测试</view>
+<view
+    class="sucess-stamp"
+    onTap="takePhoto"
+>测试</view>
+<view class="page">
+    <view class="canvas-view">
+        <canvas
+            id="canvas"
+            width="{{imageSize.imageWidth}}"
+            height="{{imageSize.imageHeight}}"
+            class="canvas"
+            style="width:
+            {{imageSize.imageWidth}}px;height:{{imageSize.imageHeight}}px;"
+        />
+    </view>
+</view>

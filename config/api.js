@@ -34,5 +34,5 @@ module.exports = {
 
   debug: dev,
   limitRange: 100,
-  compressLevel: 2,
+  compressLevel: 4,
 };

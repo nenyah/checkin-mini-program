@@ -1,6 +1,7 @@
 import { getStorage } from "../../../service/storage";
 import { setRecord, setRecordFile } from "../../../service/record";
 import { companyName, compressLevel } from "/config/api";
+import util from "/util/utils";
 import moment from "moment";
 var app = getApp();
 Page({
@@ -15,6 +16,7 @@ Page({
     remark: "",
     isShow: false,
     disabled: false,
+    imageSize: "",
   },
   onLoad(query) {
     // 页面加载
@@ -24,35 +26,80 @@ Page({
     console.log(query);
     this._setVisitPerson(query);
     this._getTime();
-  },
-  onShow() {
-    this._getAddress();
-  },
-  onHide() {
     // 清除信息
     this.setData({
       picUrls: [],
     });
   },
+  onShow() {
+    this._getAddress();
+  },
+  onHide() {},
+  /**
+   *@function 拍照
+   *@author steven
+   */
   useCamera() {
     my.chooseImage({
       count: 1,
+      sizeType: ["compressed"],
       sourceType: ["camera"],
       success: (res) => {
         console.info("拍照成功", res);
-        my.compressImage({
-          apFilePaths: res.apFilePaths,
-          level: compressLevel,
-          success: (res) => {
-            console.log("压缩成功", res);
-            let picUrls = this.data.picUrls;
-            picUrls.push(res.filePaths[0]);
-            this.setData({
-              picUrls,
-            });
-          },
-        });
+        this._getCanvasImg(0, 0, res.filePaths); //进行压缩
       },
+    });
+  },
+  async _getCanvasImg(index, failNum, tempFilePaths) {
+    my.getImageInfo({
+
+      src: tempFilePaths[0], 
+      success: (res) => {
+        console.log("获取手机信息", res);
+        if (index < tempFilePaths.length) {
+          util
+            .imageUtil(res)
+            .then((res) => {
+              console.log("返回尺寸", res);
+              const ctx = my.createCanvasContext("canvas");
+              console.log("图片路径", tempFilePaths[index]);
+              ctx.drawImage(
+                tempFilePaths[index],
+                0,
+                0,
+                res.imageWidth,
+                res.imageHeight
+              );
+              index = index + 1; //上传成功的数量，上传成功则加1
+              ctx.draw();
+              setTimeout(() => {
+                ctx.toTempFilePath({
+                  x: 0,
+                  y: 0,
+                  width: res.imageWidth,
+                  height: res.imageHeight,
+                  quality: 1,
+                  success: (res) => {
+                    console.log("temp file path", res);
+                    let picUrls = this.data.picUrls;
+                    picUrls.push(res.filePath);
+                    this.setData({
+                      picUrls,
+                    });
+                  },
+                });
+              }, 1000);
+              this.setData({
+                imageSize: res,
+              });
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      },
+      fail: () => {},
+      complete: () => {},
     });
   },
   //
@@ -62,6 +109,7 @@ Page({
    *@param {*} e
    */
   removePic(e) {
+    console.log("签到提交:移除图片", e);
     const index = e.target.dataset.index;
     let picUrls = this.data.picUrls;
     picUrls.splice(index, 1);
@@ -78,16 +126,26 @@ Page({
    * @param {*} e
    */
   previewPic(e) {
-    console.log(e);
+    console.log("签到提交:预览图片", e);
     const src = e.target.dataset.src;
     my.previewImage({
       urls: [src],
     });
   },
+  /**
+   *@function 完成文字输入
+   *@author steven
+   * @param {*} e
+   */
   handComfirm(e) {
-    console.log("完成输入文字", e.detail.value);
+    console.log("签到提交:完成输入文字", e.detail.value);
   },
 
+  /**
+   *@function 获取文字输入
+   *@author steven
+   * @param {*} e
+   */
   handleTextAreaInput(e) {
     console.log("输入文字", e.detail.value);
     this.setData({
@@ -146,10 +204,8 @@ Page({
         app.globalData.selectedClient = null;
         // 签到动画
         this._sucessAnimation();
+
         setTimeout(() => {
-          this.setData({
-            picUrls: [],
-          });
           my.reLaunch({
             url: "../index/index",
           });
@@ -213,7 +269,7 @@ Page({
 
     this.animation = animation;
 
-    animation.translate(150, -20).rotate(-45).step();
+    animation.translate(150, -15).rotate(-45).step();
 
     this.setData({
       isShow: true,

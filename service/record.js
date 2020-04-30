@@ -53,7 +53,7 @@ function setRecordFile(options) {
   return uploadFile({
     url: UploadFile,
     filePath: options.filePath,
-    formData: options.formData,
+    formData: options.formData || { detailPlace: "测试地址" },
   });
 }
 /**

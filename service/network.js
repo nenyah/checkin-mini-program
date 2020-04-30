@@ -51,6 +51,7 @@ function uploadFile(options) {
   if (app.globalData.userInfo) {
     token = app.globalData.userInfo.token;
     header = {
+      "content-type": "multipart/form-data",
       Authorization: token,
     };
   }

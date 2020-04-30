@@ -1,13 +1,19 @@
 <view class="mb-5 bg-color-white shadow">
   <view class="flex py-2">
-    <view class="fa fa-clock-o fa-lg color-label mx-2" aria-hidden="true"></view>
+    <view
+      class="fa fa-clock-o fa-lg color-label mx-2"
+      aria-hidden="true"
+    ></view>
     <view class="color-label">
       签到时间:
       <text class="color-big-title ml-2">{{checkinTime}}</text>
     </view>
   </view>
   <view class="flex py-2">
-    <view class="fa fa-map-marker fa-lg color-label ml-3" aria-hidden="true"></view>
+    <view
+      class="fa fa-map-marker fa-lg color-label ml-3"
+      aria-hidden="true"
+    ></view>
     <view class="color-label ml-2">
       签到地点:
     </view>
@@ -16,7 +22,10 @@
     </view>
   </view>
   <view class="flex py-2">
-    <view class="fa fa-user fa-lg color-label ml-3" aria-hidden="true"></view>
+    <view
+      class="fa fa-user fa-lg color-label ml-3"
+      aria-hidden="true"
+    ></view>
     <view class="color-label ml-2">
       拜访对象:
     </view>
@@ -25,22 +34,49 @@
     </view>
   </view>
 </view>
-<view a:if="{{isShow}}" class="sucess-stamp" animation="{{animationInfo}}"
-  style="position: absolute; top:100rpx; left: 100rpx; z-index: 100;"></view>
+<view
+  a:if="{{isShow}}"
+  class="sucess-stamp"
+  animation="{{animationInfo}}"
+  style="position: absolute; top:100rpx; left: 100rpx; z-index: 100;"
+></view>
 <view class="my-5 bg-color-white min-h-48 pt-3">
-  <textarea placeholder="请填写签到备注" maxlength="-1" focus="{{true}}" onInput="handleTextAreaInput" onConfirm="handComfirm"></textarea>
+  <textarea
+    placeholder="请填写签到备注"
+    maxlength="-1"
+    focus="{{true}}"
+    onInput="handleTextAreaInput"
+    onConfirm="handComfirm"
+  ></textarea>
 
   <view class="flex flex-wrap">
     <block a:for="{{picUrls}}">
-      <view class="w-24 h-16 flex m-2" key="{{item}}">
-        <image mode="aspectFill" src="{{item}}" data-src="{{item}}" class="w-24 h-16" onTap="previewPic" />
-        <view class="pin-right-angel fa fa-minus-circle fa-base color-danger" aria-hidden="true" data-index="{{index}}"
-          onTap="removePic">
+      <view
+        class="w-24 h-16 flex m-2"
+        key="{{item}}"
+      >
+        <image
+          mode="aspectFill"
+          src="{{item}}"
+          data-src="{{item}}"
+          class="w-24 h-16"
+          onTap="previewPic"
+        />
+        <view
+          class="pin-right-angel fa fa-minus-circle fa-base color-danger"
+          aria-hidden="true"
+          data-index="{{index}}"
+          catchTap="removePic"
+        >
         </view>
       </view>
     </block>
-    <view a:if="{{picUrls.length<9}}" style="border:dashed 2rpx #9c9c9c;" class="w-24 h-16 radius-5 m-2 flex"
-      onTap="useCamera">
+    <view
+      a:if="{{picUrls.length<9}}"
+      style="border:dashed 2rpx #9c9c9c;"
+      class="w-24 h-16 radius-5 m-2 flex"
+      onTap="useCamera"
+    >
       <view class="fa fa-camera fa-3x m-auto color-label">
       </view>
     </view>
@@ -48,11 +84,27 @@
 
 </view>
 <view class="mt-5">
-  <view class="w-full h-10 bg-color-white px-2 flex items-center color-label">当前企业：
+  <view
+    class="w-full h-10 bg-color-white px-2 flex items-center color-label"
+  >当前企业：
     <text class="color-big-title">{{companyName}}</text></view>
-  <view class="w-full px-2 color-label mt-3 text-sm">你的签到信息，仅对你的主管和本团队成员可以见</view>
+  <view class="w-full px-2 color-label mt-3 text-sm">
+    你的签到信息，仅对你的主管和本团队成员可以见</view>
 </view>
 
 
-<button size="default" type="default" class="border-none bg-color-white color-primary w-full fixed pin-b shadow"
-  disabled={{disabled}} onTap="createRecord">提交</button>
+<button
+  size="default"
+  type="default"
+  class="border-none bg-color-white color-primary w-full fixed pin-b shadow"
+  disabled={{disabled}}
+  onTap="createRecord"
+>提交</button>
+<canvas
+  id="canvas"
+  width="{{imageSize.imageWidth}}"
+  height="{{imageSize.imageHeight}}"
+  class="canvas"
+  style="width:
+            {{imageSize.imageWidth}}px;height:{{imageSize.imageHeight}}px;"
+/>

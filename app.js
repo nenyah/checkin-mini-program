@@ -1,10 +1,16 @@
-import { setStorageSync, getStorageSync } from "./service/storage";
+import {
+  setStorageSync,
+  getStorageSync,
+} from "./service/storage";
 import moment from "moment";
 
 App({
   onLaunch(options) {
     console.log("App Launch", options);
-    console.log("getSystemInfoSync", my.getSystemInfoSync());
+    console.log(
+      "getSystemInfoSync",
+      my.getSystemInfoSync()
+    );
     console.log("SDKVersion", my.SDKVersion);
   },
 

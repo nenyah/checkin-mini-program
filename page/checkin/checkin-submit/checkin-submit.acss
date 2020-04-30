@@ -12,3 +12,8 @@
   background: no-repeat url("/assets/images/checkinstamp.png");
   background-size: 150px;
 }
+.canvas {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
