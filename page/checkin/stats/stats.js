@@ -84,6 +84,7 @@ Page({
     dept: "",
     userNum: 0,
     userids: [],
+    date: "",
   },
   onLoad() {
     //
@@ -97,7 +98,10 @@ Page({
   },
   onGetNewDate(data) {
     console.log("统计页获得日期数据", data);
-    this._getOwnDeptRecord({ date: data });
+    this.setData({
+      date: data,
+    });
+    this._getRecord({ userIds: this.data.userids, date: data });
   },
   onGetNewUser(users) {
     console.log("统计页获得人员数据", users);
@@ -109,7 +113,7 @@ Page({
       userIds: myusers,
       userNum,
     });
-    this._getRecord({ userIds: myusers });
+    this._getRecord({ userIds: myusers, date: this.data.date });
   },
   onToHistory() {
     console.log("到历史页面");
