@@ -1,12 +1,13 @@
 <view class="map-bg py-2">
   <view class="py-2">
-    <view class="flex mx-2 p-2 bg-color-white color-label radius-5 w-3-5 items-center justify-center shadow"
+    <view
+      class="max-width flex mx-2 p-2 bg-color-white color-label radius-5 items-center justify-center shadow"
       onTap="choosePerson">
       <view class="fa fa-globe mx-1" aria-hidden="true"></view>
       <view>范围：{{userNum>0?userNum+'人':dept.deptName}}</view>
       <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
     </view>
-    <view class="flex m-2 p-2 bg-color-white color-label radius-5 w-2-5 items-center justify-center shadow"
+    <view class="max-width flex m-2 p-2 bg-color-white color-label radius-5 items-center justify-center shadow"
       onTap="chooseDate">
       <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
       <view>{{today}}</view>

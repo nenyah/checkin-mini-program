@@ -3,3 +3,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
 }
+
+.max-width {
+    width: fit-content;
+}
