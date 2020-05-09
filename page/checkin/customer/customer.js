@@ -4,19 +4,19 @@ const itemsMine = [
   {
     id: 0,
     thumbContent: "未激活",
-    extraText: "邬顶立 负责",
+    extraText: "张三 负责",
     name: "宁波第一医院-系统测试",
   },
   {
     id: 1,
     thumbContent: "未激活",
-    extraText: " 李丽 负责",
+    extraText: "李四 负责",
     name: "宁波第一医院-系统测试",
   },
   {
     id: 2,
     thumbContent: "未激活",
-    extraText: "李丽 负责",
+    extraText: "李四 负责",
     name: "宁波第二医院-系统测试",
   },
 ];
@@ -81,22 +81,13 @@ Page({
     });
   },
   onItemClick(e) {
-    console.log("客户页面选择客户", e);
+    // console.log("客户页面选择客户", e);
     // 把选择的客户传回首页
     const item = e.target.dataset.item;
     app.globalData.selectedClient = item;
-    my.navigateBack({
-      delta: 1,
-    });
-    // my.setStorage({
-    //   key: "selectedClient",
-    //   data: item,
-    //   success: () => {
-    //     my.navigateBack({
-    //       delta: 1,
-    //     });
-    //   },
-    // });
+    console.log("获取当前页面数", getCurrentPages().length);
+
+    my.navigateBack();
   },
 
   handleClear(e) {
@@ -156,7 +147,7 @@ Page({
     getClients({ current, orgName })
       .then((res) => {
         console.log("获取客户时间:", new Date().toLocaleString());
-        console.log("获取客户信息", res);
+        // console.log("获取客户信息", res);
         let oldItems = this.data.items;
         const items = oldItems.concat(res.records);
         const numClients = res.total;

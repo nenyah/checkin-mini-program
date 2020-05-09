@@ -33,9 +33,19 @@ Page({
   },
   onShow() {
     // 页面显示
+    console.log("首页显示");
+
     this._getUserInfo();
     this._getClient();
     this._getLoncation();
+  },
+  onUnload() {
+    console.log("index unload");
+  },
+  onReady(e) {
+  },
+  onHide() {
+    console.log("首页隐藏");
   },
   adjustLocation() {
     my.navigateTo({
@@ -62,7 +72,8 @@ Page({
   async _getLoncation() {
     if (app.globalData.selectedLocation) {
       const res = app.globalData.selectedLocation;
-      console.log("首页：从全局获得选择地址", res);
+      console.log("首页：从全局获得选择地址");
+      console.info(res);
       this.setData({
         longitude: res.longitude,
         latitude: res.latitude,
@@ -74,7 +85,8 @@ Page({
     } else {
       getLocation()
         .then((res) => {
-          console.log("首页：获取地址成功", res);
+          console.log("首页：获取地址成功");
+          console.info(res);
           app.globalData.location = {
             longitude: res.longitude,
             latitude: res.latitude,
@@ -110,9 +122,10 @@ Page({
    *@function 获取当前时间
    */
   async _getCurrentTime() {
-    const checkInDate = getStorageSync("checkInDate");
-    if (checkInDate.data) {
-      const mx = moment(checkInDate.data.date);
+    app.globalData.currentTime = moment().format();
+    const checkInDate = app.globalData.currentTime;
+    if (checkInDate) {
+      const mx = moment(checkInDate);
       const today = mx.format("YYYY年MM月DD日");
       const ctime = mx.format("HH:mm");
       this.setData({
@@ -128,7 +141,8 @@ Page({
   async _getClient() {
     const client = app.globalData.selectedClient;
     if (client) {
-      console.log("首页：从全局获得选择对象", client);
+      console.log("首页：从全局获得选择对象");
+      console.info(client);
       this.setData({
         client,
       });
@@ -146,39 +160,13 @@ Page({
       console.log("首页：没有用户信息，执行获取用户");
       return getUserInfo()
         .then((res) => {
-          console.log("首页：获得用户信息", res);
+          console.log("首页：获得用户信息");
+          console.info(res);
           app.globalData.userInfo = res;
-          // this._getRecord();
           this._checkRecordTimes();
         })
         .catch((err) => console.error("首页：获取用户信息报错", err));
     }
-    // this._getRecord();
     this._checkRecordTimes();
   },
-
-  /**
-   * 获取历史信息
-   *
-   */
-  // async _getRecord() {
-  //   const userinfo = app.globalData.userInfo;
-  //   const userIds = userinfo.user.dingUserId;
-  //   console.log("首页：获取记录时，用户信息", userIds);
-
-  //   getRecord({ userIds })
-  //     .then((res) => {
-  //       console.log("首页：获取当日历史信息", res);
-  //       res.currentTime = this.data.currentTime;
-  //       app.globalData.records = res.signInHisPage.records;
-  //       if (!res.signInHisPage.records.length) {
-  //         return;
-  //       }
-  //       this._checkRecordTimes();
-  //       // this.setData({
-  //       //   checkTimes: res.signInHisPage.records[0].quantity,
-  //       // });
-  //     })
-  //     .catch((err) => console.error(err));
-  // },
 });

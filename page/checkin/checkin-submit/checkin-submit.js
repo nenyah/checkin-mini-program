@@ -4,6 +4,7 @@ import { companyName, compressLevel } from "/config/api";
 import util from "/util/utils";
 import moment from "moment";
 var app = getApp();
+
 Page({
   data: {
     checkinTime: "00:00",
@@ -207,8 +208,8 @@ Page({
         this._sucessAnimation();
 
         setTimeout(() => {
-          my.reLaunch({
-            url: "../index/index",
+          dd.reLaunch({
+            url: "/page/checkin/index/index",
           });
         }, 1000);
       })
@@ -224,16 +225,16 @@ Page({
    *@function 获取时间
    */
   _getTime() {
-    getStorage("checkInDate")
-      .then((res) => {
-        const checkinTime = moment(res.data.date).format("HH:mm");
-        const timeStamp = moment(res.data.date).valueOf();
-        this.setData({
-          checkinTime,
-          timeStamp,
-        });
-      })
-      .catch((err) => console.error(err));
+    console.log("提交页:从全局获取时间");
+
+    const ctime = moment(app.globalData.currentTime);
+    console.log("提交页:从全局获取时间", ctime);
+    const checkinTime = ctime.format("HH:mm");
+    const timeStamp = ctime.valueOf();
+    this.setData({
+      checkinTime,
+      timeStamp,
+    });
   },
   /**
    *@author steven

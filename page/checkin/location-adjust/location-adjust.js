@@ -67,9 +67,7 @@ Page({
       address: address,
     };
 
-    my.navigateBack({
-      delta: 1,
-    });
+    my.navigateBack();
   },
   onSearchItemClick(e) {
     // console.log(e);
