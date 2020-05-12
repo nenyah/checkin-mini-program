@@ -2,12 +2,7 @@ import moment from "moment";
 import { getUserInfo } from "/service/login";
 import { getRecord, getTodayCount } from "/service/record";
 import { getLocation } from "/service/location";
-import {
-  getStorage,
-  getStorageSync,
-  setStorage,
-  setStorageSync,
-} from "/service/storage";
+import utils from "/util/utils";
 import { companyName, markers } from "/config/api";
 
 var app = getApp();
@@ -42,8 +37,7 @@ Page({
   onUnload() {
     console.log("index unload");
   },
-  onReady(e) {
-  },
+  onReady(e) {},
   onHide() {
     console.log("首页隐藏");
   },
@@ -87,18 +81,20 @@ Page({
         .then((res) => {
           console.log("首页：获取地址成功");
           console.info(res);
+          const longitude = utils.round(res.longitude, 6),
+            latitude = utils.round(res.latitude, 6);
           app.globalData.location = {
-            longitude: res.longitude,
-            latitude: res.latitude,
+            longitude,
+            latitude,
             address: res.address,
           };
           this.setData({
-            longitude: res.longitude,
-            latitude: res.latitude,
+            longitude,
+            latitude,
             address: res.address,
             "markers[0].id": 1,
-            "markers[0].longitude": res.longitude,
-            "markers[0].latitude": res.latitude,
+            "markers[0].longitude": longitude,
+            "markers[0].latitude": latitude,
           });
         })
         .catch((err) => {

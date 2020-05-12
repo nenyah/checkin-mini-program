@@ -75,7 +75,11 @@ async function imageUtil(e) {
   return imageSize;
 }
 
+function round(num,digits) {
+  return Math.round(num * Math.pow(10, digits)) / Math.pow(10, digits);
+}
 module.exports = {
   urlEncode,
   imageUtil,
+  round,
 };

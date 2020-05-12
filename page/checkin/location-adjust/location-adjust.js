@@ -32,13 +32,7 @@ Page({
     search: false,
   },
   onLoad() {
-    const longitude = app.globalData.location.longitude;
-    const latitude = app.globalData.location.latitude;
-    this.setData({
-      "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude,
-      location: [longitude, latitude],
-    });
+    const { longitude, latitude } = this._getCurrentLocation();
     this._getAround({ longitude, latitude });
   },
   onReady() {},
@@ -81,26 +75,22 @@ Page({
   // 选择地址
   onItemClick(e) {
     const index = e.index;
-    const items = this.data.items;
-    const [longitude, latitude] = items[index].location.split(",");
-    items.forEach((el) => {
-      if (el.index == index) {
-        el.selected = true;
-      } else {
-        el.selected = false;
-      }
-    });
-
-    this.setData({
-      items,
-      "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude,
-    });
+    this._chooseItem(index);
   },
   // 控制点
+  /**
+   *@function 回到初始点
+   *
+   * @param {*} e
+   */
   controltap(e) {
-    console.log("control tap", e);
-    // this.mapCtx.moveToLocation();
+    if (this.data.items.length < this.data.searchItems.length) {
+      this.setData({
+        items: this.data.searchItems,
+      });
+    }
+    this._getCurrentLocation();
+    this._chooseItem(0);
   },
   changeToSearch() {
     const search = !this.data.search;
@@ -109,6 +99,11 @@ Page({
       search,
     });
   },
+  /**
+   *@function 确定搜索地址
+   *
+   * @param {*} e
+   */
   handleSubmit(e) {
     console.log("submit", e);
     const searchItems = this.data.items.filter((el) => el.title.includes(e));
@@ -141,5 +136,41 @@ Page({
         });
       })
       .catch((err) => console.error(err));
+  },
+  /**
+   *@function 回到初始位置
+   *
+   * @returns
+   */
+  _getCurrentLocation() {
+    const longitude = app.globalData.location.longitude;
+    const latitude = app.globalData.location.latitude;
+    this.setData({
+      "markers[0].longitude": longitude,
+      "markers[0].latitude": latitude,
+      location: [longitude, latitude],
+    });
+    return { longitude, latitude };
+  },
+  /**
+   *@function 选择地址
+   *
+   * @param {*} index
+   */
+  _chooseItem(index) {
+    const items = this.data.items;
+    const [longitude, latitude] = items[index].location.split(",");
+    items.forEach((el) => {
+      if (el.index == index) {
+        el.selected = true;
+      } else {
+        el.selected = false;
+      }
+    });
+    this.setData({
+      items,
+      "markers[0].longitude": longitude,
+      "markers[0].latitude": latitude,
+    });
   },
 });

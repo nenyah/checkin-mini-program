@@ -33,6 +33,6 @@ module.exports = {
   markers: markers, // 地图标签
 
   debug: dev,
-  limitRange: 100,
+  limitRange: 200,
   compressLevel: 4,
 };
