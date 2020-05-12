@@ -16,7 +16,9 @@ http: const markers = [
 
 module.exports = {
   Userinfo: ApiRootUrl + "auth", // 获取用户信息
-  Clientsinfo: ApiRootUrl + "org", // 客户信息
+  Clientsinfo: ApiRootUrl + "org", // 机构信息
+  Customerinfo: ApiRootUrl + "customer/customer", // 客户信息
+
   DeptInfo: ApiRootUrl + "dept", //所在部门信息
 
   CheckInRecord: ApiRootUrl + "signin", // 个人签到历史记录

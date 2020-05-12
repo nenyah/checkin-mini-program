@@ -1,4 +1,4 @@
-import { getClients, getClientslabels } from "../../../service/clients";
+import { getClients, getCustomer } from "../../../service/clients";
 var app = getApp();
 const itemsMine = [
   {
@@ -89,7 +89,20 @@ Page({
 
     my.navigateBack();
   },
+  expand(e) {
+    const index = e.currentTarget.dataset.index,
+      orgId = e.currentTarget.dataset.orgid;
+    console.log("expand", index, orgId);
 
+    // const items = this.data.items;
+    // items[index].expand = !this.data.items[index].expand;
+    if (!this.data.items[index].expand) {
+      this._getCustomer({ orgId, index });
+    } else {
+      const items = this.data.items
+      this._setDefalutFalse(items);
+    }
+  },
   handleClear(e) {
     console.log("clear", e);
   },
@@ -119,6 +132,8 @@ Page({
   },
   lower(e) {
     console.log("向下", e);
+    let items = this.data.items;
+    this._setDefalutFalse(items);
     this._getClients();
   },
   scroll(e) {
@@ -149,11 +164,11 @@ Page({
         console.log("获取客户时间:", new Date().toLocaleString());
         // console.log("获取客户信息", res);
         let oldItems = this.data.items;
-        const items = oldItems.concat(res.records);
+        let items = oldItems.concat(res.records);
+        this._setDefalutFalse(items);
         const numClients = res.total;
         const pages = res.pages;
         this.setData({
-          items,
           current: current,
           numClients,
           pages,
@@ -165,5 +180,28 @@ Page({
           loadingFailed: true,
         });
       });
+  },
+  _getCustomer(params) {
+    getCustomer(params)
+      .then((res) => {
+        console.log("获取联系人", res);
+        const items = this.data.items;
+        items[params.index].customerList = res;
+        items[params.index].expand = !this.data.items[params.index].expand;
+        this.setData({
+          items,
+        });
+      })
+      .catch((err) => console.error(err));
+  },
+  _setDefalutFalse(items) {
+    items.forEach((element) => {
+      element.expand = false;
+      element.customerList = null;
+      return element;
+    });
+    this.setData({
+      items,
+    });
   },
 });

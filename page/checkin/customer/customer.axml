@@ -1,44 +1,120 @@
 <!-- <tabs tabs="{{tabs}}" onTabClick="handleTabClick" activeTab="{{activeIndex}}" swipeable="{{true}}">
 </tabs> -->
-<scroll-view scroll-y="{{true}}" style="height: 100vh;" onScrollToUpper="upper" onScrollToLower="lower"
-  onScroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-  <view class="{{navShow?'nav':''}} flex items-center justify-center py-2 bg-color-white">
-    <search-bar placeholder="搜索" class="w-5-6" onInput="handleInput" onClear="handleClear" onFocus="handleFocus"
-      onBlur="handleBlur" onCancel="handleCancel" onSubmit="handleSubmit">
+<scroll-view
+  scroll-y="{{true}}"
+  style="height: 100vh;"
+  onScrollToUpper="upper"
+  onScrollToLower="lower"
+  onScroll="scroll"
+  scroll-into-view="{{toView}}"
+  scroll-top="{{scrollTop}}"
+>
+  <view
+    class="{{navShow?'nav':''}} flex items-center justify-center py-2 bg-color-white"
+  >
+    <search-bar
+      placeholder="搜索"
+      class="w-5-6"
+      onInput="handleInput"
+      onClear="handleClear"
+      onFocus="handleFocus"
+      onBlur="handleBlur"
+      onCancel="handleCancel"
+      onSubmit="handleSubmit"
+    >
     </search-bar>
     <!-- <view a:if="{{show}}" onTap="goToCate">筛选</view> -->
   </view>
   <block a:if="{{numClients}}">
     <list>
-      <view slot="header" class="ml-5 h-10 flex items-center text-xl">
+      <view
+        slot="header"
+        class="ml-5 h-10 flex items-center text-xl"
+      >
         通讯录
       </view>
       <view class="ml-2">
         共 {{numClients}} 家
       </view>
       <block a:for="{{items}}">
-        <list-item onClick="onItemClick" index="{{index}}" last="{{index === (items.length - 1)}}" key="items-{{index}}"
-          data-item="{{item}}" multipleLine="{{true}}" class="">
+        <list-item
+          onClick="onItemClick"
+          index="{{index}}"
+          last="{{index === (items.length - 1)}}"
+          key="items-{{index}}"
+          data-item="{{item}}"
+          multipleLine="{{true}}"
+          class=""
+        >
           {{item.name}}
-          <view slot="prefix" class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center">
+          <view
+            slot="prefix"
+            class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center"
+          >
             {{item.name.length>3?item.name.substr(0,3):item.name}}
           </view>
           <view class="text-xs">
             {{item.address}}
           </view>
           <view class="flex">
-            <text class="tag color-green p-1 text-xs radius-1 mx-1" key="label">
+            <text
+              class="tag color-green p-1 text-xs radius-1 mx-1"
+              key="label"
+            >
               {{item.orgGroup.name}}
             </text>
           </view>
 
-          <!-- <view slot="extra" class="color-label text-xs self-start">
-            {{item.extraText}}
-          </view> -->
+          <view
+            slot="extra"
+            class="color-label text-xs self-start"
+            catchTap="expand"
+            data-orgid="{{item.id}}"
+            data-index="{{index}}"
+          >
+            <!-- <view a:if="{{!item.expand}}"
+              class="fa fa-plus fa-lg color-label"
+              aria-hidden="true"
+            ></view>
+            <view
+              a:else
+              class="fa fa-minus fa-lg color-label"
+              aria-hidden="true"
+            ></view> -->
+            <view a:if="{{!item.expand}}">查看联系人</view>
+            <view a:else>隐藏联系人</view>
+          </view>
         </list-item>
+        <block a:if="{{item.expand}}">
+          <block
+            a:for="{{item.customerList}}"
+            a:for-item="customer"
+          >
+            <list-item
+              onClick="onItemClick"
+              data-item="{{item}}"
+            >
+              {{customer.name}}
+              <view
+                slot="prefix"
+                class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center"
+              >
+                {{customer.name.length>3?customer.name.substr(0,3):customer.name}}
+              </view>
+              <view class="text-xs">
+                联系方式：{{customer.mobile}}
+              </view>
+            </list-item>
+          </block>
+
+        </block>
+
       </block>
     </list>
   </block>
-  <view a:if="{{noMore}}" class="text-xs text-center mt-2">---- 没有更多数据了！---</view>
+  <view
+    a:if="{{noMore}}"
+    class="text-xs text-center mt-2"
+  >---- 没有更多数据了！---</view>
   <view a:if="{{loadingFailed}}">数据加载失败,请重试</view>
 </scroll-view>

@@ -1,6 +1,7 @@
 <view a:if="{{search}}" class="flex flex-col">
   <search-bar 
   placeholder="搜索" 
+  focus="{{true}}"
   onInput="handleInput"
   onClear="handleClear"
   onFocus="handleFocus"

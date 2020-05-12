@@ -1,5 +1,5 @@
 import { request } from "./network";
-import { Clientsinfo } from "../config/api";
+import { Clientsinfo, Customerinfo } from "../config/api";
 
 function getClients(param) {
   const current = param.current || 1;
@@ -11,7 +11,13 @@ function getClients(param) {
     method: "GET",
   });
 }
-
+function getCustomer(params) {
+  return request({
+    url: Customerinfo + `?orgId=${params.orgId}`,
+    method: "GET",
+  });
+}
 module.exports = {
   getClients,
+  getCustomer,
 };
