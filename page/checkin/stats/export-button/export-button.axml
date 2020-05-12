@@ -1,3 +1,9 @@
-<view class="flex justify-center mb-2 items-center w-full fixed pin-b ">
-  <button class="w-5-6" size="default" type="primary">报表导出</button>
+<view
+  class="flex justify-center mb-2 items-center w-full fixed pin-b "
+>
+  <button
+    class="w-5-6"
+    size="default"
+    type="primary"
+  >报表导出</button>
 </view>

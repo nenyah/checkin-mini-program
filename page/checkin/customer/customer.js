@@ -94,12 +94,10 @@ Page({
       orgId = e.currentTarget.dataset.orgid;
     console.log("expand", index, orgId);
 
-    // const items = this.data.items;
-    // items[index].expand = !this.data.items[index].expand;
     if (!this.data.items[index].expand) {
       this._getCustomer({ orgId, index });
     } else {
-      const items = this.data.items
+      const items = this.data.items;
       this._setDefalutFalse(items);
     }
   },
@@ -184,10 +182,15 @@ Page({
   _getCustomer(params) {
     getCustomer(params)
       .then((res) => {
-        console.log("获取联系人", res);
         const items = this.data.items;
         items[params.index].customerList = res;
-        items[params.index].expand = !this.data.items[params.index].expand;
+        items.forEach((el, idx) => {
+          if (idx === params.index) {
+            el.expand = !el.expand;
+          } else {
+            el.expand = false;
+          }
+        });
         this.setData({
           items,
         });

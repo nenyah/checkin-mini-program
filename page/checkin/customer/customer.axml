@@ -48,7 +48,7 @@
         >
           {{item.name}}
           <view
-            slot="prefix"
+            slot="supporting"
             class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center"
           >
             {{item.name.length>3?item.name.substr(0,3):item.name}}
@@ -95,12 +95,6 @@
               data-item="{{item}}"
             >
               {{customer.name}}
-              <view
-                slot="prefix"
-                class="bg-color-gradient-blue circle w-12 h-12 flex text-xs items-center justify-center"
-              >
-                {{customer.name.length>3?customer.name.substr(0,3):customer.name}}
-              </view>
               <view class="text-xs">
                 联系方式：{{customer.mobile}}
               </view>

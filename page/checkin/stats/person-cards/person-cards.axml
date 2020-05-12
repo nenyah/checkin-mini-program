@@ -1,13 +1,32 @@
 <block a:if="{{activeIndex==0}}">
   <block a:if="{{items.signInHisPage.records.length>0}}">
-    <block a:for="{{items.signInHisPage.records}}" a:key="index">
-      <view class="border-1 mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow" onTap="goToPorfile" data-item="{{item}}">
+    <block
+      a:for="{{items.signInHisPage.records}}"
+      a:key="index"
+    >
+      <view
+        class="border-1 mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow"
+        onTap="goToPorfile"
+        data-item="{{item}}"
+      >
         <view class="sep-line flex items-center px-2">
-          <view class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2">
-            <view a:if="{{item.thumbAvatar}}" class="flex">
-              <image mode="scaleToFill" src="{{item.thumbAvatar}}" class="w-10 h-10 circle m-auto" />
+          <view
+            class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2"
+          >
+            <view
+              a:if="{{item.thumbAvatar}}"
+              class="flex"
+            >
+              <image
+                mode="scaleToFill"
+                src="{{item.thumbAvatar}}"
+                class="w-10 h-10 circle m-auto"
+              />
             </view>
-            <view a:else class="color-white">
+            <view
+              a:else
+              class="color-white"
+            >
               {{item.userName.length>2?item.userName.slice(-2):item.userName}}
             </view>
           </view>
@@ -34,9 +53,18 @@
           <view a:if="{{item.imgUrlList.length}}">
             <view class="color-label font-bold my-2">签到图片</view>
             <view class="flex">
-              <block a:for="{{item.imgUrlList}}" a:for-item="pic">
-                <image src="{{pic}}" mode="aspectFill" class="w-16 h-16 mx-1" data-src="{{pic}}" catchTap="previewImg"
-                  key="{{pic}}" />
+              <block
+                a:for="{{item.imgUrlList}}"
+                a:for-item="pic"
+              >
+                <image
+                  src="{{pic}}"
+                  mode="aspectFill"
+                  class="w-16 h-16 mx-1"
+                  data-src="{{pic}}"
+                  catchTap="previewImg"
+                  key="{{pic}}"
+                />
               </block>
             </view>
           </view>
@@ -45,19 +73,35 @@
     </block>
   </block>
   <block a:else>
-    <image style="background-color: #ffffff; width: 100%; height:300px;" mode="aspectFill"
-      src="/assets/images/error-view/empty.png" />
+    <image
+      style="background-color: #ffffff; width: 100%; height:300px;"
+      mode="aspectFill"
+      src="/assets/images/error-view/empty.png"
+    />
   </block>
 
 </block>
 <block a:elif="{{activeIndex==1}}">
   <view class="flex flex-wrap justify-between px-5">
-    <block a:for="{{items.notSignInList}}" a:key="index">
+    <block
+      a:for="{{items.notSignInList}}"
+      a:key="index"
+    >
       <view class="w-16 m-2 flex flex-col items-center">
-        <view a:if="{{item.thumbAvatar}}" class="flex justify-center items-center mb-2">
-          <image mode="scaleToFill" src="{{item.thumbAvatar}}" class="w-10 h-10 circle" />
+        <view
+          a:if="{{item.thumbAvatar}}"
+          class="flex justify-center items-center mb-2"
+        >
+          <image
+            mode="scaleToFill"
+            src="{{item.thumbAvatar}}"
+            class="w-10 h-10 circle"
+          />
         </view>
-        <view a:else class="w-10 h-10 circle bg-color-primary color-white flex justify-center items-center mb-2">
+        <view
+          a:else
+          class="w-10 h-10 circle bg-color-primary color-white flex justify-center items-center mb-2"
+        >
           {{item.length>2?item.slice(-2):item}}
         </view>
         <text>{{item}}</text>

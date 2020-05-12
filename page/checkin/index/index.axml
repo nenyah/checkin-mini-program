@@ -1,20 +1,39 @@
 <!--时间公司提示-->
-<s-header today="{{today}}" company="{{company}}"></s-header>
+<s-header
+  today="{{today}}"
+  company="{{company}}"
+></s-header>
 <view class="flex justify-between p-2 bg-color-white items-center">
   <view class="text-2xl w-3-4 no-wrap">
     {{address}}
   </view>
-  <view class="color-primary text-sm w-1-4 text-right" onTap="adjustLocation">
+  <view
+    class="color-primary text-sm w-1-4 text-right"
+    onTap="adjustLocation"
+  >
     地点微调
   </view>
 </view>
 <!-- 地图 -->
-<view style="border-bottom:#e2e2e2 solid 1rpx;" class="px-2 pb-2 bg-color-white">
-  <map longitude="{{longitude}}" latitude="{{latitude}}" show-location="{{false}}" markers="{{markers}}"
-    onTap="adjustLocation" style="width:100%;height:100px;"></map>
+<view
+  style="border-bottom:#e2e2e2 solid 1rpx;"
+  class="px-2 pb-2 bg-color-white"
+>
+  <map
+    longitude="{{longitude}}"
+    latitude="{{latitude}}"
+    show-location="{{false}}"
+    markers="{{markers}}"
+    onTap="adjustLocation"
+    style="width:100%;height:100px;"
+  ></map>
 </view>
 
 <!--选择人员-->
 <s-choose-person client="{{client}}"></s-choose-person>
 <!--签到-->
-<s-check client="{{client}}" ctime="{{ctime}}" checkTimes="{{checkTimes}}"></s-check>
+<s-check
+  client="{{client}}"
+  ctime="{{ctime}}"
+  checkTimes="{{checkTimes}}"
+></s-check>

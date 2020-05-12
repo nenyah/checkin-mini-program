@@ -1,15 +1,35 @@
-<view style="background-color:#f0eff5;" class="w-full min-h-2-3 text-center">
-  <view class="w-full h-64 flex flex-col justify-center items-center py-10">
-    <view class="check-circle bg-color-notify w-32 h-32 circle flex flex-col justify-center items-center" onTap="goSubmit">
+<view
+  style="background-color:#f0eff5;"
+  class="w-full min-h-2-3 text-center"
+>
+  <view
+    class="w-full h-64 flex flex-col justify-center items-center py-10"
+  >
+    <view
+      class="check-circle bg-color-notify w-32 h-32 circle flex flex-col justify-center items-center"
+      onTap="goSubmit"
+    >
       <view class="color-white text-xl">签到</view>
       <view class="color-white text-3xl">{{ctime}}</view>
     </view>
-    <view a:if="{{checkTimes}}" class="mt-5 color-info">
-    <view class="fa fa-check-circle-o color-green mx-1" aria-hidden="true">
-    </view>
+    <view
+      a:if="{{checkTimes}}"
+      class="mt-5 color-info"
+    >
+      <view
+        class="fa fa-check-circle-o color-green mx-1"
+        aria-hidden="true"
+      >
+      </view>
       今日你已签到<text class="color-warning">{{checkTimes}}</text>次
     </view>
-    <view a:else class="mt-5 color-info">今日你还没有签到</view>
+    <view
+      a:else
+      class="mt-5 color-info"
+    >今日你还没有签到</view>
   </view>
-  <view class="color-label mt-10" onTap="goTest">钉钉只会在你主动签到时获取位置信息</view>
+  <view
+    class="color-label mt-10"
+    onTap="goTest"
+  >钉钉只会在你主动签到时获取位置信息</view>
 </view>

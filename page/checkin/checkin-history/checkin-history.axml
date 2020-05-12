@@ -1,18 +1,38 @@
 <view class="bg-color-white h-full">
   <view class="text-center py-2">
-    <view class="fa fa-shield color-green mx-2" aria-hidden="true"></view>
+    <view
+      class="fa fa-shield color-green mx-2"
+      aria-hidden="true"
+    ></view>
     以下定位信息均为员工签到时候主动上传
   </view>
   <view>
-    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" show-location="{{false}}" markers="{{markers}}"
-      style="width:100%;height:80vh;"></map>
+    <map
+      id="map"
+      longitude="{{longitude}}"
+      latitude="{{latitude}}"
+      show-location="{{false}}"
+      markers="{{markers}}"
+      style="width:100%;height:80vh;"
+    ></map>
   </view>
-  <view a:if="{{history}}" class="flex flex-wrap">
+  <view
+    a:if="{{history}}"
+    class="flex flex-wrap"
+  >
     <block a:if="{{!pageProfile}}">
       <block a:for="{{checkininfo}}">
         <view class="text-center m-2">
-          <image a:if="{{item.avarta}}" mode="aspectFill" src="{{item.avarta}}" class="w-12 h-12 circle my-1" />
-          <view a:else class="w-12 h-12 circle bg-color-primary color-white my-1 flex justify-center items-center">
+          <image
+            a:if="{{item.avarta}}"
+            mode="aspectFill"
+            src="{{item.avarta}}"
+            class="w-12 h-12 circle my-1"
+          />
+          <view
+            a:else
+            class="w-12 h-12 circle bg-color-primary color-white my-1 flex justify-center items-center"
+          >
             {{item.userName.length>2?item.userName.substr(0,2):item.userName}}
           </view>
           <view>{{item.userName}}</view>
@@ -21,9 +41,16 @@
     </block>
     <block a:else>
       <view class="text-center m-2">
-        <image a:if="{{checkininfo[0].avarta}}" mode="aspectFill" src="{{checkininfo[0].avarta}}"
-          class="w-12 h-12 circle my-1" />
-        <view a:else class="w-12 h-12 circle bg-color-primary color-white my-1 flex justify-center items-center">
+        <image
+          a:if="{{checkininfo[0].avarta}}"
+          mode="aspectFill"
+          src="{{checkininfo[0].avarta}}"
+          class="w-12 h-12 circle my-1"
+        />
+        <view
+          a:else
+          class="w-12 h-12 circle bg-color-primary color-white my-1 flex justify-center items-center"
+        >
           {{checkininfo[0].userName.length>2?checkininfo[0].userName.substr(0,2):checkininfo[0].userName}}
         </view>
         <view>{{checkininfo[0].userName}}</view>
@@ -31,5 +58,8 @@
     </block>
 
   </view>
-  <view a:else class="bg-color-label">没有签到记录哦</view>
+  <view
+    a:else
+    class="bg-color-label"
+  >没有签到记录哦</view>
 </view>

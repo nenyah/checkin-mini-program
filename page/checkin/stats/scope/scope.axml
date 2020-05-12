@@ -2,21 +2,42 @@
   <view class="py-2">
     <view
       class="max-width flex mx-2 p-2 bg-color-white color-label radius-5 items-center justify-center shadow"
-      onTap="choosePerson">
-      <view class="fa fa-globe mx-1" aria-hidden="true"></view>
+      onTap="choosePerson"
+    >
+      <view
+        class="fa fa-globe mx-1"
+        aria-hidden="true"
+      ></view>
       <view>范围：{{userNum>0?userNum+'人':dept.deptName}}</view>
-      <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+      <view
+        class="fa fa-angle-down mx-1"
+        aria-hidden="true"
+      ></view>
     </view>
-    <view class="max-width flex m-2 p-2 bg-color-white color-label radius-5 items-center justify-center shadow"
-      onTap="chooseDate">
-      <view class="fa fa-calendar mx-1" aria-hidden="true"></view>
+    <view
+      class="max-width flex m-2 p-2 bg-color-white color-label radius-5 items-center justify-center shadow"
+      onTap="chooseDate"
+    >
+      <view
+        class="fa fa-calendar mx-1"
+        aria-hidden="true"
+      ></view>
       <view>{{today}}</view>
-      <view class="fa fa-angle-down mx-1" aria-hidden="true"></view>
+      <view
+        class="fa fa-angle-down mx-1"
+        aria-hidden="true"
+      ></view>
     </view>
   </view>
-  <view class="flex flex-row-reverse" onTap="goToHistory">
+  <view
+    class="flex flex-row-reverse"
+    onTap="goToHistory"
+  >
     <view class="color-primary">签到历史分布
-      <view class="fa fa-angle-right mx-1" aria-hidden="true"></view>
+      <view
+        class="fa fa-angle-right mx-1"
+        aria-hidden="true"
+      ></view>
     </view>
   </view>
 </view>
