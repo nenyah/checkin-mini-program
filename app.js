@@ -12,6 +12,7 @@ App({
     console.log("App Show");
     // 设置当前时间
     // this._setCurrentTime();
+   
   },
   onHide() {
     console.log("App Hide");
@@ -25,6 +26,7 @@ App({
     location: null,
     currentTime: "",
   },
+  
   /**
    *获取当前时间
    *

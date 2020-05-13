@@ -4,7 +4,7 @@ import { getRecord, getTodayCount } from "/service/record";
 import { getLocation } from "/service/location";
 import utils from "/util/utils";
 import { companyName, markers } from "/config/api";
-
+import { getConfig } from "../../../service/config";
 var app = getApp();
 
 Page({
@@ -161,9 +161,18 @@ Page({
           console.info(res);
           app.globalData.userInfo = res;
           this._checkRecordTimes();
+          this._getConfig({ value: "limitRange" });
         })
         .catch((err) => console.error("首页：获取用户信息报错", err));
     }
     this._checkRecordTimes();
+  },
+  _getConfig(params) {
+    getConfig(params)
+      .then((res) => {
+        console.log("启用获取配置信息", res);
+        app.globalData.limitRange = res.value;
+      })
+      .catch((err) => console.error(err));
   },
 });

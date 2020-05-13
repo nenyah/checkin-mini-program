@@ -32,8 +32,9 @@ Page({
     search: false,
   },
   onLoad() {
-    const { longitude, latitude } = this._getCurrentLocation();
-    this._getAround({ longitude, latitude });
+    const { longitude, latitude } = this._getCurrentLocation(),
+      radius = app.globalData.limitRange;
+    this._getAround({ longitude, latitude, radius });
   },
   onReady() {},
   // 移动地图，获取地图中心坐标，并重新获取周边地址

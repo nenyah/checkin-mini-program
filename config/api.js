@@ -1,10 +1,12 @@
 let dev = false;
-let ApiRootUrl;
+let RootUrl, ApiRootUrl, ConfigUrl;
 if (dev) {
-  ApiRootUrl = "http://192.168.10.115:9102/ding/";
+  RootUrl = "http://192.168.10.115:9102";
 } else {
-  ApiRootUrl = "http://www2.huadongbio.com:9102/ding/";
+  RootUrl = "http://www2.huadongbio.com:9102";
 }
+ApiRootUrl = RootUrl + "/ding/";
+ConfigUrl = RootUrl + "/config/";
 // 地图标签
 http: const markers = [
   {
@@ -27,7 +29,7 @@ module.exports = {
   DeptRecord: ApiRootUrl + "signin/ownDept", //所在部门签到信息
   UploadFile: ApiRootUrl + "signin/uploadImg", //上传图片
   TodayCount: ApiRootUrl + "signin/todayCount", //当前用户当天签到记录
-
+  Config: ConfigUrl + "simple/one", //获取配置信息
   timeout: 5000, // 超时
 
   companyName: "华东宁波医药有限公司", //默认公司名
