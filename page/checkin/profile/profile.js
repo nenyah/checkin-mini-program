@@ -69,10 +69,10 @@ Page({
         let items = res;
         items.signInMonthDTOS.forEach((element) => {
           element.date = moment(element.date).format("MM月DD日");
-          element.signInHisVOS.forEach((element) => {
-            element.place = element.detailPlace;
-            return element;
-          });
+          // element.signInHisVOS.forEach((element) => {
+          //   // element.place = element.detailPlace;
+          //   return element;
+          // });
           return element;
         });
         this.setData({
