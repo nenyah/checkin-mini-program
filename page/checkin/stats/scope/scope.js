@@ -1,3 +1,4 @@
+import moment from "moment";
 Component({
   mixins: [],
   data: {
@@ -13,13 +14,8 @@ Component({
     onToHistory: () => {},
   },
   didMount() {
-    my.getStorage({
-      key: "checkInDate",
-      success: (result) => {
-        this.setData({
-          today: result.data.date.substr(0, 10),
-        });
-      },
+    this.setData({
+      today: moment().format('YYYY-MM-DD'),
     });
   },
   didUpdate() {},

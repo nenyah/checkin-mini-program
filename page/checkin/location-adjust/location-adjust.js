@@ -52,13 +52,16 @@ Page({
   // 确认选择
   comfirm() {
     const selectItem = this.data.items.filter((el) => el.selected === true)[0];
+    console.log("选择地址：", selectItem);
 
-    const address = selectItem.title;
-    const location = selectItem.location.split(",");
+    const address = selectItem.brief,
+      location = selectItem.location.split(","),
+      name = selectItem.title;
     app.globalData.selectedLocation = {
       longitude: Number(location[0]),
       latitude: Number(location[1]),
-      address: address,
+      name,
+      address,
     };
 
     my.navigateBack();

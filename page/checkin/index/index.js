@@ -86,6 +86,7 @@ Page({
           app.globalData.location = {
             longitude,
             latitude,
+            name: res.address,
             address: res.address,
           };
           this.setData({
