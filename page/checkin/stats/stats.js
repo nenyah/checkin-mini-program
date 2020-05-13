@@ -1,7 +1,7 @@
 import { getRecord, getOwnDeptRecord } from "/service/record";
 import { getStorageSync } from "/service/storage";
 import { getDeptInfo } from "/service/dept";
-
+import moment from "moment";
 var app = getApp();
 Page({
   data: {
@@ -18,6 +18,9 @@ Page({
   },
   onLoad() {
     //
+    this.setData({
+      date: moment(app.globalData.currentTime).format('YYYY-MM-DD'),
+    });
     this._getDeptInfo();
     this._getOwnDeptRecord();
   },
