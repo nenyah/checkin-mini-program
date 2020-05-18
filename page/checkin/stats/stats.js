@@ -19,7 +19,7 @@ Page({
   onLoad() {
     //
     this.setData({
-      date: moment(app.globalData.currentTime).format('YYYY-MM-DD'),
+      date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     });
     this._getDeptInfo();
     this._getOwnDeptRecord();
