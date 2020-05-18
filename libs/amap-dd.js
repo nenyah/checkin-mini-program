@@ -1,21 +1,41 @@
 import { request } from "/service/network";
 import { limitRange } from "/config/api";
-
-function getAround(opt) {
+const gaodeUrl = "https://restapi.amap.com/v3/";
+function reGeo(opt) {
   return request({
-    url: "https://restapi.amap.com/v3/geocode/regeo",
+    url: gaodeUrl+"geocode/regeo",
     data: {
       key: "78afced4810e78fef4e60c9be330ca06",
       location: `${opt.longitude},${opt.latitude}`,
       radius: opt.radius || limitRange,
       extensions: "all",
       batch: false,
+      homeorcorp:2,
+      poitype:"090000|170000",
     },
     method: "GET",
     header: { "content-type": "application/json" },
   });
 }
 
+function getAround(opt) {
+  return request({
+    url: gaodeUrl + "place/around",
+    data: {
+      key: "78afced4810e78fef4e60c9be330ca06",
+      location: `${opt.longitude},${opt.latitude}`,
+      radius: opt.radius || limitRange,
+      extensions: "all",
+      types: "090000|170000",
+      offset: 100,
+      page: 1
+    },
+    method: "GET",
+    header: { "content-type": "application/json" }
+  });
+}
+
 module.exports = {
   getAround,
+  reGeo
 };

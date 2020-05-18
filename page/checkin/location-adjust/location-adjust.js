@@ -123,18 +123,27 @@ Page({
   _getAround(opt) {
     getAround(opt)
       .then((res) => {
-        const regeocode = res.regeocode;
-        const addressComponent = regeocode.addressComponent;
-        const town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
-        const items = regeocode.pois.map((item, index) => {
+        // const regeocode = res.regeocode;
+        // const addressComponent = regeocode.addressComponent;
+        // const town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
+        // const items = regeocode.pois.map((item, index) => {
+        //   return {
+        //     index: index,
+        //     title: item.name,
+        //     brief: `${town}${item.address}`,
+        //     location: item.location,
+        //     selected: index === 0 ? true : false,
+        //   };
+        // });
+        const items = res.pois.map((item,index)=>{
           return {
-            index: index,
-            title: item.name,
-            brief: `${town}${item.address}`,
+            index,
+            title:item.name,
+            brief:item.pname+item.cityname+item.adname+item.address,
             location: item.location,
             selected: index === 0 ? true : false,
-          };
-        });
+          }
+        })
         this.setData({
           items,
         });
