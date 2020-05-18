@@ -206,7 +206,7 @@ Page({
         app.globalData.selectedClient = null;
         // 签到动画
         this._sucessAnimation();
-
+        app.globalData.currentTime = moment().format();
         setTimeout(() => {
           dd.reLaunch({
             url: "/page/checkin/index/index",

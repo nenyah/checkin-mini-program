@@ -6,8 +6,8 @@ var app = getApp();
 Page({
   data: {
     tabs: [
-      { title: "1", subTitle: "最新签到" },
-      { title: "7", subTitle: "未签到" },
+      { title: "0", subTitle: "最新签到" },
+      { title: "0", subTitle: "未签到" },
     ],
     activeTab: 0,
     items: [],
