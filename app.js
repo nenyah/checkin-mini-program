@@ -11,11 +11,13 @@ App({
   onShow() {
     console.log("App Show");
     // 设置当前时间
-    // this._setCurrentTime();
-   
+    this._setCurrentTime();
   },
   onHide() {
     console.log("App Hide");
+  },
+  onError(msg) {
+    console.log(msg)
   },
   globalData: {
     userInfo: null,
@@ -31,7 +33,7 @@ App({
    *获取当前时间
    *
    */
-  // _setCurrentTime() {
-  //   this.globalData.currentTime = moment().format();
-  // },
+  _setCurrentTime() {
+    this.globalData.currentTime = moment().format();
+  },
 });
