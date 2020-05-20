@@ -13,8 +13,8 @@ Component({
   didUnmount() {},
   methods: {
     goSubmit() {
-      // const selectOrg = app.globalData.userInfo.user.selectOrg;
-      const selectOrg = false;
+      const selectOrg = app.globalData.userInfo.user.selectOrg;
+      // const selectOrg = false;
       if (selectOrg) {
         if (this.props.client) {
           my.navigateTo({
