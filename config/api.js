@@ -1,4 +1,4 @@
-let dev = false;
+let dev = true;
 let RootUrl, ApiRootUrl, ConfigUrl;
 if (dev) {
   RootUrl = "http://192.168.10.115:9102";

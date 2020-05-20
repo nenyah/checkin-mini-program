@@ -17,7 +17,7 @@ Page({
     today: "",
     ctime: "",
     company: companyName,
-    checkTimes: 0
+    checkTimes: 0,
   },
 
   onLoad() {
@@ -42,7 +42,7 @@ Page({
   },
   adjustLocation() {
     my.navigateTo({
-      url: "/page/checkin/location-adjust/location-adjust"
+      url: "/page/checkin/location-adjust/location-adjust",
     });
   },
 
@@ -54,7 +54,7 @@ Page({
     const checkTimes = await getTodayCount();
     console.log("首页：获取当日签到次数", checkTimes);
     this.setData({
-      checkTimes
+      checkTimes,
     });
   },
 
@@ -73,11 +73,11 @@ Page({
         address: res.address,
         "markers[0].id": 1,
         "markers[0].longitude": res.longitude,
-        "markers[0].latitude": res.latitude
+        "markers[0].latitude": res.latitude,
       });
     } else {
       getLocation()
-        .then(res => {
+        .then((res) => {
           console.log("首页：获取地址成功");
           console.info(res);
           const longitude = utils.round(res.longitude, 6),
@@ -86,7 +86,7 @@ Page({
             longitude,
             latitude,
             name: res.address,
-            address: res.address
+            address: res.address,
           };
           this.setData({
             longitude,
@@ -94,20 +94,20 @@ Page({
             address: res.address,
             "markers[0].id": 1,
             "markers[0].longitude": longitude,
-            "markers[0].latitude": latitude
+            "markers[0].latitude": latitude,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           if (err.error === 4) {
             my.showToast({
               type: "fail",
-              content: "还没有打开定位哦！"
+              content: "还没有打开定位哦！",
             });
           } else if (err.error === 12) {
             my.showToast({
               type: "fail",
-              content: "网络异常，请检查网络！"
+              content: "网络异常，请检查网络！",
             });
           }
         });
@@ -125,7 +125,7 @@ Page({
       const ctime = mx.format("HH:mm");
       this.setData({
         today,
-        ctime
+        ctime,
       });
     }
   },
@@ -139,7 +139,7 @@ Page({
       console.log("首页：从全局获得选择对象");
       console.info(client);
       this.setData({
-        client
+        client,
       });
     }
   },
@@ -154,23 +154,23 @@ Page({
       // 获取用户信息
       console.log("首页：没有用户信息，执行获取用户");
       return getUserInfo()
-        .then(res => {
+        .then((res) => {
           console.log("首页：获得用户信息");
           console.info(res);
           app.globalData.userInfo = res;
           this._checkRecordTimes();
           this._getConfig({ value: "limitRange" });
         })
-        .catch(err => console.error("首页：获取用户信息报错", err));
+        .catch((err) => console.error("首页：获取用户信息报错", err));
     }
     this._checkRecordTimes();
   },
   _getConfig(params) {
     getConfig(params)
-      .then(res => {
+      .then((res) => {
         console.log("启用获取配置信息", res);
         app.globalData.limitRange = res.value;
       })
-      .catch(err => console.error(err));
-  }
+      .catch((err) => console.error(err));
+  },
 });
