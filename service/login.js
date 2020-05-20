@@ -16,8 +16,10 @@ function getAuthCode() {
 function getUserInfo() {
   return getAuthCode().then((res) => {
     return request({
-      url: Userinfo+'?authCode='+res.authCode,
-      method: "GET",
+      url: Userinfo,
+      data: {
+        authCode: res.authCode,
+      },
     });
   });
 }

@@ -4,8 +4,8 @@
     "filter-item": "mini-ali-ui-rpx/es/filter/filter-item/index",
     "search-bar": "mini-ali-ui-rpx/es/search-bar/index",
     "calendar": "mini-ali-ui-rpx/es/calendar/index",
-    "am-container": "mini-ali-ui/es/container/index",
-    "am-title": "mini-ali-ui/es/title/index",
-    "am-icon": "mini-ali-ui/es/am-icon/index"
+    "am-container": "mini-ali-ui-rpx/es/container/index",
+    "am-title": "mini-ali-ui-rpx/es/title/index",
+    "am-icon": "mini-ali-ui-rpx/es/am-icon/index"
   }
 }

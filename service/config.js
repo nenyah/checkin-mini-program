@@ -2,8 +2,10 @@ import { request } from "./network";
 import { Config } from "../config/api";
 function getConfig(params) {
   return request({
-    url: Config + `?name=${params.value}`,
-    method: "GET",
+    url: Config,
+    data: {
+      name: params.value,
+    },
   });
 }
 module.exports = {

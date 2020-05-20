@@ -1,20 +1,20 @@
 import { request } from "./network";
 import { Clientsinfo, Customerinfo } from "../config/api";
 
-function getClients(param) {
-  const current = param.current || 1;
-  const orgName = param.orgName || "";
-  const paramCurrent = current ? `?current=${current}` : "";
-  const paramOrgName = orgName ? `&orgName=${encodeURI(orgName)}` : "";
+function getClients(params) {
   return request({
-    url: Clientsinfo + paramCurrent + paramOrgName,
-    method: "GET",
+    url: Clientsinfo,
+    data: {
+      ...params,
+    },
   });
 }
 function getCustomer(params) {
   return request({
-    url: Customerinfo + `?orgId=${params.orgId}`,
-    method: "GET",
+    url: Customerinfo,
+    data: {
+      ...params,
+    },
   });
 }
 module.exports = {

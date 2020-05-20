@@ -1,10 +1,12 @@
 import { request } from "./network";
 import { DeptInfo } from "../config/api";
 
-function getDeptInfo(options) {
+function getDeptInfo(params) {
   return request({
-    url: `${DeptInfo}?dingUserId=${options.dingUserId}`,
-    method: "GET",
+    url: DeptInfo,
+    data: {
+      ...params,
+    },
   });
 }
 module.exports = {

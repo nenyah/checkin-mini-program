@@ -11,7 +11,6 @@ import {
 function getTodayCount() {
   return request({
     url: TodayCount,
-    method: "GET",
   });
 }
 /**
@@ -21,12 +20,11 @@ function getTodayCount() {
  * @returns
  */
 function getRecord(options) {
-  var queryString = Object.keys(options)
-    .map((key) => key + "=" + options[key])
-    .join("&");
   return request({
-    url: CheckInRecord + `?${encodeURI(queryString)}`,
-    method: "GET",
+    url: CheckInRecord,
+    data: {
+      ...options,
+    },
   });
 }
 
@@ -39,6 +37,10 @@ function getRecord(options) {
 function setRecord(options) {
   return request({
     url: CheckInRecord,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     data: JSON.stringify(options),
   });
 }
@@ -63,12 +65,11 @@ function setRecordFile(options) {
  * @returns
  */
 function getOneDayRecord(options) {
-  var queryString = Object.keys(options)
-    .map((key) => key + "=" + options[key])
-    .join("&");
   return request({
-    url: StaffDayRecord + `?${queryString}`,
-    method: "GET",
+    url: StaffDayRecord,
+    data: {
+      ...options,
+    },
   });
 }
 /**
@@ -78,12 +79,11 @@ function getOneDayRecord(options) {
  * @returns
  */
 function getMonthRecord(options) {
-  var queryString = Object.keys(options)
-    .map((key) => key + "=" + options[key])
-    .join("&");
   return request({
-    url: StaffMonthRecord + `?${encodeURI(queryString)}`,
-    method: "GET",
+    url: StaffMonthRecord,
+    data: {
+      ...options,
+    },
   });
 }
 /**
@@ -93,12 +93,11 @@ function getMonthRecord(options) {
  * @returns
  */
 function getOwnDeptRecord(options) {
-  var queryString = Object.keys(options)
-    .map((key) => key + "=" + options[key])
-    .join("&");
   return request({
-    url: DeptRecord + `?${queryString}`,
-    method: "GET",
+    url: DeptRecord,
+    data: {
+      ...options,
+    },
   });
 }
 
