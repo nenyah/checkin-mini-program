@@ -73,6 +73,12 @@
                 </block>
               </view>
             </view>
+            <view a:if="{{item.org.name.length}}">
+              <view class="color-label font-bold my-2">拜访对象</view>
+              <view class="flex">
+                {{item.org.name}}
+              </view>
+            </view>
           </view>
         </view>
       </block>

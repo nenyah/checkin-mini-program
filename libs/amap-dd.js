@@ -11,10 +11,9 @@ function reGeo(opt) {
       extensions: "all",
       batch: false,
       homeorcorp:2,
-      poitype:"090000|170000",
+      poitype:"090000|170000|190000",
     },
-    method: "GET",
-    header: { "content-type": "application/json" },
+    headers: { "content-type": "application/json" },
   });
 }
 
@@ -26,12 +25,11 @@ function getAround(opt) {
       location: `${opt.longitude},${opt.latitude}`,
       radius: opt.radius || limitRange,
       extensions: "all",
-      types: "090000|170000",
+      types: "090000|170000|190000",
       offset: 100,
       page: 1
     },
-    method: "GET",
-    header: { "content-type": "application/json" }
+    headers: { "content-type": "application/json" }
   });
 }
 

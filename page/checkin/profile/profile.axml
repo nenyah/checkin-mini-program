@@ -41,7 +41,7 @@
       <view class="bg-border m-5 radius-5 px-5" onTap="handleItemClick" data-item="{{card}}">
         <view class="flex sep-line py-2 my-2 text-black">
           <view class="w-1-5">{{card.time.substr(0,5)}}</view>
-          <view class="w-4-5">{{card.place}}</view>
+          <view class="w-4-5">{{card.org.name}}</view>
         </view>
         <view class="my-2">
           <view class="text-sm color-label my-2">签到地点</view>
