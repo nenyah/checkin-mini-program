@@ -1,76 +1,82 @@
 <block a:if="{{activeIndex==0}}">
   <block a:if="{{items.signInHisPage.records.length>0}}">
-    <block
-      a:for="{{items.signInHisPage.records}}"
-      a:key="index"
+    <scroll-view
+      scroll-y="{{true}}"
+      style="height: 60vh;"
+      onScrollToLower="lower"
     >
-      <view
-        class="border-1 mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow"
-        onTap="goToPorfile"
-        data-item="{{item}}"
+      <block
+        a:for="{{items.signInHisPage.records}}"
+        a:key="index"
       >
-        <view class="sep-line flex items-center px-2">
-          <view
-            class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2"
-          >
+        <view
+          class="border-1 mt-5 mx-auto w-5-6 radius-5 bg-color-white shadow"
+          onTap="goToPorfile"
+          data-item="{{item}}"
+        >
+          <view class="sep-line flex items-center px-2">
             <view
-              a:if="{{item.thumbAvatar}}"
-              class="flex"
+              class="bg-color-primary circle w-10 h-10 flex flex-col justify-center items-center m-2"
             >
-              <image
-                mode="scaleToFill"
-                src="{{item.thumbAvatar}}"
-                class="w-10 h-10 circle m-auto"
-              />
-            </view>
-            <view
-              a:else
-              class="color-white"
-            >
-              {{item.userName.length>2?item.userName.slice(-2):item.userName}}
-            </view>
-          </view>
-          <view class="">
-            <view class="text-base color-big-title">
-              {{item.userName}}
-            </view>
-            <view class="mt-2 color-label text-xs">
-              {{item.time.substr(0,5)}} 今日已签到{{item.quantity}}次
-            </view>
-          </view>
-        </view>
-        <view class="my-2 px-5">
-          <view class="color-label font-bold my-2">签到地点</view>
-          <view class="color-big-title font-bold">
-            {{item.detailPlace}}
-          </view>
-          <view a:if="{{item.remark}}">
-            <view class="color-label font-bold my-2">签到备注</view>
-            <view class="color-big-title font-bold">
-              {{item.remark}}
-            </view>
-          </view>
-          <view a:if="{{item.imgUrlList.length}}">
-            <view class="color-label font-bold my-2">签到图片</view>
-            <view class="flex">
-              <block
-                a:for="{{item.imgUrlList}}"
-                a:for-item="pic"
+              <view
+                a:if="{{item.thumbAvatar}}"
+                class="flex"
               >
                 <image
-                  src="{{pic}}"
-                  mode="aspectFill"
-                  class="w-16 h-16 mx-1"
-                  data-src="{{pic}}"
-                  catchTap="previewImg"
-                  key="{{pic}}"
+                  mode="scaleToFill"
+                  src="{{item.thumbAvatar}}"
+                  class="w-10 h-10 circle m-auto"
                 />
-              </block>
+              </view>
+              <view
+                a:else
+                class="color-white"
+              >
+                {{item.userName.length>2?item.userName.slice(-2):item.userName}}
+              </view>
+            </view>
+            <view class="">
+              <view class="text-base color-big-title">
+                {{item.userName}}
+              </view>
+              <view class="mt-2 color-label text-xs">
+                {{item.time.substr(0,5)}} 今日已签到{{item.quantity}}次
+              </view>
+            </view>
+          </view>
+          <view class="my-2 px-5">
+            <view class="color-label font-bold my-2">签到地点</view>
+            <view class="color-big-title font-bold">
+              {{item.detailPlace}}
+            </view>
+            <view a:if="{{item.remark}}">
+              <view class="color-label font-bold my-2">签到备注</view>
+              <view class="color-big-title font-bold">
+                {{item.remark}}
+              </view>
+            </view>
+            <view a:if="{{item.imgUrlList.length}}">
+              <view class="color-label font-bold my-2">签到图片</view>
+              <view class="flex">
+                <block
+                  a:for="{{item.imgUrlList}}"
+                  a:for-item="pic"
+                >
+                  <image
+                    src="{{pic}}"
+                    mode="aspectFill"
+                    class="w-16 h-16 mx-1"
+                    data-src="{{pic}}"
+                    catchTap="previewImg"
+                    key="{{pic}}"
+                  />
+                </block>
+              </view>
             </view>
           </view>
         </view>
-      </view>
-    </block>
+      </block>
+    </scroll-view>
   </block>
   <block a:else>
     <image
