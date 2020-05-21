@@ -18,7 +18,7 @@ Page({
     date: "",
     pages: 0,
     current: 0,
-    size: 50,
+    size: 20,
     hasMore: true,
   },
   onLoad() {
@@ -31,7 +31,7 @@ Page({
   },
   onLower() {
     // 下拉时加载更多
-    // console.log("统计页向下");
+    console.log("统计页向下");
     const pages = this.data.pages,
       current = this.data.current;
     if (current > pages) {
@@ -39,6 +39,7 @@ Page({
         hasMore: false,
       });
     }
+    this._getRecords();
   },
   onTabClick(e) {
     this.setData({
@@ -52,11 +53,7 @@ Page({
       current: 0,
       pages: 0,
     });
-    if (this.data.userNum > 0) {
-      this._getRecord();
-    } else {
-      this._getOwnDeptRecord();
-    }
+    this._getRecords();
   },
   onGetNewUser(users) {
     console.log("统计页获得人员数据", users);
@@ -67,10 +64,11 @@ Page({
     this.setData({
       userIds: myusers,
       userNum,
+      items: [],
       current: 0,
       pages: 0,
     });
-    this._getRecord();
+    this._getRecords();
   },
   onToHistory() {
     console.log("到历史页面");
@@ -126,8 +124,8 @@ Page({
   _renderData(res) {
     const checkinNums = res.signInQty,
       uncheckinNums = res.notSignInList.length,
-      pages = res.signInHisPage.pages,
-      current = res.signInHisPage.current,
+      pages = Number(res.signInHisPage.pages),
+      current = Number(res.signInHisPage.current),
       notSignRecords = res.notSignInList,
       items = [...this.data.items, ...res.signInHisPage.records];
     this.setData({
@@ -138,5 +136,12 @@ Page({
       notSignRecords,
       items,
     });
+  },
+  _getRecords() {
+    if (this.data.userNum > 0) {
+      this._getRecord();
+    } else {
+      this._getOwnDeptRecord();
+    }
   },
 });

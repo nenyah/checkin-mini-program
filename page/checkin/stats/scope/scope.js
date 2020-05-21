@@ -4,10 +4,10 @@ Component({
   data: {
     today: "2020-04-01",
     control: [{}],
+    userNum: 0,
   },
   props: {
     dept: "",
-    userNum: 0,
     onGetNewDate: (day) => console.log(day),
     onGetNewDept: (dept) => console.log(dept),
     onGetNewUser: (users) => console.log(users),
@@ -49,6 +49,9 @@ Component({
         responseUserOnly: true, //返回人，或者返回人和部门
         success: (res) => {
           console.log("选人结束", res);
+          this.setData({
+            userNum: res.users.length,
+          });
           this.props.onGetNewUser(res.users);
         },
         fail: (err) => {},

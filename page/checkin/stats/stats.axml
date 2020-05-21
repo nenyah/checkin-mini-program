@@ -4,7 +4,6 @@
     onGetNewDate="onGetNewDate"
     onToHistory="onToHistory"
     onGetNewUser="onGetNewUser"
-    userNum="{{userNum}}"
   ></s-scope>
   <s-tab-control
     tabs="{{tabs}}"
