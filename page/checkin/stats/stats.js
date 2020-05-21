@@ -30,11 +30,11 @@ Page({
     this._getOwnDeptRecord();
   },
   onPullDownRefresh() {
-    console.log('onPullDownRefresh', new Date())
+    console.log("onPullDownRefresh", new Date());
     this.setData({
-      items:[],
-      current:0
-    })
+      items: [],
+      current: 0,
+    });
     this._getRecords();
   },
   onLower() {
@@ -100,7 +100,12 @@ Page({
           console.log("获取本部门签到信息", res);
           this._renderData(res);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          my.showToast({
+            content: "数据获取错误" + err,
+          });
+        });
     }
   },
   async _getRecord() {
@@ -116,7 +121,12 @@ Page({
           console.log("获取选择人员签到信息", res);
           this._renderData(res);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          my.showToast({
+            content: "数据获取错误" + err,
+          });
+        });
     }
   },
   async _getDeptInfo(opt) {
@@ -128,7 +138,12 @@ Page({
           dept: res,
         });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        my.showToast({
+          content: "数据获取错误" + err,
+        });
+      });
   },
   _renderData(res) {
     const checkinNums = res.signInQty,
