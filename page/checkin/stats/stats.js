@@ -50,6 +50,7 @@ Page({
     console.log("统计页获得日期数据", data);
     this.setData({
       date: data,
+      items: [],
       current: 0,
       pages: 0,
     });
