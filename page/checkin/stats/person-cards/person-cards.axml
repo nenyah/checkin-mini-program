@@ -1,12 +1,12 @@
 <block a:if="{{activeIndex==0}}">
-  <block a:if="{{items.signInHisPage.records.length>0}}">
+  <block a:if="{{signRecords.length>0}}">
     <scroll-view
       scroll-y="{{true}}"
       style="height: 60vh;"
       onScrollToLower="lower"
     >
       <block
-        a:for="{{items.signInHisPage.records}}"
+        a:for="{{signRecords}}"
         a:key="index"
       >
         <view
@@ -96,7 +96,7 @@
 <block a:elif="{{activeIndex==1}}">
   <view class="flex flex-wrap justify-between px-5">
     <block
-      a:for="{{items.notSignInList}}"
+      a:for="{{notSignRecords}}"
       a:key="index"
     >
       <view class="w-16 m-2 flex flex-col items-center">

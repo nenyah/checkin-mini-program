@@ -11,6 +11,7 @@ Page({
     ],
     activeTab: 0,
     items: [],
+    notSignRecords: [],
     dept: "",
     userNum: 0,
     userIds: [],
@@ -18,6 +19,7 @@ Page({
     pages: 0,
     current: 0,
     size: 50,
+    hasMore: true,
   },
   onLoad() {
     // 首次进入显示本部门信息
@@ -31,21 +33,11 @@ Page({
     // 下拉时加载更多
     // console.log("统计页向下");
     const pages = this.data.pages,
-      date = this.data.date,
-      userIds = this.data.userIds,
-      size = this.data.size;
-    let current = this.data.current;
-
-    if (this.data.userNum > 0) {
-      if (pages > current) {
-        current += current;
-        this._getRecord({ userIds, date, current, size });
-      }
-    } else {
-      if (pages > current) {
-        current += current;
-        this._getOwnDeptRecord({ current, size });
-      }
+      current = this.data.current;
+    if (current > pages) {
+      this.setData({
+        hasMore: false,
+      });
     }
   },
   onTabClick(e) {
@@ -61,9 +53,9 @@ Page({
       pages: 0,
     });
     if (this.data.userNum > 0) {
-      this._getRecord({ userIds: this.data.userIds, date: data });
+      this._getRecord();
     } else {
-      this._getOwnDeptRecord({ date: data });
+      this._getOwnDeptRecord();
     }
   },
   onGetNewUser(users) {
@@ -78,7 +70,7 @@ Page({
       current: 0,
       pages: 0,
     });
-    this._getRecord({ userIds: myusers, date: this.data.date });
+    this._getRecord();
   },
   onToHistory() {
     console.log("到历史页面");
@@ -88,21 +80,37 @@ Page({
         JSON.stringify(this.data.items),
     });
   },
-  async _getOwnDeptRecord(opt) {
-    getOwnDeptRecord({ ...opt })
-      .then((res) => {
-        console.log("获取本部门签到信息", res);
-        this._renderData(res);
-      })
-      .catch((err) => console.error(err));
+  async _getOwnDeptRecord() {
+    const date = this.data.date,
+      size = this.data.size,
+      hasMore = this.data.hasMore;
+    let current = this.data.current;
+
+    if (hasMore) {
+      current += 1;
+      getOwnDeptRecord({ current, date, size })
+        .then((res) => {
+          console.log("获取本部门签到信息", res);
+          this._renderData(res);
+        })
+        .catch((err) => console.error(err));
+    }
   },
-  async _getRecord(opt) {
-    getRecord({ ...opt })
-      .then((res) => {
-        console.log("获取选择人员签到信息", res);
-        this._renderData(res);
-      })
-      .catch((err) => console.error(err));
+  async _getRecord() {
+    const date = this.data.date,
+      userIds = this.data.userIds,
+      size = this.data.size,
+      hasMore = this.data.hasMore;
+    let current = this.data.current;
+    if (hasMore) {
+      current += 1;
+      getRecord({ current, userIds, date, size })
+        .then((res) => {
+          console.log("获取选择人员签到信息", res);
+          this._renderData(res);
+        })
+        .catch((err) => console.error(err));
+    }
   },
   async _getDeptInfo(opt) {
     const dingUserId = await app.globalData.userInfo.user.dingUserId;
@@ -120,12 +128,14 @@ Page({
       uncheckinNums = res.notSignInList.length,
       pages = res.signInHisPage.pages,
       current = res.signInHisPage.current,
-      items = res;
+      notSignRecords = res.notSignInList,
+      items = [...this.data.items, ...res.signInHisPage.records];
     this.setData({
       "tabs[0].title": checkinNums,
       "tabs[1].title": uncheckinNums,
       pages,
       current,
+      notSignRecords,
       items,
     });
   },

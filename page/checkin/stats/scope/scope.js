@@ -15,7 +15,7 @@ Component({
   },
   didMount() {
     this.setData({
-      today: moment().format('YYYY-MM-DD'),
+      today: moment().format("YYYY-MM-DD"),
     });
   },
   didUpdate() {},
@@ -49,7 +49,6 @@ Component({
         responseUserOnly: true, //返回人，或者返回人和部门
         success: (res) => {
           console.log("选人结束", res);
-
           this.props.onGetNewUser(res.users);
         },
         fail: (err) => {},
