@@ -27,7 +27,15 @@ Page({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     });
     this._getDeptInfo();
-    this._getOwnDeptRecord({ current: 1, size: 50 });
+    this._getOwnDeptRecord();
+  },
+  onPullDownRefresh() {
+    console.log('onPullDownRefresh', new Date())
+    this.setData({
+      items:[],
+      current:0
+    })
+    this._getRecords();
   },
   onLower() {
     // 下拉时加载更多

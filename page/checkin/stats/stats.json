@@ -5,5 +5,6 @@
         "s-person-cards": "./person-cards/person-cards",
         "s-button": "./export-button/export-button"
     },
-    "defaultTitle": "团队签到统计"
+    "defaultTitle": "团队签到统计",
+    "pullRefresh": true
 }
