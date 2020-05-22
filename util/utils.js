@@ -49,8 +49,8 @@ async function imageUtil(e) {
   console.log("原始高: " + originalHeight);
   console.log("宽高比" + originalScale);
   let res = await getSysteminfo();
-  let windowWidth = res.windowWidth * 1.1;
-  let windowHeight = res.windowHeight * 1.1;
+  let windowWidth = res.windowWidth * 0.6;
+  let windowHeight = res.windowHeight * 0.6;
   let windowscale = windowHeight / windowWidth; //屏幕高宽比
   // 图片尺寸大于设备
   if (originalWidth > res.windowWidth || originalHeight > res.windowHeight) {

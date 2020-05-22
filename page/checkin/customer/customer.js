@@ -124,7 +124,10 @@ Page({
     app.globalData.selectedClient = item;
     console.log("获取当前页面数", getCurrentPages().length);
 
-    dd.navigateBack();
+    // dd.navigateBack();
+    dd.switchTab({
+      url: "/page/checkin/index/index",
+    });
   },
   expand(e) {
     const index = e.currentTarget.dataset.index,

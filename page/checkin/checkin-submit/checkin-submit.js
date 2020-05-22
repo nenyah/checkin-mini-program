@@ -50,7 +50,21 @@ Page({
         this.setData({
           disabled: true,
         });
-        this._getCanvasImg(0, 0, res.filePaths); //进行压缩
+        dd.compressImage({
+          filePaths: res.filePaths,
+          compressLevel: 0,
+          success: (res) => {
+            console.log(JSON.stringify(res));
+            let picUrls = this.data.picUrls;
+            picUrls.push(res.filePaths[0]);
+            this.setData({
+              picUrls,
+              disabled: false,
+            });
+          },
+        });
+
+        // this._getCanvasImg(0, 0, res.filePaths); //进行压缩
       },
     });
   },

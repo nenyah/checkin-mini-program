@@ -1,7 +1,7 @@
 let dev = false;
 let RootUrl, ApiRootUrl, ConfigUrl;
 if (dev) {
-  RootUrl = "http://192.168.10.115:9102";
+  RootUrl = "http://192.168.13.170:9102";
 } else {
   RootUrl = "http://www2.huadongbio.com:9102";
 }
