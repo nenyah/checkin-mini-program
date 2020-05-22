@@ -27,7 +27,7 @@ Page({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     });
     this._getDeptInfo();
-    this._getOwnDeptRecord();
+    this._getRecords();
   },
   onPullDownRefresh() {
     console.log("onPullDownRefresh", new Date());
@@ -129,9 +129,9 @@ Page({
         });
     }
   },
-  async _getDeptInfo(opt) {
+  async _getDeptInfo() {
     const dingUserId = await app.globalData.userInfo.user.dingUserId;
-    getDeptInfo({ dingUserId, ...opt })
+    getDeptInfo({ dingUserId })
       .then((res) => {
         console.log("获取当前部门信息", res);
         this.setData({
