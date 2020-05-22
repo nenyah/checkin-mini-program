@@ -16,7 +16,7 @@ Page({
     animationInfo: {},
     remark: "",
     isShow: false,
-    disabled: false,
+    disabled: true,
     imageSize: "",
   },
   onLoad(query) {
@@ -47,6 +47,9 @@ Page({
       sourceType: ["camera"],
       success: (res) => {
         console.info("拍照成功", res);
+        this.setData({
+          disabled: true,
+        });
         this._getCanvasImg(0, 0, res.filePaths); //进行压缩
       },
     });
@@ -55,7 +58,7 @@ Page({
     my.getImageInfo({
       src: tempFilePaths[0],
       success: (res) => {
-        console.log("获取手机信息", res);
+        console.log("获取图片信息", res);
         if (index < tempFilePaths.length) {
           util
             .imageUtil(res)
@@ -70,7 +73,7 @@ Page({
                 res.imageWidth,
                 res.imageHeight
               );
-              index = index + 1; //上传成功的数量，上传成功则加1
+              index = index + 1; //压缩成功的数量，压缩成功则加1
               ctx.draw();
               setTimeout(() => {
                 ctx.toTempFilePath({
@@ -85,6 +88,7 @@ Page({
                     picUrls.push(res.filePath);
                     this.setData({
                       picUrls,
+                      disabled: false,
                     });
                   },
                 });
@@ -256,10 +260,12 @@ Page({
     if (app.globalData.selectedLocation) {
       this.setData({
         location: app.globalData.selectedLocation,
+        disabled: false,
       });
     } else {
       this.setData({
         location: app.globalData.location,
+        disabled: false,
       });
     }
   },

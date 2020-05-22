@@ -124,7 +124,7 @@ Page({
     app.globalData.selectedClient = item;
     console.log("获取当前页面数", getCurrentPages().length);
 
-    my.navigateBack();
+    dd.navigateBack();
   },
   expand(e) {
     const index = e.currentTarget.dataset.index,

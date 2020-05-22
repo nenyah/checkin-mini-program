@@ -1,6 +1,6 @@
 import { setStorageSync, getStorageSync } from "./service/storage";
 import moment from "moment";
-
+moment.locale("zh-cn");
 App({
   onLaunch(options) {
     console.log("App Launch", options);
@@ -9,15 +9,15 @@ App({
   },
 
   onShow() {
-    console.log("App Show");
     // 设置当前时间
     this._setCurrentTime();
+    console.log("App Show", this.globalData.currentTime);
   },
   onHide() {
-    console.log("App Hide");
+    console.log("App Hide", this.globalData.currentTime);
   },
   onError(msg) {
-    console.log(msg)
+    console.log(msg);
   },
   globalData: {
     userInfo: null,
@@ -28,7 +28,7 @@ App({
     location: null,
     currentTime: "",
   },
-  
+
   /**
    *获取当前时间
    *

@@ -147,7 +147,7 @@ Page({
   },
   _renderData(res) {
     const checkinNums = res.signInQty,
-      uncheckinNums = res.notSignInList.length,
+      uncheckinNums = res.notSignInList === null ? 0 : res.notSignInList.length,
       pages = Number(res.signInHisPage.pages),
       current = Number(res.signInHisPage.current),
       notSignRecords = res.notSignInList,
