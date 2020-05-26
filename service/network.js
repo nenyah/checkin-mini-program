@@ -1,6 +1,6 @@
 import { timeout } from "/config/api";
 import { getStorageSync } from "/service/storage";
-var app = getApp();
+let app = getApp();
 
 function request(options) {
   my.showLoading({

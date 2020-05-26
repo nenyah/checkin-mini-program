@@ -2,7 +2,7 @@ import { getRecord, getOwnDeptRecord } from "/service/record";
 import { getStorageSync } from "/service/storage";
 import { getDeptInfo } from "/service/dept";
 import moment from "moment";
-var app = getApp();
+let app = getApp();
 Page({
   data: {
     tabs: [
@@ -81,11 +81,17 @@ Page({
   },
   onToHistory() {
     console.log("到历史页面");
-    my.navigateTo({
-      url:
-        "/page/checkin/checkin-history/checkin-history?page=stats&items=" +
-        JSON.stringify(this.data.items),
-    });
+    if (this.data.items.length > 0) {
+      my.navigateTo({
+        url:
+          "/page/checkin/checkin-history/checkin-history?page=stats&items=" +
+          JSON.stringify(this.data.items),
+      });
+    } else {
+      my.showToast({
+        content: "当天没有签到信息或者数据还没有获取完成！",
+      });
+    }
   },
   async _getOwnDeptRecord() {
     const date = this.data.date,

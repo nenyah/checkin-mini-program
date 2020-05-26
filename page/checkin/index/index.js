@@ -5,7 +5,7 @@ import { getLocation } from "/service/location";
 import utils from "/util/utils";
 import { companyName, markers } from "/config/api";
 import { getConfig } from "../../../service/config";
-var app = getApp();
+let app = getApp();
 
 Page({
   data: {

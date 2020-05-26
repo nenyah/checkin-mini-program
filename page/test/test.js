@@ -15,7 +15,7 @@ Page({
       success: res => {
         console.log("choose img", res);
 
-        var tempFilePaths = res.filePaths; //这个是选择后返回的图片列表
+        let tempFilePaths = res.filePaths; //这个是选择后返回的图片列表
         this.getCanvasImg(0, 0, tempFilePaths); //进行压缩
       }
     });
@@ -114,7 +114,7 @@ Page({
     });
   }, //上传图片
   uploadCanvasImg(canvasImg) {
-    var tempImg = canvasImg;
+    let tempImg = canvasImg;
     my.uploadFile({
       url: uploadhttpurl, // 仅为示例，非真实的接口地址
       filePath: tempImg,

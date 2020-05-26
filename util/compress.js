@@ -79,20 +79,20 @@ function getLessLimitSizeImage(
       wx.getImageInfo({
         src: imagePath,
         success: function (imageInfo) {
-          var maxSide = Math.max(
+          let maxSide = Math.max(
             imageInfo.width,
             imageInfo.height
           );
           //画板的宽高默认是windowWidth
-          var windowW = drawWidth;
-          var scale = 1;
+          let windowW = drawWidth;
+          let scale = 1;
           if (maxSide > windowW) {
             scale = windowW / maxSide;
           }
-          var imageW = Math.trunc(
+          let imageW = Math.trunc(
             imageInfo.width * scale
           );
-          var imageH = Math.trunc(
+          let imageH = Math.trunc(
             imageInfo.height * scale
           );
           console.log("调用压缩", imageW, imageH);

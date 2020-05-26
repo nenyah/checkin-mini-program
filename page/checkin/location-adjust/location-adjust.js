@@ -1,5 +1,6 @@
 import { getAround } from "/libs/amap-dd";
-var app = getApp();
+import { getLocation } from "/service/location";
+let app = getApp();
 Page({
   data: {
     items: [],
@@ -123,27 +124,15 @@ Page({
   _getAround(opt) {
     getAround(opt)
       .then((res) => {
-        // const regeocode = res.regeocode;
-        // const addressComponent = regeocode.addressComponent;
-        // const town = `${addressComponent.province}${addressComponent.city}${addressComponent.district}${addressComponent.township}`;
-        // const items = regeocode.pois.map((item, index) => {
-        //   return {
-        //     index: index,
-        //     title: item.name,
-        //     brief: `${town}${item.address}`,
-        //     location: item.location,
-        //     selected: index === 0 ? true : false,
-        //   };
-        // });
-        const items = res.pois.map((item,index)=>{
+        const items = res.pois.map((item, index) => {
           return {
             index,
-            title:item.name,
-            brief:item.pname+item.cityname+item.adname+item.address,
+            title: item.name,
+            brief: item.pname + item.cityname + item.adname + item.address,
             location: item.location,
             selected: index === 0 ? true : false,
-          }
-        })
+          };
+        });
         this.setData({
           items,
         });
@@ -156,14 +145,50 @@ Page({
    * @returns
    */
   _getCurrentLocation() {
-    const longitude = app.globalData.location.longitude;
-    const latitude = app.globalData.location.latitude;
-    this.setData({
-      "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude,
-      location: [longitude, latitude],
-    });
-    return { longitude, latitude };
+    if (!app.globalData.location) {
+      return getLocation()
+        .then((res) => {
+          console.log("首页：获取地址成功");
+          console.info(res);
+          const longitude = utils.round(res.longitude, 6),
+            latitude = utils.round(res.latitude, 6);
+          app.globalData.location = {
+            longitude,
+            latitude,
+            name: res.address,
+            address: res.address,
+          };
+          this.setData({
+            "markers[0].longitude": longitude,
+            "markers[0].latitude": latitude,
+            location: [longitude, latitude],
+          });
+          return { longitude, latitude };
+        })
+        .catch((err) => {
+          console.error(err);
+          if (err.error === 4) {
+            my.showToast({
+              type: "fail",
+              content: "还没有打开定位哦！",
+            });
+          } else if (err.error === 12) {
+            my.showToast({
+              type: "fail",
+              content: "网络异常，请检查网络！",
+            });
+          }
+        });
+    } else {
+      const longitude = app.globalData.location.longitude;
+      const latitude = app.globalData.location.latitude;
+      this.setData({
+        "markers[0].longitude": longitude,
+        "markers[0].latitude": latitude,
+        location: [longitude, latitude],
+      });
+      return { longitude, latitude };
+    }
   },
   /**
    *@function 选择地址

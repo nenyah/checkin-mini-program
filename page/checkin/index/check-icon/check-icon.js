@@ -1,5 +1,5 @@
 import { urlEncode } from "/util/utils";
-var app = getApp();
+let app = getApp();
 Component({
   mixins: [],
   data: {},
@@ -13,9 +13,9 @@ Component({
   didUnmount() {},
   methods: {
     goSubmit() {
-      const selectOrg = app.globalData.userInfo.user.selectOrg;
+      const selectuserInfo = app.globalData.userInfo;
       // const selectOrg = false;
-      if (selectOrg) {
+      if (!selectuserInfo && selectuserInfo.user.selectOrg === true) {
         if (this.props.client) {
           my.navigateTo({
             url:

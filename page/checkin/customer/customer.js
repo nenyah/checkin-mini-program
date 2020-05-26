@@ -1,5 +1,5 @@
 import { getClients, getCustomer } from "../../../service/clients";
-var app = getApp();
+let app = getApp();
 const itemsMine = [
   {
     id: 0,

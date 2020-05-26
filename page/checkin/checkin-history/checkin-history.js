@@ -12,7 +12,7 @@ Page({
   onLoad(query) {
     const page = query.page;
     if (page == "stats") {
-      const checkininfo = JSON.parse(query.items).signInHisPage.records;
+      const checkininfo = JSON.parse(query.items);
       console.log("历史页面", checkininfo);
       if (!checkininfo.length) {
         return;

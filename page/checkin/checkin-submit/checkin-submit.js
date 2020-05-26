@@ -3,7 +3,7 @@ import { setRecord, setRecordFile } from "../../../service/record";
 import { companyName, compressLevel } from "/config/api";
 import util from "/util/utils";
 import moment from "moment";
-var app = getApp();
+let app = getApp();
 
 Page({
   data: {
@@ -284,7 +284,7 @@ Page({
     }
   },
   _sucessAnimation() {
-    var animation = my.createAnimation({
+    let animation = my.createAnimation({
       duration: 1000,
       timeFunction: "ease-in-out",
     });
