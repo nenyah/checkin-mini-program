@@ -45,7 +45,48 @@ Page({
       url: "/page/checkin/location-adjust/location-adjust",
     });
   },
-
+  onSubmit() {
+    console.log("点击提交");
+    const params = {
+      timeStamp: this.data.mx.valueOf(),
+      location: this.data.location,
+      client: this.data.client,
+    };
+    if (this.data.userInfo === null) {
+      my.showToast({
+        type: "fail",
+        content: "请稍等，用户信息还没有获取成功！",
+        duration: 2000,
+      });
+    } else {
+      // 已经有用户信息了
+      if (!this.data.userInfo.user.selectOrg) {
+        // 判断是否需要选择拜访对象
+        // 不用选择
+        my.navigateTo({
+          url:
+            "../checkin-submit/checkin-submit?params=" + JSON.stringify(params),
+        });
+      } else {
+        // 需要选择
+        if (!this.data.client) {
+          // 没有拜访对象
+          my.showToast({
+            type: "fail",
+            content: "还没有选择拜访对象哦！",
+            duration: 2000,
+          });
+        } else {
+          // 有拜访对象
+          my.navigateTo({
+            url:
+              "../checkin-submit/checkin-submit?params=" +
+              JSON.stringify(params),
+          });
+        }
+      }
+    }
+  },
   /**
    *@author steven
    *@function 获取当日签到次数
@@ -89,6 +130,7 @@ Page({
             address: res.address,
           };
           this.setData({
+            location: res,
             longitude,
             latitude,
             address: res.address,
@@ -119,15 +161,17 @@ Page({
    */
   async _getCurrentTime() {
     const checkInDate = app.globalData.currentTime;
-    if (checkInDate) {
-      const mx = moment(checkInDate);
-      const today = mx.format("YYYY年MM月DD日");
-      const ctime = mx.format("HH:mm");
-      this.setData({
-        today,
-        ctime,
-      });
+    if (!checkInDate) {
+      return;
     }
+    const mx = moment(checkInDate);
+    const today = mx.format("YYYY年MM月DD日");
+    const ctime = mx.format("HH:mm");
+    this.setData({
+      today,
+      ctime,
+      mx,
+    });
   },
   /**
    *@author steven
@@ -148,22 +192,19 @@ Page({
    *
    */
   async _getUserInfo() {
-    let userinfo = app.globalData.userInfo;
-
-    if (!userinfo) {
-      // 获取用户信息
-      console.log("首页：没有用户信息，执行获取用户");
-      return getUserInfo()
-        .then((res) => {
-          console.log("首页：获得用户信息");
-          console.info(res);
-          app.globalData.userInfo = res;
-          this._checkRecordTimes();
-          this._getConfig({ value: "limitRange" });
-        })
-        .catch((err) => console.error("首页：获取用户信息报错", err));
-    }
-    this._checkRecordTimes();
+    console.log("首页：没有用户信息，执行获取用户");
+    getUserInfo()
+      .then((res) => {
+        console.log("首页：获得用户信息");
+        console.info(res);
+        app.globalData.userInfo = res;
+        this.setData({
+          userInfo: res,
+        });
+        this._checkRecordTimes();
+        this._getConfig({ value: "limitRange" });
+      })
+      .catch((err) => console.error("首页：获取用户信息报错", err));
   },
   _getConfig(params) {
     getConfig(params)

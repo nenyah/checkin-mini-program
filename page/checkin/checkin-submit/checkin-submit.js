@@ -24,16 +24,25 @@ Page({
     console.info(
       `Checkin-submit Page onLoad with query: ${JSON.stringify(query)}`
     );
-    console.log(query);
-    this._setVisitPerson(query);
-    this._getTime();
+    let data = JSON.parse(query.params);
+    console.log(JSON.parse(query.params));
+    data.location.name = data.location.address;
+    if (app.globalData.selectedLocation) {
+      data.location = app.globalData.selectedLocation;
+    }
+    this.setData({
+      ...data,
+      checkinTime: moment(data.timeStamp).format("HH:mm"),
+      disabled: false,
+    });
+
     // 清除信息
     this.setData({
       picUrls: [],
     });
   },
   onShow() {
-    this._getAddress();
+    // this._getAddress();
   },
   onHide() {},
   /**
@@ -185,12 +194,7 @@ Page({
     console.log(checkInRecord);
 
     const imageList = this.data.picUrls;
-    // if (imageList.length < 1) {
-    //   my.showToast({
-    //     type: "fail",
-    //     content: "还没有添加照片哦！",
-    //   });
-    // }
+
     let checkInRecord = {
       detailPlace: this.data.location.address,
       latitude: `${this.data.location.latitude}`,
@@ -222,9 +226,11 @@ Page({
       .then((res) => {
         console.log("提交页:上传签到信息", res);
         app.globalData.selectedClient = null;
+        app.globalData.selectedLocation = null;
         // 签到动画
         this._sucessAnimation();
         app.globalData.currentTime = moment().format();
+
         setTimeout(() => {
           dd.reLaunch({
             url: "/page/checkin/index/index",
@@ -238,32 +244,7 @@ Page({
         });
       });
   },
-  /**
-   *@author steven
-   *@function 获取时间
-   */
-  _getTime() {
-    console.log("提交页:从全局获取时间");
 
-    const ctime = moment(app.globalData.currentTime);
-    console.log("提交页:从全局获取时间", ctime);
-    const checkinTime = ctime.format("HH:mm");
-    const timeStamp = ctime.valueOf();
-    this.setData({
-      checkinTime,
-      timeStamp,
-    });
-  },
-  /**
-   *@author steven
-   *@function 设置拜访客户
-   * @param {*} query
-   */
-  _setVisitPerson(query) {
-    this.setData({
-      client: query,
-    });
-  },
   /**
    *@author steven
    *@function 获取地址

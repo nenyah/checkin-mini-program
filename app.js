@@ -15,6 +15,7 @@ App({
   },
   onHide() {
     console.log("App Hide", this.globalData.currentTime);
+    this.globalData.currentTime = null;
   },
   onError(msg) {
     console.log(msg);
@@ -34,6 +35,8 @@ App({
    *
    */
   _setCurrentTime() {
-    this.globalData.currentTime = moment().format();
+    if (!this.globalData.currentTime) {
+      this.globalData.currentTime = moment().format();
+    }
   },
 });

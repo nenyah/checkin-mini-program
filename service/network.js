@@ -3,9 +3,6 @@ import { getStorageSync } from "/service/storage";
 let app = getApp();
 
 function request(options) {
-  my.showLoading({
-    title: "数据加载中ing",
-  });
   let token, headers;
   if (app.globalData.userInfo) {
     token = app.globalData.userInfo.token;
@@ -19,7 +16,6 @@ function request(options) {
     my.httpRequest({
       ...options,
       success: (res) => {
-        // console.log("获取数据成功", res);
         if (!res) {
           reject({
             errCode: -1,
@@ -34,7 +30,6 @@ function request(options) {
         reject(err);
       },
       complete: (res) => {
-        my.hideLoading();
       },
     });
   });
