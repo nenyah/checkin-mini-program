@@ -1,5 +1,6 @@
 import { getAround } from "/libs/amap-dd";
 import { getLocation } from "/service/location";
+import utils from "/util/utils";
 let app = getApp();
 Page({
   data: {
@@ -32,9 +33,18 @@ Page({
     ],
     search: false,
   },
-  onLoad() {
-    const { longitude, latitude } = this._getCurrentLocation(),
-      radius = app.globalData.limitRange;
+  onLoad(query) {
+    let location = JSON.parse(query.location);
+    console.log("地点微调页面", JSON.parse(query.location));
+    location.longitude = utils.round(location.longitude, 6);
+    location.latitude = utils.round(location.latitude, 6);
+    let { longitude, latitude } = location;
+    const radius = app.globalData.limitRange;
+
+    this.setData({
+      originLocation: location,
+    });
+    this._getCurrentLocation();
     this._getAround({ longitude, latitude, radius });
   },
   onReady() {},
@@ -145,50 +155,12 @@ Page({
    * @returns
    */
   _getCurrentLocation() {
-    if (!app.globalData.location) {
-      return getLocation()
-        .then((res) => {
-          console.log("首页：获取地址成功");
-          console.info(res);
-          const longitude = utils.round(res.longitude, 6),
-            latitude = utils.round(res.latitude, 6);
-          app.globalData.location = {
-            longitude,
-            latitude,
-            name: res.address,
-            address: res.address,
-          };
-          this.setData({
-            "markers[0].longitude": longitude,
-            "markers[0].latitude": latitude,
-            location: [longitude, latitude],
-          });
-          return { longitude, latitude };
-        })
-        .catch((err) => {
-          console.error(err);
-          if (err.error === 4) {
-            my.showToast({
-              type: "fail",
-              content: "还没有打开定位哦！",
-            });
-          } else if (err.error === 12) {
-            my.showToast({
-              type: "fail",
-              content: "网络异常，请检查网络！",
-            });
-          }
-        });
-    } else {
-      const longitude = app.globalData.location.longitude;
-      const latitude = app.globalData.location.latitude;
-      this.setData({
-        "markers[0].longitude": longitude,
-        "markers[0].latitude": latitude,
-        location: [longitude, latitude],
-      });
-      return { longitude, latitude };
-    }
+    const oriLocation = this.data.originLocation;
+    this.setData({
+      "markers[0].longitude": oriLocation.longitude,
+      "markers[0].latitude": oriLocation.latitude,
+      location: [oriLocation.longitude, oriLocation.latitude],
+    });
   },
   /**
    *@function 选择地址

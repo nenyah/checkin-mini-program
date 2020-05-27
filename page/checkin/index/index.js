@@ -41,9 +41,20 @@ Page({
     console.log("首页隐藏");
   },
   adjustLocation() {
-    my.navigateTo({
-      url: "/page/checkin/location-adjust/location-adjust",
-    });
+    console.log("跳转前地址", this.data.location);
+    if (!this.data.location) {
+      my.showToast({
+        type: "fail",
+        content: "请稍等，钉钉定位信息还没有获取成功！",
+        duration: 2000,
+      });
+    } else {
+      my.navigateTo({
+        url:
+          "../location-adjust/location-adjust?location=" +
+          JSON.stringify(this.data.location),
+      });
+    }
   },
   onSubmit() {
     console.log("点击提交");

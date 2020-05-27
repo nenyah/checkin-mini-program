@@ -75,11 +75,20 @@ async function imageUtil(e) {
   return imageSize;
 }
 
-function round(num,digits) {
+function round(num, digits) {
   return Math.round(num * Math.pow(10, digits)) / Math.pow(10, digits);
+}
+// 全局toast
+function ddToast({ type, text, interval }) {
+  dd.showToast({
+    type: type,
+    content: text,
+    duration: interval,
+  });
 }
 module.exports = {
   urlEncode,
   imageUtil,
   round,
+  ddToast,
 };
