@@ -52,7 +52,7 @@ Page({
   useCamera() {
     my.chooseImage({
       count: 1,
-      sizeType: ["compressed"],
+      // sizeType: ["compressed"],
       sourceType: ["camera"],
       success: (res) => {
         console.info("拍照成功", res);

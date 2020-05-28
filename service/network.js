@@ -3,18 +3,20 @@ import { getStorageSync } from "/service/storage";
 let app = getApp();
 
 function request(options) {
-  let token, headers;
-  if (app.globalData.userInfo) {
-    token = app.globalData.userInfo.token;
-    options.headers = options.headers || {};
-    Object.assign(options.headers, { Authorization: token });
-  }
-
+  // let token, headers;
+  // if (app.globalData.userInfo) {
+  //   token = app.globalData.userInfo.token;
+  //   options.headers = options.headers || {};
+  //   Object.assign(options.headers, { Authorization: token });
+  // }
+  let headers = { Authorization: getApp().globalData.token || undefined };
+  Object.assign(headers, options.headers);
   return new Promise((resolve, reject) => {
     console.log("开始解析", options.url);
 
     my.httpRequest({
       ...options,
+      headers,
       success: (res) => {
         if (!res) {
           reject({
@@ -29,8 +31,7 @@ function request(options) {
       fail: (err) => {
         reject(err);
       },
-      complete: (res) => {
-      },
+      complete: (res) => {},
     });
   });
 }
