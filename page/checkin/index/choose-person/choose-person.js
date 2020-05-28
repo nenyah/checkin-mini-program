@@ -12,6 +12,10 @@ Component({
       this.setData({
         isSelected: true,
       });
+    } else {
+      this.setData({
+        isSelected: false,
+      });
     }
   },
   didUnmount() {},

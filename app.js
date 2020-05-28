@@ -23,7 +23,7 @@ App({
     console.log(msg);
   },
   globalData: {
-    version:'20200528001',
+    version:'0.0.44',
     userInfo: null,
     records: null,
     selectedClient: null,

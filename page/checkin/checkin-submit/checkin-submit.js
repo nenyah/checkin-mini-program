@@ -225,7 +225,7 @@ Page({
     setRecord(checkInRecord)
       .then((res) => {
         console.log("提交页:上传签到信息", res);
-        app.globalData.selectedClient = null;
+        app.globalData.selectedClient = {};
         app.globalData.selectedLocation = null;
         // 签到动画
         this._sucessAnimation();

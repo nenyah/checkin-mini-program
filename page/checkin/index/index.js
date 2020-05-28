@@ -196,9 +196,8 @@ Page({
    */
   async _getClient() {
     const client = app.globalData.selectedClient;
-    if (!client) {
-      return;
-    }
+    console.log("首页获取客户信息", client);
+
     this.setData({
       client,
     });
