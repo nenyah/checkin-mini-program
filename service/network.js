@@ -23,14 +23,6 @@ function request(options) {
 }
 
 function uploadFile(options) {
-  let token, header;
-  if (app.globalData.userInfo) {
-    token = app.globalData.userInfo.token;
-    header = {
-      // "content-type": "multipart/form-data",
-      Authorization: token,
-    };
-  }
   return new Promise((resolve, reject) => {
     console.log("开始解析", options.url);
 
@@ -40,7 +32,7 @@ function uploadFile(options) {
       fileName: "file",
       filePath: options.filePath,
       formData: options.formData || {},
-      header: header,
+      header: { Authorization: getApp().globalData.token || undefined },
       success: (res) => resolve(JSON.parse(res.data)),
       fail: (err) => {
         reject(err);
