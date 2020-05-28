@@ -1,4 +1,5 @@
 import { setStorageSync, getStorageSync } from "./service/storage";
+import { login } from "./service/login";
 import moment from "moment";
 moment.locale("zh-cn");
 App({
@@ -6,6 +7,7 @@ App({
     console.log("App Launch", options);
     console.log("getSystemInfoSync", my.getSystemInfoSync());
     console.log("SDKVersion", my.SDKVersion);
+    login()
   },
 
   onShow() {
@@ -21,6 +23,7 @@ App({
     console.log(msg);
   },
   globalData: {
+    version:'20200528001',
     userInfo: null,
     records: null,
     selectedClient: null,

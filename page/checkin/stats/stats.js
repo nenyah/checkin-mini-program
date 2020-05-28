@@ -103,7 +103,6 @@ Page({
       current += 1;
       getOwnDeptRecord({ current, date, size })
         .then((res) => {
-          console.log("获取本部门签到信息", res);
           this._renderData(res);
         })
         .catch((err) => {
@@ -124,7 +123,6 @@ Page({
       current += 1;
       getRecord({ current, userIds, date, size })
         .then((res) => {
-          console.log("获取选择人员签到信息", res);
           this._renderData(res);
         })
         .catch((err) => {
@@ -136,10 +134,9 @@ Page({
     }
   },
   async _getDeptInfo() {
-    const dingUserId = await app.globalData.userInfo.user.dingUserId;
+    const dingUserId = await app.globalData.userInfo.dingUserId;
     getDeptInfo({ dingUserId })
       .then((res) => {
-        console.log("获取当前部门信息", res);
         this.setData({
           dept: res,
         });

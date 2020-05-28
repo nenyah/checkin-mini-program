@@ -1,5 +1,5 @@
 import moment from "moment";
-import { getUserInfo } from "/service/login";
+// import { getUserInfo } from "/service/login";
 import { getRecord, getTodayCount } from "/service/record";
 import { getLocation } from "/service/location";
 import utils from "/util/utils";
@@ -21,27 +21,33 @@ Page({
   },
 
   onLoad() {
+    console.log("首页加载");
     // 首页加载 初始化数据
     // 日期 时间 地址 历史签到 签到次数
+    this._getConfig({ value: "limitRange" });
   },
+  onReady() {},
   onShow() {
     // 页面显示
     console.log("首页显示");
     // 获取当前时间
     this._getCurrentTime();
-    this._getUserInfo();
     this._getClient();
     this._getLoncation();
+    this._checkRecordTimes();
   },
-  onUnload() {
-    console.log("index unload");
-  },
-  onReady(e) {},
   onHide() {
     console.log("首页隐藏");
   },
+  onUnload() {
+    console.log("首页卸载");
+  },
+  onTitleClick() {
+    // 标题被点击
+    utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` });
+  },
   adjustLocation() {
-    console.log("跳转前地址", this.data.location);
+    // console.log("跳转前地址", this.data.location);
     if (!this.data.location) {
       my.showToast({
         type: "fail",
@@ -63,7 +69,7 @@ Page({
       location: this.data.location,
       client: this.data.client,
     };
-    if (this.data.userInfo === null) {
+    if (app.globalData.userInfo === null) {
       my.showToast({
         type: "fail",
         content: "请稍等，用户信息还没有获取成功！",
@@ -71,7 +77,7 @@ Page({
       });
     } else {
       // 已经有用户信息了
-      if (!this.data.userInfo.user.selectOrg) {
+      if (!app.globalData.userInfo.selectOrg) {
         // 判断是否需要选择拜访对象
         // 不用选择
         my.navigateTo({
@@ -103,11 +109,15 @@ Page({
    *@function 获取当日签到次数
    */
   async _checkRecordTimes() {
-    const checkTimes = await getTodayCount();
-    console.log("首页：获取当日签到次数", checkTimes);
-    this.setData({
-      checkTimes,
-    });
+    setTimeout(() => {
+      getTodayCount()
+        .then((res) => {
+          this.setData({
+            checkTimes: res,
+          });
+        })
+        .catch((err) => console.error(err));
+    }, 1000);
   },
 
   /**
@@ -117,8 +127,6 @@ Page({
   async _getLoncation() {
     if (app.globalData.selectedLocation) {
       const res = app.globalData.selectedLocation;
-      console.log("首页：从全局获得选择地址");
-      console.info(res);
       this.setData({
         longitude: res.longitude,
         latitude: res.latitude,
@@ -130,8 +138,6 @@ Page({
     } else {
       getLocation()
         .then((res) => {
-          console.log("首页：获取地址成功");
-          console.info(res);
           const longitude = utils.round(res.longitude, 6),
             latitude = utils.round(res.latitude, 6);
           app.globalData.location = {
@@ -190,37 +196,17 @@ Page({
    */
   async _getClient() {
     const client = app.globalData.selectedClient;
-    if (client) {
-      console.log("首页：从全局获得选择对象");
-      console.info(client);
-      this.setData({
-        client,
-      });
+    if (!client) {
+      return;
     }
-  },
-  /**
-   *获取用户信息
-   *
-   */
-  async _getUserInfo() {
-    console.log("首页：没有用户信息，执行获取用户");
-    getUserInfo()
-      .then((res) => {
-        console.log("首页：获得用户信息");
-        console.info(res);
-        app.globalData.userInfo = res;
-        this.setData({
-          userInfo: res,
-        });
-        this._checkRecordTimes();
-        this._getConfig({ value: "limitRange" });
-      })
-      .catch((err) => console.error("首页：获取用户信息报错", err));
+    this.setData({
+      client,
+    });
   },
   _getConfig(params) {
     getConfig(params)
       .then((res) => {
-        console.log("启用获取配置信息", res);
+        // console.log("启用获取配置信息", res);
         app.globalData.limitRange = res.value;
       })
       .catch((err) => console.error(err));

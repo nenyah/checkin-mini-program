@@ -103,7 +103,6 @@ Page({
     });
   },
   handleTabClick({ index, tabsName }) {
-    console.log("handleTabeClick", { index, tabsName });
     const items = custCate[index];
     const numClients = items.length;
     this.setData({
@@ -118,13 +117,10 @@ Page({
     });
   },
   onItemClick(e) {
-    // console.log("客户页面选择客户", e);
     // 把选择的客户传回首页
     const item = e.target.dataset.item;
     app.globalData.selectedClient = item;
-    console.log("获取当前页面数", getCurrentPages().length);
 
-    // dd.navigateBack();
     dd.switchTab({
       url: "/page/checkin/index/index",
     });
@@ -187,8 +183,6 @@ Page({
   },
 
   _getClients() {
-    console.log("开始请求客户时间:", new Date().toLocaleString());
-
     const current = this.data.current + 1;
     const pages = this.data.pages;
     const orgName = this.data.orgName;
@@ -199,8 +193,6 @@ Page({
     }
     getClients({ current, orgName })
       .then((res) => {
-        console.log("获取客户时间:", new Date().toLocaleString());
-        // console.log("获取客户信息", res);
         let oldItems = this.data.items;
         let items = oldItems.concat(res.records);
         this._setDefalutFalse(items);

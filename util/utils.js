@@ -80,7 +80,7 @@ function round(num, digits) {
 }
 // 全局toast
 function ddToast({ type, text, interval }) {
-  dd.showToast({
+  my.showToast({
     type: type,
     content: text,
     duration: interval,

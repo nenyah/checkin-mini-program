@@ -171,7 +171,7 @@ Page({
     const items = this.data.items;
     const [longitude, latitude] = items[index].location.split(",");
     items.forEach((el) => {
-      if (el.index == index) {
+      if (el.index === index) {
         el.selected = true;
       } else {
         el.selected = false;

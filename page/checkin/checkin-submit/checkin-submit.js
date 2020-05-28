@@ -232,13 +232,13 @@ Page({
         app.globalData.currentTime = moment().format();
 
         setTimeout(() => {
-          dd.reLaunch({
+          dd.switchTab({
             url: "/page/checkin/index/index",
           });
         }, 1000);
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
         this.setData({
           disabled: false,
         });
