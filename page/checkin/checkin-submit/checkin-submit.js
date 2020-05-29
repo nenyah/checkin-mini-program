@@ -187,10 +187,6 @@ Page({
     this.setData({
       disabled: true,
     });
-    // const disabled = this.data.disabled;
-    // if (disabled) {
-    //   return;
-    // }
     console.log(checkInRecord);
 
     const imageList = this.data.picUrls;
@@ -214,6 +210,12 @@ Page({
       let res = await setRecordFile({
         filePath: imageList[i],
         formData: { detailPlace: checkInRecord.detailPlace },
+      }).catch((err) => {
+        console.error(err);
+        util.ddToast({
+          type: "fail",
+          text: "图片上传错误，请截图联系管理员" + err,
+        });
       });
       response.push(res);
     }
@@ -226,7 +228,7 @@ Page({
       .then((res) => {
         console.log("提交页:上传签到信息", res);
         app.globalData.selectedClient = {};
-        app.globalData.selectedLocation = null;
+        app.globalData.selectedLocation = {};
         // 签到动画
         this._sucessAnimation();
         app.globalData.currentTime = moment().format();
@@ -239,6 +241,10 @@ Page({
       })
       .catch((err) => {
         // console.error(err);
+        util.ddToast({
+          type: "fail",
+          text: "数据上传错误，请截图联系管理员" + err,
+        });
         this.setData({
           disabled: false,
         });

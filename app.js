@@ -7,7 +7,7 @@ App({
     console.log("App Launch", options);
     console.log("getSystemInfoSync", my.getSystemInfoSync());
     console.log("SDKVersion", my.SDKVersion);
-    login()
+    login();
   },
 
   onShow() {
@@ -23,13 +23,13 @@ App({
     console.log(msg);
   },
   globalData: {
-    version:'0.0.46',
-    userInfo: null,
-    records: null,
-    selectedClient: null,
-    selectedLocation: null,
+    version: "0.0.49",
+    userInfo: {},
+    records: {},
+    selectedClient: {},
+    selectedLocation: {},
     checkinTimes: 0,
-    location: null,
+    location: {},
     currentTime: "",
   },
 

@@ -1,6 +1,5 @@
 import moment from "moment";
-// import { getUserInfo } from "/service/login";
-import { getRecord, getTodayCount } from "/service/record";
+import { getTodayCount } from "/service/record";
 import { getLocation } from "/service/location";
 import utils from "/util/utils";
 import { companyName, markers } from "/config/api";
@@ -69,7 +68,7 @@ Page({
       location: this.data.location,
       client: this.data.client,
     };
-    if (app.globalData.userInfo === null) {
+    if (utils.isEmpty(app.globalData.userInfo)) {
       my.showToast({
         type: "fail",
         content: "请稍等，用户信息还没有获取成功！",
@@ -77,7 +76,13 @@ Page({
       });
     } else {
       // 已经有用户信息了
-      if (!app.globalData.userInfo.selectOrg) {
+      // app.globalData.userInfo.selectOrg = false;
+      console.log(
+        "utils.isEmpty(app.globalData.userInfo.selectOrg)",
+        utils.isEmpty(app.globalData.userInfo.selectOrg)
+      );
+
+      if (utils.isEmpty(app.globalData.userInfo.selectOrg)) {
         // 判断是否需要选择拜访对象
         // 不用选择
         my.navigateTo({
@@ -86,7 +91,7 @@ Page({
         });
       } else {
         // 需要选择
-        if (!this.data.client) {
+        if (utils.isEmpty(this.data.client)) {
           // 没有拜访对象
           my.showToast({
             type: "fail",
@@ -125,7 +130,7 @@ Page({
    *@function 获取当前定位信息
    */
   async _getLoncation() {
-    if (app.globalData.selectedLocation) {
+    if (!utils.isEmpty(app.globalData.selectedLocation)) {
       const res = app.globalData.selectedLocation;
       this.setData({
         longitude: res.longitude,
