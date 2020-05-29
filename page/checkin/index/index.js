@@ -130,6 +130,11 @@ Page({
    *@function 获取当前定位信息
    */
   async _getLoncation() {
+    console.log(
+      "utils.isEmpty(app.globalData.selectedLocation)",
+      utils.isEmpty(app.globalData.selectedLocation)
+    );
+    
     if (!utils.isEmpty(app.globalData.selectedLocation)) {
       const res = app.globalData.selectedLocation;
       this.setData({

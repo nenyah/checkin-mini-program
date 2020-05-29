@@ -27,7 +27,7 @@ Page({
     let data = JSON.parse(query.params);
     console.log(JSON.parse(query.params));
     data.location.name = data.location.address;
-    if (app.globalData.selectedLocation) {
+    if (!util.isEmpty(app.globalData.selectedLocation)) {
       data.location = app.globalData.selectedLocation;
     }
     this.setData({
