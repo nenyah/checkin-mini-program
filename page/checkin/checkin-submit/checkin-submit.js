@@ -61,7 +61,7 @@ Page({
         });
         dd.compressImage({
           filePaths: res.filePaths,
-          compressLevel: 0,
+          compressLevel: 1,
           success: (res) => {
             console.log(JSON.stringify(res));
             let picUrls = this.data.picUrls;

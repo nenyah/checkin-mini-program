@@ -1,7 +1,22 @@
 .arrow-up {
-  width: 24rpx;
-  height: 24rpx;
-  border-right: #e2e2e2 solid 4rpx;
-  border-bottom: #e2e2e2 solid 4rpx;
-  transform: translateY(50%) rotate(-135deg);
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #e2e2e2;
+  position: relative;
+}
+
+.arrow-up::after {
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: 0 9px 9px;
+  border-style: solid;
+  border-color: transparent transparent #ffffff;
+  /*透明 透明  白*/
+  position: absolute;
+  top: 3px;
+  left: -9px;
 }
