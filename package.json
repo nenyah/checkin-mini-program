@@ -9,7 +9,7 @@
   "author": "steven",
   "license": "MIT",
   "dependencies": {
-    "mini-ali-ui-rpx": "^1.0.9",
+    "mini-ali-ui-rpx": "^1.0.10",
     "moment": "^2.24.0"
   }
 }
