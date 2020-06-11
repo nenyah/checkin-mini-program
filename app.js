@@ -1,4 +1,10 @@
-import { setStorageSync, getStorageSync } from "./service/storage";
+/*
+ * @Description: 签到小程序
+ * @Author: Steven
+ * @Date: 2020-05-18 16:33:16
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-06-11 13:01:47
+ */ 
 import { login } from "./service/login";
 import moment from "moment";
 moment.locale("zh-cn");
@@ -23,7 +29,7 @@ App({
     console.log(msg);
   },
   globalData: {
-    version: "0.0.51",
+    version: "0.0.53",
     userInfo: {},
     records: {},
     selectedClient: {},
