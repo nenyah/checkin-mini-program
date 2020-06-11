@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-mini-ali-ui-rpx@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.npm.taobao.org/mini-ali-ui-rpx/download/mini-ali-ui-rpx-1.0.9.tgz#0de2c3188d3d62eaec20d91b68d502cffeeae294"
-  integrity sha1-DeLDGI09YursINkbaNUCz/7q4pQ=
+mini-ali-ui-rpx@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.npm.taobao.org/mini-ali-ui-rpx/download/mini-ali-ui-rpx-1.0.10.tgz#4ff13ac4449961f7b428d7a05ef9fdaeafc34fb2"
+  integrity sha1-T/E6xESZYfe0KNegXvn9rq/DT7I=
 
 moment@^2.24.0:
   version "2.24.0"
