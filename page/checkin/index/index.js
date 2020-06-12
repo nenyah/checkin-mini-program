@@ -163,17 +163,30 @@ Page({
         })
         .catch((err) => {
           console.error(err);
-          if (err.error === 4) {
-            my.showToast({
-              type: "fail",
-              content: "还没有打开定位哦！",
-            });
-          } else if (err.error === 12) {
-            my.showToast({
-              type: "fail",
-              content: "网络异常，请检查网络！",
-            });
+          let message = "请求错误";
+          if (err.error) {
+            // 判断错误码
+            switch (err.error) {
+              case 11:
+                message = "请确认定位相关权限已开启";
+                break;
+              case 12:
+                message = "网络异常，请稍后再试";
+                break;
+              case 13:
+                message = "定位失败，请稍后再试";
+                break;
+              case 14:
+                message = "业务定位超时，请稍后再试";
+                break;
+              default:
+                break;
+            }
           }
+          my.showToast({
+            type: "fail",
+            content: message,
+          });
         });
     }
   },
