@@ -1,12 +1,12 @@
 /*
- * @Description: 
+ * @Description: 登录接口
  * @Author: Steven
  * @Date: 2020-04-21 17:09:09
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-11 13:16:50
+ * @LastEditTime: 2020-06-22 13:14:53
  */ 
 import { request } from "./network";
-import { Userinfo } from "../config/api";
+import { Userinfo } from "/config/api";
 import util from "/util/utils";
 async function login() {
   const { authCode } = await getAuthCode().catch((err) => console.error(err));

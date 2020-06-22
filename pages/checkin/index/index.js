@@ -1,9 +1,9 @@
 import moment from "moment";
-import { getTodayCount } from "/service/record";
-import { getLocation } from "/service/location";
-import utils from "/util/utils";
 import { companyName, markers } from "/config/api";
-import { getConfig } from "../../../service/config";
+import { getConfig } from "/service/config";
+import { getLocation } from "/service/location";
+import { getTodayCount } from "/service/record";
+import utils from "/util/utils";
 let app = getApp();
 
 Page({
@@ -111,7 +111,7 @@ Page({
   },
   /**
    *@author steven
-   *@function 获取当日签到次数
+   *获取当日签到次数
    */
   async _checkRecordTimes() {
     setTimeout(() => {
@@ -127,7 +127,7 @@ Page({
 
   /**
    *@author steven
-   *@function 获取当前定位信息
+   *获取当前定位信息
    */
   async _getLoncation() {
     if (!utils.isEmpty(app.globalData.selectedLocation)) {
@@ -192,7 +192,7 @@ Page({
   },
   /**
    *@author steven
-   *@function 获取当前时间
+   *获取当前时间
    */
   async _getCurrentTime() {
     const checkInDate = app.globalData.currentTime;
@@ -210,7 +210,7 @@ Page({
   },
   /**
    *@author steven
-   *@function 从全局中获取拜访对象
+   *从全局中获取拜访对象
    */
   async _getClient() {
     const client = app.globalData.selectedClient;

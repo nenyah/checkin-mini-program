@@ -1,5 +1,4 @@
 import { getAround } from "/libs/amap-dd";
-import { getLocation } from "/service/location";
 import utils from "/util/utils";
 let app = getApp();
 Page({
@@ -94,7 +93,7 @@ Page({
   },
   // 控制点
   /**
-   *@function 回到初始点
+   *回到初始点
    *
    * @param {*} e
    */
@@ -115,7 +114,7 @@ Page({
     });
   },
   /**
-   *@function 确定搜索地址
+   *确定搜索地址
    *
    * @param {*} e
    */
@@ -127,7 +126,7 @@ Page({
     });
   },
   /**
-   *@function 获取钉钉定位周边地址
+   *获取钉钉定位周边地址
    *
    * @param {*} opt
    */
@@ -150,7 +149,7 @@ Page({
       .catch((err) => console.error(err));
   },
   /**
-   *@function 回到初始位置
+   *回到初始位置
    *
    * @returns
    */
@@ -163,7 +162,7 @@ Page({
     });
   },
   /**
-   *@function 选择地址
+   *选择地址
    *
    * @param {*} index
    */

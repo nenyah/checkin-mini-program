@@ -1,6 +1,13 @@
+/*
+ * @Description: 我的页面
+ * @Author: Steven
+ * @Date: 2020-04-14 16:24:12
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-06-22 13:11:48
+ */ 
 import moment from "moment";
-import { getMonthRecord } from "/service/record";
 import { companyName } from "/config/api";
+// import { getMonthRecord } from "/service/record";
 
 Page({
   data: {
@@ -69,10 +76,6 @@ Page({
         let items = res;
         items.signInMonthDTOS.forEach((element) => {
           element.date = moment(element.date).format("MM月DD日");
-          // element.signInHisVOS.forEach((element) => {
-          //   // element.place = element.detailPlace;
-          //   return element;
-          // });
           return element;
         });
         this.setData({

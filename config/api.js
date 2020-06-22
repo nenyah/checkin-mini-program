@@ -3,8 +3,9 @@
  * @Author: Steven
  * @Date: 2020-04-30 16:37:22
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-12 11:53:13
- */ 
+ * @LastEditTime: 2020-06-22 13:46:13
+ */
+
 let dev = false;
 let RootUrl, ApiRootUrl, ConfigUrl;
 if (dev) {
@@ -15,7 +16,7 @@ if (dev) {
 ApiRootUrl = RootUrl + "/ding/";
 ConfigUrl = RootUrl + "/config/";
 // 地图标签
-http: const markers = [
+const markers = [
   {
     iconPath: "/assets/images/location.png",
     width: 26,

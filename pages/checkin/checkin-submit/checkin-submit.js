@@ -1,8 +1,7 @@
-import { getStorage } from "../../../service/storage";
-import { setRecord, setRecordFile } from "../../../service/record";
-import { companyName, compressLevel } from "/config/api";
-import util from "/util/utils";
 import moment from "moment";
+import { companyName } from "/config/api";
+import { setRecord, setRecordFile } from "/service/record";
+import util from "/util/utils";
 let app = getApp();
 
 Page({
@@ -46,7 +45,7 @@ Page({
   },
   onHide() {},
   /**
-   *@function 拍照
+   *拍照
    *@author steven
    */
   useCamera() {
@@ -59,7 +58,7 @@ Page({
         this.setData({
           disabled: true,
         });
-        dd.compressImage({
+        my.compressImage({
           filePaths: res.filePaths,
           compressLevel: 1,
           success: (res) => {
@@ -132,7 +131,7 @@ Page({
   //
   /**
    *@author steven
-   *@function 移除图片
+   *移除图片
    *@param {*} e
    */
   removePic(e) {
@@ -148,7 +147,7 @@ Page({
 
   /**
    *@author steven
-   *@function 预览图片
+   *预览图片
    *
    * @param {*} e
    */
@@ -160,7 +159,7 @@ Page({
     });
   },
   /**
-   *@function 完成文字输入
+   *完成文字输入
    *@author steven
    * @param {*} e
    */
@@ -169,7 +168,7 @@ Page({
   },
 
   /**
-   *@function 获取文字输入
+   *获取文字输入
    *@author steven
    * @param {*} e
    */
@@ -181,7 +180,7 @@ Page({
   },
   /**
    *@author steven
-   *@function 创建签到信息
+   *创建签到信息
    */
   async createRecord() {
     this.setData({
@@ -234,7 +233,7 @@ Page({
         app.globalData.currentTime = moment().format();
 
         setTimeout(() => {
-          dd.switchTab({
+          my.switchTab({
             url: "/pages/checkin/index/index",
           });
         }, 1000);
@@ -253,7 +252,7 @@ Page({
 
   /**
    *@author steven
-   *@function 获取地址
+   *获取地址
    */
   _getAddress() {
     console.log("签到提交:获取地址", app.globalData.selectedLocation);

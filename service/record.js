@@ -1,23 +1,28 @@
 import { request, uploadFile } from "./network";
 import {
   CheckInRecord,
+  DeptRecord,
   StaffDayRecord,
   StaffMonthRecord,
-  DeptRecord,
-  UploadFile,
   TodayCount,
-} from "../config/api";
+  UploadFile,
+} from "/config/api";
 
+/**
+ *当天签到记录
+ * @author steven
+ * @returns Promise
+ */
 function getTodayCount() {
   return request({
     url: TodayCount,
   });
 }
 /**
- *@function 获取某人某天签到次数和最新一条签到记录
- *
- * @param {*} options
- * @returns
+ *获取某人某天签到次数和最新一条签到记录
+ * @author steven
+ * @param {object} options
+ * @returns Promise
  */
 function getRecord(options) {
   return request({
@@ -29,10 +34,10 @@ function getRecord(options) {
 }
 
 /**
- *@function 上传签到信息
- *
- * @param {*} options
- * @returns
+ *上传签到信息
+ * @author steven
+ * @param {object} options
+ * @returns Promise
  */
 function setRecord(options) {
   return request({
@@ -46,10 +51,10 @@ function setRecord(options) {
 }
 
 /**
- *@function 上传文件
- *
- * @param {*} options
- * @returns
+ *上传文件
+ * @author steven
+ * @param {object} options
+ * @returns Promise
  */
 function setRecordFile(options) {
   return uploadFile({
@@ -58,11 +63,12 @@ function setRecordFile(options) {
     formData: options.formData || { detailPlace: "测试地址" },
   });
 }
+
 /**
- *@function 获取用户固定日期的签到记录
- *
- * @param {*} options
- * @returns
+ *获取用户固定日期的签到记录
+ * @author steven
+ * @param {object} options
+ * @returns Promise
  */
 function getOneDayRecord(options) {
   return request({
@@ -73,10 +79,10 @@ function getOneDayRecord(options) {
   });
 }
 /**
- *@function 获取指定用户当月签到记录
- *
+ *获取指定用户当月签到记录
+ * @author steven
  * @param {*} options
- * @returns
+ * @returns Promise
  */
 function getMonthRecord(options) {
   return request({
@@ -87,10 +93,10 @@ function getMonthRecord(options) {
   });
 }
 /**
- *@function 获取当前用户所在部门签到记录
- *
+ *获取当前用户所在部门签到记录
+ * @author steven
  * @param {*} options
- * @returns
+ * @returns Promise
  */
 function getOwnDeptRecord(options) {
   return request({

@@ -1,8 +1,22 @@
-import { timeout } from "/config/api";
-import { getStorageSync } from "/service/storage";
+/*
+ * @Description: 网络接口
+ * @Author: Steven
+ * @Date: 2020-04-23 17:04:48
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-06-22 13:33:27
+ */
+
 import util from "/util/utils";
 let app = getApp();
 
+/**
+ *网络接口
+ *
+ * @author Steven
+ * @date 2020-06-22
+ * @param {object} options 网络参数
+ * @returns Promise
+ */
 function request(options) {
   return new Promise((resolve, reject) => {
     console.log("开始解析", options.url);
@@ -22,6 +36,14 @@ function request(options) {
   });
 }
 
+/**
+ *上传文件
+ *
+ * @author Steven
+ * @date 2020-06-22
+ * @param {object} options 内容参数
+ * @returns Promise
+ */
 function uploadFile(options) {
   return new Promise((resolve, reject) => {
     console.log("开始解析", options.url);
@@ -43,7 +65,13 @@ function uploadFile(options) {
   });
 }
 
-// 错误处理方法
+/**
+ *错误处理方法
+ *
+ * @author Steven
+ * @date 2020-06-22
+ * @param {object} err
+ */
 function handleError(err) {
   let message = "请求错误";
   if (err.error) {

@@ -1,4 +1,4 @@
-import { getClients, getCustomer } from "../../../service/clients";
+import { getClients, getCustomer } from "/service/clients";
 let app = getApp();
 const itemsMine = [
   {
@@ -121,7 +121,7 @@ Page({
     const item = e.target.dataset.item;
     app.globalData.selectedClient = item;
 
-    dd.switchTab({
+    my.switchTab({
       url: "/pages/checkin/index/index",
     });
   },

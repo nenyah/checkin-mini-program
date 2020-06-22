@@ -1,7 +1,6 @@
-import { getRecord, getOwnDeptRecord } from "/service/record";
-import { getStorageSync } from "/service/storage";
-import { getDeptInfo } from "/service/dept";
 import moment from "moment";
+import { getDeptInfo } from "/service/dept";
+import { getOwnDeptRecord, getRecord } from "/service/record";
 let app = getApp();
 Page({
   data: {
@@ -108,7 +107,7 @@ Page({
         .catch((err) => {
           console.error(err);
           my.showToast({
-            content: "数据获取错误" + err,
+            content: "数据获取错误" + JSON.stringify(err.data),
           });
         });
     }
@@ -128,7 +127,7 @@ Page({
         .catch((err) => {
           console.error(err);
           my.showToast({
-            content: "数据获取错误" + err,
+            content: "数据获取错误" + JSON.stringify(err.data),
           });
         });
     }
@@ -144,7 +143,7 @@ Page({
       .catch((err) => {
         console.error(err);
         my.showToast({
-          content: "数据获取错误" + err,
+          content: "数据获取错误" + JSON.stringify(err.data),
         });
       });
   },
