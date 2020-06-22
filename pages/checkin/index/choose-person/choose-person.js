@@ -22,7 +22,7 @@ Component({
   methods: {
     handleTap() {
       my.navigateTo({
-        url: "/page/checkin/customer/customer",
+        url: "/pages/checkin/customer/customer",
       });
     },
   },

@@ -1,9 +1,0 @@
-{
-    "usingComponents": {
-        "list-item": "mini-ali-ui-rpx/es/list/list-item/index",
-        "list": "mini-ali-ui-rpx/es/list/index",
-        "filter": "mini-ali-ui-rpx/es/filter/index",
-        "filter-item": "mini-ali-ui-rpx/es/filter/filter-item/index"
-    },
-    "defaultTitle": "筛选"
-}

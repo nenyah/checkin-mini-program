@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description: 接口
  * @Author: Steven
  * @Date: 2020-04-30 16:37:22
  * @LastEditors: Steven
@@ -37,12 +37,10 @@ module.exports = {
   UploadFile: ApiRootUrl + "signin/uploadImg", //上传图片
   TodayCount: ApiRootUrl + "signin/todayCount", //当前用户当天签到记录
   Config: ConfigUrl + "simple/one", //获取配置信息
+
   timeout: 5000, // 超时
-
   companyName: "华东宁波医药有限公司", //默认公司名
-
   markers: markers, // 地图标签
-
   debug: dev,
   limitRange: 200,
   compressLevel: 4,

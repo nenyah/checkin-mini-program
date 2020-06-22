@@ -3,17 +3,42 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:33:16
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-11 13:01:47
- */ 
+ * @LastEditTime: 2020-06-19 10:05:23
+ */
+
 import { login } from "./service/login";
 import moment from "moment";
 moment.locale("zh-cn");
 App({
-  onLaunch(options) {
+  async onLaunch(options) {
     console.log("App Launch", options);
     console.log("getSystemInfoSync", my.getSystemInfoSync());
     console.log("SDKVersion", my.SDKVersion);
-    login();
+    const updateManager = dd.getUpdateManager();
+
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate); // 是否有更新
+    });
+
+    updateManager.onUpdateReady(function (ret) {
+      console.log(ret.version); // 更新版本号
+      dd.confirm({
+        title: "更新提示",
+        content: "新版本已经准备好，是否重启应用？",
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate();
+          }
+        },
+      });
+    });
+
+    updateManager.onUpdateFailed(function () {
+      // 新版本下载失败
+    });
+    await login();
   },
 
   onShow() {
@@ -41,7 +66,7 @@ App({
 
   /**
    *获取当前时间
-   *
+   *@author steven
    */
   _setCurrentTime() {
     if (!this.globalData.currentTime) {

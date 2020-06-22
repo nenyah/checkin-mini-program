@@ -99,7 +99,7 @@ Page({
 
   goToCate() {
     my.navigateTo({
-      url: "/page/checkin/customer-cate/customer-cate",
+      url: "/pages/checkin/customer-cate/customer-cate",
     });
   },
   handleTabClick({ index, tabsName }) {
@@ -122,7 +122,7 @@ Page({
     app.globalData.selectedClient = item;
 
     dd.switchTab({
-      url: "/page/checkin/index/index",
+      url: "/pages/checkin/index/index",
     });
   },
   expand(e) {

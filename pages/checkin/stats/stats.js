@@ -84,7 +84,7 @@ Page({
     if (this.data.items.length > 0) {
       my.navigateTo({
         url:
-          "/page/checkin/checkin-history/checkin-history?page=stats&items=" +
+          "/pages/checkin/checkin-history/checkin-history?page=stats&items=" +
           JSON.stringify(this.data.items),
       });
     } else {

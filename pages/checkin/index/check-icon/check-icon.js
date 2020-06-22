@@ -54,7 +54,7 @@ Component({
     },
     goTest() {
       my.navigateTo({
-        url: "/page/test/test",
+        url: "/pages/test/test",
       });
     },
   },

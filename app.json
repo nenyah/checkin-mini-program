@@ -1,15 +1,14 @@
 {
   "pages": [
-    "page/checkin/index/index",
-    "page/test/test",
-    "page/checkin/stats/stats",
-    "page/checkin/customer/customer",
-    "page/checkin/customer-cate/customer-cate",
-    "page/checkin/location-adjust/location-adjust",
-    "page/checkin/checkin-submit/checkin-submit",
-    "page/checkin/profile/profile",
-    "page/checkin/checkin-detail/checkin-detail",
-    "page/checkin/checkin-history/checkin-history"
+    "pages/checkin/index/index",
+    "pages/checkin/stats/stats",
+    "pages/checkin/customer/customer",
+    "pages/checkin/location-adjust/location-adjust",
+    "pages/checkin/checkin-submit/checkin-submit",
+    "pages/checkin/profile/profile",
+    "pages/checkin/checkin-detail/checkin-detail",
+    "pages/checkin/checkin-history/checkin-history",
+    "pages/test/test"
   ],
   "window": {
     "defaultTitle": "华东宁波签到系统",
@@ -23,13 +22,13 @@
     "backgroundColor": "#F5F5F9",
     "items": [
       {
-        "pagePath": "page/checkin/index/index",
+        "pagePath": "pages/checkin/index/index",
         "name": "签到",
         "icon": "assets/images/icon_signin_line.png",
         "activeIcon": "assets/images/icon_signin_line_active.png"
       },
       {
-        "pagePath": "page/checkin/stats/stats",
+        "pagePath": "pages/checkin/stats/stats",
         "name": "统计",
         "icon": "assets/images/icon_statistics.png",
         "activeIcon": "assets/images/icon_statistics_active.png"

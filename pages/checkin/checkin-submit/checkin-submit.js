@@ -203,7 +203,7 @@ Page({
       remark: this.data.remark,
       timeStamp: this.data.timeStamp,
     };
-
+    
     let response = [];
     for (let i in imageList) {
       console.log(`第${Number(i) + 1}张照片：`, imageList[i]);
@@ -235,7 +235,7 @@ Page({
 
         setTimeout(() => {
           dd.switchTab({
-            url: "/page/checkin/index/index",
+            url: "/pages/checkin/index/index",
           });
         }, 1000);
       })

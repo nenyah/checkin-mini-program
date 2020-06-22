@@ -43,7 +43,7 @@ Page({
     const item = e.currentTarget.dataset.item;
     console.log(e);
     my.navigateTo({
-      url: `/page/checkin/checkin-detail/checkin-detail?item=${JSON.stringify(
+      url: `/pages/checkin/checkin-detail/checkin-detail?item=${JSON.stringify(
         item
       )}`,
     });
@@ -58,7 +58,7 @@ Page({
     console.log("到历史页面");
     my.navigateTo({
       url:
-        "/page/checkin/checkin-history/checkin-history?page=profile&items=" +
+        "/pages/checkin/checkin-history/checkin-history?page=profile&items=" +
         JSON.stringify(this.data.items),
     });
   },
