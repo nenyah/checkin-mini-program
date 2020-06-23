@@ -47,19 +47,7 @@ Page({
     this._getAround({ longitude, latitude, radius });
   },
   onReady() {},
-  // 移动地图，获取地图中心坐标，并重新获取周边地址
-  regionchange(e) {
-    console.log("移动地图操作了", e);
-    this.setData({
-      "markers[0].latitude": e.latitude,
-      "markers[0].longitude": e.longitude,
-    });
-    const longitude = e.longitude;
-    const latitude = e.latitude;
-    if (e.longitude) {
-      this._getAround({ longitude, latitude });
-    }
-  },
+
   // 确认选择
   comfirm() {
     const selectItem = this.data.items.filter((el) => el.selected === true)[0];

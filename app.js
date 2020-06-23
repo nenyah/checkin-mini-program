@@ -3,17 +3,17 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:33:16
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 12:28:48
+ * @LastEditTime: 2020-06-23 15:40:26
  */
 
 import moment from "moment";
 import { login } from "./service/login";
 moment.locale("zh-cn");
 App({
-  async onLaunch(options) {
+  onLaunch(options) {
     console.log("App Launch", options);
     console.log("getSystemInfoSync", my.getSystemInfoSync());
-    console.log("SDKVersion", my.SDKVersion);
+    console.log("SDKVersion", dd.ExtSDKVersion || dd.SDKVersion);
     // const updateManager = my.getUpdateManager();
 
     // updateManager.onCheckForUpdate(function (res) {
@@ -38,7 +38,7 @@ App({
     // updateManager.onUpdateFailed(function () {
     //   // 新版本下载失败
     // });
-    await login();
+    this.checkLogin();
   },
 
   onShow() {
@@ -73,4 +73,7 @@ App({
       this.globalData.currentTime = moment().format();
     }
   },
+  checkLogin(){
+    return login()
+  }
 });

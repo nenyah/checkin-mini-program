@@ -97,25 +97,25 @@ Page({
     this._getClients();
   },
 
-  goToCate() {
-    my.navigateTo({
-      url: "/pages/checkin/customer-cate/customer-cate",
-    });
-  },
-  handleTabClick({ index, tabsName }) {
-    const items = custCate[index];
-    const numClients = items.length;
-    this.setData({
-      activeIndex: index,
-      items,
-      numClients,
-    });
-  },
-  handleTabChange({ index, tabsName }) {
-    this.setData({
-      [tabsName]: index,
-    });
-  },
+  // goToCate() {
+  //   my.navigateTo({
+  //     url: "/pages/checkin/customer-cate/customer-cate",
+  //   });
+  // },
+  // handleTabClick({ index, tabsName }) {
+  //   const items = custCate[index];
+  //   const numClients = items.length;
+  //   this.setData({
+  //     activeIndex: index,
+  //     items,
+  //     numClients,
+  //   });
+  // },
+  // handleTabChange({ index, tabsName }) {
+  //   this.setData({
+  //     [tabsName]: index,
+  //   });
+  // },
   onItemClick(e) {
     // 把选择的客户传回首页
     const item = e.target.dataset.item;

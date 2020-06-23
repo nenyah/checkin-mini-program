@@ -3,11 +3,11 @@
  * @Author: Steven
  * @Date: 2020-04-14 16:24:12
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 13:11:48
+ * @LastEditTime: 2020-06-22 17:26:13
  */ 
 import moment from "moment";
 import { companyName } from "/config/api";
-// import { getMonthRecord } from "/service/record";
+import { getMonthRecord } from "/service/record";
 
 Page({
   data: {

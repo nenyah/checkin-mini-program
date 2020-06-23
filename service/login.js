@@ -3,8 +3,9 @@
  * @Author: Steven
  * @Date: 2020-04-21 17:09:09
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 13:14:53
- */ 
+ * @LastEditTime: 2020-06-22 15:30:47
+ */
+
 import { request } from "./network";
 import { Userinfo } from "/config/api";
 import util from "/util/utils";
@@ -48,18 +49,7 @@ function getAuthCode() {
     });
   });
 }
-// function getUserInfo() {
-//   return getAuthCode().then((res) => {
-//     return request({
-//       url: Userinfo,
-//       data: {
-//         authCode: res.authCode,
-//       },
-//     });
-//   });
-// }
 
 module.exports = {
-  // getUserInfo: getUserInfo,
   login,
 };

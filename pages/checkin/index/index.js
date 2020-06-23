@@ -23,9 +23,14 @@ Page({
     console.log("首页加载");
     // 首页加载 初始化数据
     // 日期 时间 地址 历史签到 签到次数
-    this._getConfig({ value: "limitRange" });
   },
-  onReady() {},
+  onReady() {
+    // 使用 dd.createMapContext 获取 map 上下文
+    this.mapCtx = dd.createMapContext("map");
+    if (dd.canIUse("createMapContext.return.showsCompass")) {
+      this.mapCtx.showsCompass({ isShowsCompass: 1 });
+    }
+  },
   onShow() {
     // 页面显示
     console.log("首页显示");
@@ -45,13 +50,19 @@ Page({
     // 标题被点击
     utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` });
   },
-  adjustLocation() {
+  /**
+   *跳转到地点微调
+   *
+   * @author Steven
+   * @date 2020-06-22
+   */
+  async adjustLocation() {
     // console.log("跳转前地址", this.data.location);
+    await this._getConfig({ value: "limitRange" });
     if (!this.data.location) {
-      my.showToast({
+      utils.ddToast({
         type: "fail",
-        content: "请稍等，钉钉定位信息还没有获取成功！",
-        duration: 2000,
+        text: "请稍等，钉钉定位信息还没有获取成功！",
       });
     } else {
       my.navigateTo({
@@ -61,75 +72,61 @@ Page({
       });
     }
   },
+  /**
+   *跳转到签到提交
+   * @description 判断是否需要选择拜访对象
+   * @author Steven
+   * @date 2020-06-22
+   */
   onSubmit() {
-    console.log("点击提交");
     const params = {
       timeStamp: this.data.mx.valueOf(),
       location: this.data.location,
       client: this.data.client,
     };
-    if (utils.isEmpty(app.globalData.userInfo)) {
-      my.showToast({
-        type: "fail",
-        content: "请稍等，用户信息还没有获取成功！",
-        duration: 2000,
-      });
-    } else {
-      // 已经有用户信息了
-      // app.globalData.userInfo.selectOrg = false;
-      console.log(
-        "utils.isEmpty(app.globalData.userInfo.selectOrg)",
-        utils.isEmpty(app.globalData.userInfo.selectOrg)
-      );
 
-      if (utils.isEmpty(app.globalData.userInfo.selectOrg)) {
-        // 判断是否需要选择拜访对象
-        // 不用选择
-        my.navigateTo({
-          url:
-            "../checkin-submit/checkin-submit?params=" + JSON.stringify(params),
-        });
-      } else {
-        // 需要选择
-        if (utils.isEmpty(this.data.client)) {
-          // 没有拜访对象
-          my.showToast({
-            type: "fail",
-            content: "还没有选择拜访对象哦！",
-            duration: 2000,
-          });
-        } else {
-          // 有拜访对象
-          my.navigateTo({
-            url:
-              "../checkin-submit/checkin-submit?params=" +
-              JSON.stringify(params),
-          });
-        }
-      }
+    const userInfo = app.globalData.userInfo;
+    if (utils.isEmpty(userInfo)) {
+      utils.ddToast({
+        type: "fail",
+        text: "请稍等，用户信息还没有获取成功！",
+      });
+      return;
     }
+    // 需要选择
+    if (!utils.isEmpty(userInfo.selectOrg)&&utils.isEmpty(this.data.client)) {
+      // 没有拜访对象
+      utils.ddToast({
+        type: "fail",
+        text: "还没有选择拜访对象哦！",
+      });
+      return;
+    } 
+    // 有拜访对象
+    my.navigateTo({
+      url: "../checkin-submit/checkin-submit?params=" + JSON.stringify(params),
+    });
   },
   /**
    *@author steven
    *获取当日签到次数
    */
   async _checkRecordTimes() {
-    setTimeout(() => {
-      getTodayCount()
-        .then((res) => {
-          this.setData({
-            checkTimes: res,
-          });
-        })
-        .catch((err) => console.error(err));
-    }, 1000);
+    const userinfo = app.globalData.userInfo;
+    if (utils.isEmpty(userinfo)) {
+      await app.checkLogin();
+    }
+    const checkTimes = await getTodayCount().catch((err) => console.error(err));
+    this.setData({
+      checkTimes,
+    });
   },
 
   /**
    *@author steven
    *获取当前定位信息
    */
-  async _getLoncation() {
+  _getLoncation() {
     if (!utils.isEmpty(app.globalData.selectedLocation)) {
       const res = app.globalData.selectedLocation;
       this.setData({
@@ -194,7 +191,7 @@ Page({
    *@author steven
    *获取当前时间
    */
-  async _getCurrentTime() {
+  _getCurrentTime() {
     const checkInDate = app.globalData.currentTime;
     if (!checkInDate) {
       return;
@@ -212,10 +209,11 @@ Page({
    *@author steven
    *从全局中获取拜访对象
    */
-  async _getClient() {
+  _getClient() {
     const client = app.globalData.selectedClient;
-    console.log("首页获取客户信息", client);
-
+    if (!client) {
+      return;
+    }
     this.setData({
       client,
     });
