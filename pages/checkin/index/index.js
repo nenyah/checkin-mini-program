@@ -3,6 +3,7 @@ import { companyName, markers } from "/config/api";
 import { getConfig } from "/service/config";
 import { getLocation } from "/service/location";
 import { getTodayCount } from "/service/record";
+import { handleError } from "/service/network";
 import utils from "/util/utils";
 let app = getApp();
 
@@ -94,22 +95,25 @@ Page({
       return;
     }
     // 需要选择
-    if (!utils.isEmpty(userInfo.selectOrg)&&utils.isEmpty(this.data.client)) {
+    if (!utils.isEmpty(userInfo.selectOrg) && utils.isEmpty(this.data.client)) {
       // 没有拜访对象
       utils.ddToast({
         type: "fail",
         text: "还没有选择拜访对象哦！",
       });
       return;
-    } 
+    }
     // 有拜访对象
     my.navigateTo({
       url: "../checkin-submit/checkin-submit?params=" + JSON.stringify(params),
     });
   },
+
   /**
-   *@author steven
    *获取当日签到次数
+   *
+   * @author Steven
+   * @date 2020-06-23
    */
   async _checkRecordTimes() {
     const userinfo = app.globalData.userInfo;
@@ -123,73 +127,52 @@ Page({
   },
 
   /**
-   *@author steven
    *获取当前定位信息
+   *
+   * @author Steven
+   * @date 2020-06-23
    */
-  _getLoncation() {
+  async _getLoncation() {
+    let location, longitude, latitude, address;
     if (!utils.isEmpty(app.globalData.selectedLocation)) {
       const res = app.globalData.selectedLocation;
-      this.setData({
-        longitude: res.longitude,
-        latitude: res.latitude,
-        address: res.address,
-        "markers[0].id": 1,
-        "markers[0].longitude": res.longitude,
-        "markers[0].latitude": res.latitude,
-      });
+      location = {};
+      longitude = res.longitude;
+      latitude = res.latitude;
+      address = res.address;
     } else {
-      getLocation()
-        .then((res) => {
-          const longitude = utils.round(res.longitude, 6),
-            latitude = utils.round(res.latitude, 6);
-          app.globalData.location = {
-            longitude,
-            latitude,
-            name: res.address,
-            address: res.address,
-          };
-          this.setData({
-            location: res,
-            longitude,
-            latitude,
-            address: res.address,
-            "markers[0].id": 1,
-            "markers[0].longitude": longitude,
-            "markers[0].latitude": latitude,
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-          let message = "请求错误";
-          if (err.error) {
-            // 判断错误码
-            switch (err.error) {
-              case 11:
-                message = "请确认定位相关权限已开启";
-                break;
-              case 12:
-                message = "网络异常，请稍后再试";
-                break;
-              case 13:
-                message = "定位失败，请稍后再试";
-                break;
-              case 14:
-                message = "业务定位超时，请稍后再试";
-                break;
-              default:
-                break;
-            }
-          }
-          my.showToast({
-            type: "fail",
-            content: message,
-          });
-        });
+      const res = await getLocation().catch((err) => {
+        console.error(err);
+        handleError(err);
+      });
+      location = res;
+      longitude = utils.round(res.longitude, 6);
+      latitude = utils.round(res.latitude, 6);
+      address = res.address;
+      app.globalData.location = {
+        longitude,
+        latitude,
+        name: address,
+        address: address,
+      };
     }
+    this.setData({
+      location,
+      longitude,
+      latitude,
+      address,
+      "markers[0].id": 1,
+      "markers[0].longitude": longitude,
+      "markers[0].latitude": latitude,
+    });
   },
+
   /**
-   *@author steven
    *获取当前时间
+   *
+   * @author Steven
+   * @date 2020-06-23
+   * @returns
    */
   _getCurrentTime() {
     const checkInDate = app.globalData.currentTime;
@@ -205,9 +188,13 @@ Page({
       mx,
     });
   },
+
   /**
-   *@author steven
    *从全局中获取拜访对象
+   *
+   * @author Steven
+   * @date 2020-06-23
+   * @returns
    */
   _getClient() {
     const client = app.globalData.selectedClient;
@@ -218,8 +205,16 @@ Page({
       client,
     });
   },
+  /**
+   *获取配置信息
+   *
+   * @author Steven
+   * @date 2020-06-23
+   * @param {object}} params 配置参数
+   * @returns Promise
+   */
   _getConfig(params) {
-    getConfig(params)
+    return getConfig(params)
       .then((res) => {
         // console.log("启用获取配置信息", res);
         app.globalData.limitRange = res.value;

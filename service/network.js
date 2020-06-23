@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-23 17:04:48
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 13:33:27
+ * @LastEditTime: 2020-06-23 16:37:39
  */
 
 import util from "/util/utils";
@@ -102,4 +102,5 @@ function handleError(err) {
 module.exports = {
   request,
   uploadFile,
+  handleError,
 };
