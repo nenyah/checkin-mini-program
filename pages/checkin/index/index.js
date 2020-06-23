@@ -22,8 +22,6 @@ Page({
 
   onLoad() {
     console.log("首页加载");
-    // 首页加载 初始化数据
-    // 日期 时间 地址 历史签到 签到次数
   },
   onReady() {
     // 使用 dd.createMapContext 获取 map 上下文
@@ -38,7 +36,7 @@ Page({
     // 获取当前时间
     this._getCurrentTime();
     this._getClient();
-    this._getLoncation();
+    this._getLocation();
     this._checkRecordTimes();
   },
   onHide() {
@@ -65,13 +63,13 @@ Page({
         type: "fail",
         text: "请稍等，钉钉定位信息还没有获取成功！",
       });
-    } else {
-      my.navigateTo({
-        url:
-          "../location-adjust/location-adjust?location=" +
-          JSON.stringify(this.data.location),
-      });
+      return;
     }
+    my.navigateTo({
+      url:
+        "../location-adjust/location-adjust?location=" +
+        JSON.stringify(this.data.location),
+    });
   },
   /**
    *跳转到签到提交
@@ -132,7 +130,7 @@ Page({
    * @author Steven
    * @date 2020-06-23
    */
-  async _getLoncation() {
+  async _getLocation() {
     let location, longitude, latitude, address;
     if (!utils.isEmpty(app.globalData.selectedLocation)) {
       const res = app.globalData.selectedLocation;
