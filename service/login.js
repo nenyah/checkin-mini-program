@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-21 17:09:09
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 15:30:47
+ * @LastEditTime: 2020-06-24 13:31:06
  */
 
 import { request } from "./network";
@@ -21,6 +21,7 @@ async function login() {
   getApp().globalData.userInfo = user;
   getApp().globalData.token = token;
   welcome(user.userName);
+  getApp().emitter.emit("refresh", { type: "refresh" });
 }
 
 // 问候方法

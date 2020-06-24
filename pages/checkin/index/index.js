@@ -22,6 +22,10 @@ Page({
 
   onLoad() {
     console.log("首页加载");
+    // 设置页面id
+    // this.pid = `P${this.$viewId}`
+    // 初始化事件监听器
+    this.initEventListener();
   },
   onReady() {
     // 使用 dd.createMapContext 获取 map 上下文
@@ -35,19 +39,43 @@ Page({
     console.log("首页显示");
     // 获取当前时间
     this._getCurrentTime();
-    this._getClient();
-    this._getLocation();
-    this._checkRecordTimes();
+    //   this._getClient();
+    //   this._getLocation();
+    //   this._checkRecordTimes();
   },
   onHide() {
     console.log("首页隐藏");
   },
   onUnload() {
     console.log("首页卸载");
+    app.emitter.removeListener("refresh", this.handleEvent, this);
   },
   onTitleClick() {
     // 标题被点击
     utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` });
+  },
+  // 初始化事件监听器
+  initEventListener() {
+    app.emitter.on("refresh", this.handleEvent, this);
+  },
+  // 事件处理
+  handleEvent(event) {
+    switch (event.type) {
+      case "refresh":
+        this.refresh();
+        break;
+      case "showClient":
+        this._getClient();
+        break;
+      default:
+        break;
+    }
+  },
+  // 刷新方法
+  refresh() {
+    console.log('refresh now');
+    // 获取签到数
+    this._checkRecordTimes();
   },
   /**
    *跳转到地点微调
@@ -114,10 +142,10 @@ Page({
    * @date 2020-06-23
    */
   async _checkRecordTimes() {
-    const userinfo = app.globalData.userInfo;
-    if (utils.isEmpty(userinfo)) {
-      await app.checkLogin();
-    }
+    // const userinfo = app.globalData.userInfo;
+    // if (utils.isEmpty(userinfo)) {
+    //   await app.checkLogin();
+    // }
     const checkTimes = await getTodayCount().catch((err) => console.error(err));
     this.setData({
       checkTimes,

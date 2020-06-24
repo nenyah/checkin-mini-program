@@ -120,7 +120,7 @@ Page({
     // 把选择的客户传回首页
     const item = e.target.dataset.item;
     app.globalData.selectedClient = item;
-
+    app.emitter.emit("refresh", { type: "showClient" });
     my.switchTab({
       url: "/pages/checkin/index/index",
     });

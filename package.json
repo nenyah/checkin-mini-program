@@ -9,6 +9,7 @@
   "author": "steven",
   "license": "MIT",
   "dependencies": {
+    "eventemitter3": "^4.0.4",
     "mini-ali-ui-rpx": "^1.0.10",
     "moment": "^2.24.0"
   }
