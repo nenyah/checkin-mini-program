@@ -3,13 +3,21 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:14:25
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-24 14:59:52
+ * @LastEditTime: 2020-06-24 15:02:59
  */
 
 import { request } from "/service/network";
 import { limitRange } from "/config/api";
 import { key } from "./secret";
 const gaodeUrl = "https://restapi.amap.com/v3/";
+/**
+ *逆地址解析
+ *
+ * @author Steven
+ * @date 2020-06-24
+ * @param {object} opt 定位信息
+ * @returns Promise
+ */
 function reGeo(opt) {
   return request({
     url: gaodeUrl + "geocode/regeo",
@@ -26,6 +34,14 @@ function reGeo(opt) {
   });
 }
 
+/**
+ *根据定位获取周边地址
+ *
+ * @author Steven
+ * @date 2020-06-24
+ * @param {object} opt 定位
+ * @returns Promise
+ */
 function getAround(opt) {
   return request({
     url: gaodeUrl + "place/around",
