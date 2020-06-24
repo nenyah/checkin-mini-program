@@ -20,3 +20,6 @@ debug.log
 
 # mock data
 mock/*
+
+# secret key
+secret.js

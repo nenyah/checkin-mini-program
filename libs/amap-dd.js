@@ -3,16 +3,18 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:14:25
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-12 11:57:49
- */ 
+ * @LastEditTime: 2020-06-24 14:59:52
+ */
+
 import { request } from "/service/network";
 import { limitRange } from "/config/api";
+import { key } from "./secret";
 const gaodeUrl = "https://restapi.amap.com/v3/";
 function reGeo(opt) {
   return request({
     url: gaodeUrl + "geocode/regeo",
     data: {
-      key: "78afced4810e78fef4e60c9be330ca06",
+      key: key,
       location: `${opt.longitude},${opt.latitude}`,
       radius: opt.radius || limitRange,
       extensions: "all",
@@ -28,7 +30,7 @@ function getAround(opt) {
   return request({
     url: gaodeUrl + "place/around",
     data: {
-      key: "78afced4810e78fef4e60c9be330ca06",
+      key: key,
       location: `${opt.longitude},${opt.latitude}`,
       radius: opt.radius || limitRange,
       extensions: "all",
