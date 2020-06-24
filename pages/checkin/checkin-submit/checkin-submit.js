@@ -20,9 +20,7 @@ Page({
   },
   onLoad(query) {
     // 页面加载
-    console.info(
-      `Checkin-submit Page onLoad with query: ${JSON.stringify(query)}`
-    );
+
     let data = JSON.parse(query.params);
     console.log(JSON.parse(query.params));
     data.location.name = data.location.address;
@@ -40,13 +38,12 @@ Page({
       picUrls: [],
     });
   },
-  onShow() {
-    // this._getAddress();
-  },
-  onHide() {},
+
   /**
    *拍照
-   *@author steven
+   *
+   * @author Steven
+   * @date 2020-06-24
    */
   useCamera() {
     my.chooseImage({
@@ -128,14 +125,15 @@ Page({
       complete: () => {},
     });
   },
-  //
+
   /**
-   *@author steven
+   *
    *移除图片
-   *@param {*} e
+   * @author Steven
+   * @date 2020-06-24
+   * @param {object} e 选项参数
    */
   removePic(e) {
-    console.log("签到提交:移除图片", e);
     const index = e.target.dataset.index;
     let picUrls = this.data.picUrls;
     picUrls.splice(index, 1);
@@ -146,22 +144,25 @@ Page({
   },
 
   /**
-   *@author steven
    *预览图片
    *
-   * @param {*} e
+   * @author Steven
+   * @date 2020-06-24
+   * @param {object} e 选项参数
    */
   previewPic(e) {
-    console.log("签到提交:预览图片", e);
     const src = e.target.dataset.src;
     my.previewImage({
       urls: [src],
     });
   },
+
   /**
+   *
    *完成文字输入
-   *@author steven
-   * @param {*} e
+   * @author Steven
+   * @date 2020-06-24
+   * @param {object} e 选项参数
    */
   handComfirm(e) {
     console.log("签到提交:完成输入文字", e.detail.value);
@@ -169,8 +170,10 @@ Page({
 
   /**
    *获取文字输入
-   *@author steven
-   * @param {*} e
+   *
+   * @author Steven
+   * @date 2020-06-24
+   * @param {object} e 选项参数
    */
   handleTextAreaInput(e) {
     console.log("输入文字", e.detail.value);
@@ -178,22 +181,24 @@ Page({
       remark: e.detail.value,
     });
   },
+
   /**
-   *@author steven
-   *创建签到信息
+   *提交签到信息
+   *
+   * @author Steven
+   * @date 2020-06-24
    */
   async createRecord() {
     this.setData({
       disabled: true,
     });
-    console.log(checkInRecord);
 
     const imageList = this.data.picUrls;
 
     let checkInRecord = {
       detailPlace: this.data.location.address,
-      latitude: `${this.data.location.latitude}`,
-      longitude: `${this.data.location.longitude}`,
+      latitude: this.data.location.latitude,
+      longitude: this.data.location.longitude,
       org: {
         id: Number(this.data.client.id),
         name: this.data.client.name,
@@ -202,7 +207,7 @@ Page({
       remark: this.data.remark,
       timeStamp: this.data.timeStamp,
     };
-    
+
     let response = [];
     for (let i in imageList) {
       console.log(`第${Number(i) + 1}张照片：`, imageList[i]);
@@ -213,15 +218,13 @@ Page({
         console.error(err);
         util.ddToast({
           type: "fail",
-          text: "图片上传错误，请截图联系管理员" + err,
+          text: "图片上传错误，请截图联系管理员" + JSON.stringify(err),
         });
       });
       response.push(res);
     }
-    console.log("提交页:照片提交成功返回数据", response);
 
     checkInRecord.imageUrlList = response;
-    console.log("ready to upload", checkInRecord);
 
     setRecord(checkInRecord)
       .then((res) => {
@@ -230,8 +233,9 @@ Page({
         app.globalData.selectedLocation = {};
         // 签到动画
         this._sucessAnimation();
+        // 更新时间
         app.globalData.currentTime = moment().format();
-
+        app.emitter.emit("refresh", { type: "refresh" });
         setTimeout(() => {
           my.switchTab({
             url: "/pages/checkin/index/index",
@@ -239,10 +243,9 @@ Page({
         }, 1000);
       })
       .catch((err) => {
-        // console.error(err);
         util.ddToast({
           type: "fail",
-          text: "数据上传错误，请截图联系管理员" + err,
+          text: "数据上传错误，请截图联系管理员" + JSON.stringify(err),
         });
         this.setData({
           disabled: false,
@@ -251,8 +254,10 @@ Page({
   },
 
   /**
-   *@author steven
    *获取地址
+   *
+   * @author Steven
+   * @date 2020-06-24
    */
   _getAddress() {
     console.log("签到提交:获取地址", app.globalData.selectedLocation);
@@ -269,6 +274,12 @@ Page({
       });
     }
   },
+  /**
+   *签到成功动画
+   *
+   * @author Steven
+   * @date 2020-06-24
+   */
   _sucessAnimation() {
     let animation = my.createAnimation({
       duration: 1000,

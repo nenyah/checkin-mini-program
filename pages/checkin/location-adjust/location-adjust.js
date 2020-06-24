@@ -62,7 +62,7 @@ Page({
       name,
       address,
     };
-
+    app.emitter.emit("refresh", { type: "showLocation" });
     my.navigateBack();
   },
   onSearchItemClick(e) {

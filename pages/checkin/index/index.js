@@ -22,10 +22,9 @@ Page({
 
   onLoad() {
     console.log("首页加载");
-    // 设置页面id
-    // this.pid = `P${this.$viewId}`
     // 初始化事件监听器
     this.initEventListener();
+    this._getOriLocation();
   },
   onReady() {
     // 使用 dd.createMapContext 获取 map 上下文
@@ -39,9 +38,6 @@ Page({
     console.log("首页显示");
     // 获取当前时间
     this._getCurrentTime();
-    //   this._getClient();
-    //   this._getLocation();
-    //   this._checkRecordTimes();
   },
   onHide() {
     console.log("首页隐藏");
@@ -67,15 +63,18 @@ Page({
       case "showClient":
         this._getClient();
         break;
+      case "showLocation":
+        this._showLocation();
+        break;
       default:
         break;
     }
   },
   // 刷新方法
   refresh() {
-    console.log('refresh now');
     // 获取签到数
     this._checkRecordTimes();
+    this._getCurrentTime();
   },
   /**
    *跳转到地点微调
@@ -153,44 +152,43 @@ Page({
   },
 
   /**
-   *获取当前定位信息
+   *初始定位
    *
    * @author Steven
-   * @date 2020-06-23
+   * @date 2020-06-24
    */
-  async _getLocation() {
+  async _getOriLocation() {
     let location, longitude, latitude, address;
-    if (!utils.isEmpty(app.globalData.selectedLocation)) {
-      const res = app.globalData.selectedLocation;
-      location = {};
-      longitude = res.longitude;
-      latitude = res.latitude;
-      address = res.address;
-    } else {
-      const res = await getLocation().catch((err) => {
-        console.error(err);
-        handleError(err);
-      });
-      location = res;
-      longitude = utils.round(res.longitude, 6);
-      latitude = utils.round(res.latitude, 6);
-      address = res.address;
-      app.globalData.location = {
-        longitude,
-        latitude,
-        name: address,
-        address: address,
-      };
-    }
-    this.setData({
-      location,
+    const res = await getLocation().catch((err) => {
+      console.error(err);
+      handleError(err);
+    });
+    location = res;
+    longitude = utils.round(res.longitude, 6);
+    latitude = utils.round(res.latitude, 6);
+    address = res.address;
+    app.globalData.location = {
       longitude,
       latitude,
-      address,
-      "markers[0].id": 1,
-      "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude,
-    });
+      name: address,
+      address: address,
+    };
+    this._renderLocation(location, longitude, latitude, address);
+  },
+  /**
+   *显示微调后定位信息
+   *
+   * @author Steven
+   * @date 2020-06-24
+   */
+  _showLocation() {
+    let location, longitude, latitude, address;
+    const res = app.globalData.selectedLocation;
+    location = {};
+    longitude = res.longitude;
+    latitude = res.latitude;
+    address = res.address;
+    this._renderLocation(location, longitude, latitude, address);
   },
 
   /**
@@ -246,5 +244,26 @@ Page({
         app.globalData.limitRange = res.value;
       })
       .catch((err) => console.error(err));
+  },
+  /**
+   *渲染位置数据
+   *
+   * @author Steven
+   * @date 2020-06-24
+   * @param {*} location 位置信息
+   * @param {*} longitude 经度
+   * @param {*} latitude 纬度
+   * @param {*} address 地址
+   */
+  _renderLocation(location, longitude, latitude, address) {
+    this.setData({
+      location,
+      longitude,
+      latitude,
+      address,
+      "markers[0].id": 1,
+      "markers[0].longitude": longitude,
+      "markers[0].latitude": latitude,
+    });
   },
 });

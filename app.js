@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:33:16
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-24 12:35:48
+ * @LastEditTime: 2020-06-24 14:45:22
  */
 
 import moment from "moment";
@@ -17,9 +17,8 @@ App({
     console.log("App Launch", options);
     console.log("getSystemInfoSync", my.getSystemInfoSync());
     console.log("SDKVersion", dd.ExtSDKVersion || dd.SDKVersion);
-    this.checkLogin();
+    login();
   },
-
   onShow() {
     // 设置当前时间
     this._setCurrentTime();
@@ -42,17 +41,15 @@ App({
     location: {},
     currentTime: "",
   },
-
   /**
    *获取当前时间
-   *@author steven
+   *
+   * @author Steven
+   * @date 2020-06-24
    */
   _setCurrentTime() {
     if (!this.globalData.currentTime) {
       this.globalData.currentTime = moment().format();
     }
   },
-  checkLogin(){
-    return login()
-  }
 });
