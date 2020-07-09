@@ -119,6 +119,14 @@ Page({
       });
       return;
     }
+    if (utils.isEmpty(this.data.location)) {
+      utils.ddToast({
+        type: "fail",
+        text: "请稍等，位置信息还没有获取成功！",
+      });
+      this._getOriLocation();
+      return;
+    }
     // 需要选择
     if (!utils.isEmpty(userInfo.selectOrg) && utils.isEmpty(this.data.client)) {
       // 没有拜访对象
