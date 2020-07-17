@@ -18,6 +18,7 @@ Page({
     ctime: "",
     company: companyName,
     checkTimes: 0,
+    location: "",
   },
 
   onLoad() {
