@@ -228,7 +228,6 @@ Page({
 
     setRecord(checkInRecord)
       .then((res) => {
-        console.log("提交页:上传签到信息", res);
         app.globalData.selectedClient = {};
         app.globalData.selectedLocation = {};
         // 签到动画
@@ -245,7 +244,10 @@ Page({
       .catch((err) => {
         util.ddToast({
           type: "fail",
-          text: "数据上传错误，请截图联系管理员" + JSON.stringify(err),
+          text:
+            "数据上传错误，请截图联系管理员" +
+            JSON.stringify(checkInRecord) +
+            JSON.stringify(err),
         });
         this.setData({
           disabled: false,
