@@ -31,10 +31,6 @@ Page({
       ...data,
       checkinTime: moment(data.timeStamp).format("HH:mm"),
       disabled: false,
-    });
-
-    // 清除信息
-    this.setData({
       picUrls: [],
     });
   },
@@ -218,7 +214,7 @@ Page({
         console.error(err);
         util.ddToast({
           type: "fail",
-          text: "图片上传错误，请截图联系管理员" + JSON.stringify(err),
+          text: "图片上传错误，请截图联系管理员" + JSON.stringify(err.data),
         });
       });
       response.push(res);
@@ -247,7 +243,7 @@ Page({
           text:
             "数据上传错误，请截图联系管理员" +
             JSON.stringify(checkInRecord) +
-            JSON.stringify(err),
+            JSON.stringify(err.data),
         });
         this.setData({
           disabled: false,

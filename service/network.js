@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-23 17:04:48
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-23 16:37:39
+ * @LastEditTime: 2020-07-27 14:39:45
  */
 
 import util from "/util/utils";
@@ -53,7 +53,7 @@ function uploadFile(options) {
       fileType: "image",
       fileName: "file",
       filePath: options.filePath,
-      formData: options.formData || {},
+      formData: JSON.stringify(options.formData || {}),
       header: { Authorization: getApp().globalData.token || undefined },
       success: (res) => resolve(JSON.parse(res.data)),
       fail: (err) => {

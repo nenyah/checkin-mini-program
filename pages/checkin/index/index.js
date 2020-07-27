@@ -167,15 +167,14 @@ Page({
    * @date 2020-06-24
    */
   async _getOriLocation() {
-    let location, longitude, latitude, address;
     const res = await getLocation().catch((err) => {
       console.error(err);
       handleError(err);
     });
-    location = res;
-    longitude = utils.round(res.longitude, 6);
-    latitude = utils.round(res.latitude, 6);
-    address = res.address;
+    const location = res;
+    const longitude = utils.round(res.longitude, 6);
+    const latitude = utils.round(res.latitude, 6);
+    const address = res.address;
     app.globalData.location = {
       longitude,
       latitude,
