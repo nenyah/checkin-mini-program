@@ -199,7 +199,7 @@ Page({
   _showLocation() {
     let location, longitude, latitude, address;
     const res = app.globalData.selectedLocation;
-    location = {};
+    location = res;
     longitude = res.longitude;
     latitude = res.latitude;
     address = res.address;
