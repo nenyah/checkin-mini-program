@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-23 17:04:48
  * @LastEditors: Steven
- * @LastEditTime: 2020-07-27 14:39:45
+ * @LastEditTime: 2020-07-28 10:22:47
  */
 
 import util from "/util/utils";
@@ -27,7 +27,14 @@ function request(options) {
         ...options.headers,
         Authorization: getApp().globalData.token || undefined,
       },
-      success: (res) => resolve(res.data),
+      success: (res) => {
+        if (res.status == 200) {
+          resolve(res.data);
+        } else {
+          reject(res);
+          handleError(err);
+        }
+      },
       fail: (err) => {
         reject(err);
         handleError(err);
@@ -55,16 +62,53 @@ function uploadFile(options) {
       filePath: options.filePath,
       formData: JSON.stringify(options.formData || {}),
       header: { Authorization: getApp().globalData.token || undefined },
-      success: (res) => resolve(JSON.parse(res.data)),
+      success: (res) => {
+        if (res.statusCode >= 200 && res.statusCode <= 300) {
+          resolve(JSON.parse(res.data));
+        } else {
+          reject(res);
+          handleUploadError(err);
+        }
+      },
       fail: (err) => {
         reject(err);
-        handleError(err);
+        handleUploadError(err);
       },
-      complete: (res) => {},
     });
   });
 }
 
+/**
+ *图片上错误处理方法
+ *
+ * @author Steven
+ * @date 2020-07-28
+ * @param {object} err
+ */
+function handleUploadError(err) {
+  let message = "请求错误";
+  if (err.error) {
+    // 判断错误码
+    switch (err.error) {
+      case 4:
+        message = "无权跨域调用";
+        break;
+      case 11:
+        message = "文件不存在";
+        break;
+      case 12:
+        message = "上传文件失败";
+        break;
+      case 13:
+        message = "没有文件权限";
+        break;
+      default:
+        break;
+    }
+  }
+  util.ddToast({ type: "fail", text: message });
+  console.error(err);
+}
 /**
  *错误处理方法
  *

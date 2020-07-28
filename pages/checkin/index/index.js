@@ -26,6 +26,13 @@ Page({
     // 初始化事件监听器
     this.initEventListener();
     this._getOriLocation();
+    if (dd.canIUse("createMapContext")) {
+      console.log("createMapContext 可用");
+      this.mapCtx = dd.createMapContext("map");
+      this.mapCtx.showsCompass({ isShowsCompass: 0 });
+    } else {
+      console.log("createMapContext 不可用");
+    }
   },
   onReady() {
     // 使用 dd.createMapContext 获取 map 上下文
