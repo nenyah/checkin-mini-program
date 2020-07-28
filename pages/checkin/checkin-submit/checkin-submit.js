@@ -203,52 +203,48 @@ Page({
       remark: this.data.remark,
       timeStamp: this.data.timeStamp,
     };
-
-    let response = [];
-    for (let i in imageList) {
-      console.log(`第${Number(i) + 1}张照片：`, imageList[i]);
-      let res = await setRecordFile({
-        filePath: imageList[i],
-        formData: { detailPlace: checkInRecord.detailPlace },
-      }).catch((err) => {
-        console.error(err);
-        util.ddToast({
-          type: "fail",
-          text: "图片上传错误，请截图联系管理员" + JSON.stringify(err.data),
-        });
+    // 上传图片
+    const upload = imageList.map((img) => {
+      return setRecordFile({
+        filePath: img,
+        formData: {
+          detailPlace: checkInRecord.detailPlace,
+        },
       });
-      response.push(res);
+    });
+    try {
+      // 上传图片
+      const res = await Promise.all(upload);
+      console.log("结果", res);
+
+      checkInRecord.imageUrlList = res;
+      // 上传签到信息
+      await setRecord(checkInRecord);
+      // 清空数据
+      app.globalData.selectedClient = {};
+      app.globalData.selectedLocation = {};
+      // 签到动画
+      this._sucessAnimation();
+      // 更新时间
+      app.globalData.currentTime = moment().format();
+      app.emitter.emit("refresh", { type: "refresh" });
+      setTimeout(() => {
+        my.switchTab({
+          url: "/pages/checkin/index/index",
+        });
+      }, 1000);
+    } catch (error) {
+      util.ddToast({
+        type: "fail",
+        text:
+          "数据上传错误，请截图联系管理员" +
+          JSON.stringify(checkInRecord) +
+          JSON.stringify(error.data),
+      });
+      this.setData({
+        disabled: false,
+      });
     }
-
-    checkInRecord.imageUrlList = response;
-
-    setRecord(checkInRecord)
-      .then((res) => {
-        app.globalData.selectedClient = {};
-        app.globalData.selectedLocation = {};
-        // 签到动画
-        this._sucessAnimation();
-        // 更新时间
-        app.globalData.currentTime = moment().format();
-        app.emitter.emit("refresh", { type: "refresh" });
-        setTimeout(() => {
-          my.switchTab({
-            url: "/pages/checkin/index/index",
-          });
-        }, 1000);
-      })
-      .catch((err) => {
-        util.ddToast({
-          type: "fail",
-          text:
-            "数据上传错误，请截图联系管理员" +
-            JSON.stringify(checkInRecord) +
-            JSON.stringify(err.data),
-        });
-        this.setData({
-          disabled: false,
-        });
-      });
   },
 
   /**
