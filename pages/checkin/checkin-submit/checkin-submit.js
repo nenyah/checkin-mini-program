@@ -196,8 +196,8 @@ Page({
       latitude: this.data.location.latitude,
       longitude: this.data.location.longitude,
       org: {
-        id: Number(this.data.client.id),
-        name: this.data.client.name,
+        id: this.data.client.id || "",
+        name: this.data.client.name || "",
       },
       place: this.data.location.name,
       remark: this.data.remark,
@@ -216,7 +216,6 @@ Page({
       // 上传图片
       const res = await Promise.all(upload)
       console.log("结果", res)
-
       checkInRecord.imageUrlList = res
       // 上传签到信息
       await setRecord(checkInRecord)

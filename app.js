@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:33:16
  * @LastEditors: Steven
- * @LastEditTime: 2020-07-28 14:23:38
+ * @LastEditTime: 2020-08-04 10:59:22
  */
 
 import moment from "moment"
@@ -32,7 +32,7 @@ App({
     console.log(msg)
   },
   globalData: {
-    version: "0.0.63",
+    version: "0.0.64",
     userInfo: {},
     records: {},
     selectedClient: {},
