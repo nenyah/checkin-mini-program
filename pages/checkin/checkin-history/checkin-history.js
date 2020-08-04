@@ -1,4 +1,11 @@
-import { markers } from "/config/api";
+/*
+ * @Description: 签到历史
+ * @Author: Steven
+ * @Date: 2020-04-15 15:53:13
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-08-04 09:48:04
+ */
+import { markers } from "/config/api"
 Page({
   data: {
     today: "2020-04-15",
@@ -10,26 +17,26 @@ Page({
     pageProfile: false,
   },
   onLoad(query) {
-    const page = query.page;
+    const page = query.page
     if (page == "stats") {
-      const checkininfo = JSON.parse(query.items);
-      console.log("历史页面", checkininfo);
+      const checkininfo = JSON.parse(query.items)
+      console.log("历史页面", checkininfo)
       if (!checkininfo.length) {
-        return;
+        return
       }
-      this._parseItem(checkininfo);
+      this._parseItem(checkininfo)
     } else {
-      console.log("历史页面", JSON.parse(query.items).signInMonthDTOS[0]);
+      console.log("历史页面", JSON.parse(query.items).signInMonthDTOS[0])
       const checkininfo = JSON.parse(query.items).signInMonthDTOS[0]
-        .signInHisVOS;
+        .signInHisVOS
 
       if (!checkininfo.length) {
-        return;
+        return
       }
       this.setData({
         pageProfile: true,
-      });
-      this._parseItem(checkininfo);
+      })
+      this._parseItem(checkininfo)
     }
   },
   onShow() {
@@ -52,16 +59,16 @@ Page({
         id: idx + 1,
         longitude: el.longitude,
         latitude: el.latitude,
-      };
-    });
-    const latitude = checkininfo[0].latitude;
-    const longitude = checkininfo[0].longitude;
+      }
+    })
+    const latitude = checkininfo[0].latitude
+    const longitude = checkininfo[0].longitude
     this.setData({
       checkininfo,
       markers: mymarkers,
       latitude,
       longitude,
       history: true,
-    });
+    })
   },
-});
+})

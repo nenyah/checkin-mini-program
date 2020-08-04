@@ -1,5 +1,3 @@
-
-
 // 判断图片大小是否满足需求
 
 function imageSizeIsLessLimitSize(
@@ -11,33 +9,23 @@ function imageSizeIsLessLimitSize(
   wx.getFileInfo({
     filePath: imagePath,
     success(res) {
-      console.log(
-        "压缩前图片大小:",
-        res.size / 1024,
-        "kb"
-      );
+      console.log("压缩前图片大小:", res.size / 1024, "kb")
       if (res.size > 1024 * limitSize) {
-        moreCallBack();
+        moreCallBack()
       } else {
-        lessCallBack();
+        lessCallBack()
       }
     },
-  });
+  })
 }
 
 /**
  * 获取画布图片
  */
 // 利用cavas进行压缩  每次压缩都需要ctx.draw()  wx.canvasToTempFilePath()连用
-function getCanvasImage(
-  canvasId,
-  imagePath,
-  imageW,
-  imageH,
-  getImgsuccess
-) {
-  const ctx = wx.createCanvasContext(canvasId);
-  ctx.drawImage(imagePath, 0, 0, imageW, imageH);
+function getCanvasImage(canvasId, imagePath, imageW, imageH, getImgsuccess) {
+  const ctx = wx.createCanvasContext(canvasId)
+  ctx.drawImage(imagePath, 0, 0, imageW, imageH)
   ctx.draw(
     false,
     setTimeout(function () {
@@ -50,11 +38,11 @@ function getCanvasImage(
         height: imageH,
         quality: 1,
         success: function (res) {
-          getImgsuccess(res.tempFilePath);
+          getImgsuccess(res.tempFilePath)
         },
-      });
+      })
     }, 200)
-  );
+  )
 }
 
 // 主调用方法
@@ -73,29 +61,22 @@ function getLessLimitSizeImage(
     imagePath,
     limitSize,
     (lessRes) => {
-      callBack(imagePath);
+      callBack(imagePath)
     },
     (moreRes) => {
       wx.getImageInfo({
         src: imagePath,
         success: function (imageInfo) {
-          let maxSide = Math.max(
-            imageInfo.width,
-            imageInfo.height
-          );
+          let maxSide = Math.max(imageInfo.width, imageInfo.height)
           //画板的宽高默认是windowWidth
-          let windowW = drawWidth;
-          let scale = 1;
+          let windowW = drawWidth
+          let scale = 1
           if (maxSide > windowW) {
-            scale = windowW / maxSide;
+            scale = windowW / maxSide
           }
-          let imageW = Math.trunc(
-            imageInfo.width * scale
-          );
-          let imageH = Math.trunc(
-            imageInfo.height * scale
-          );
-          console.log("调用压缩", imageW, imageH);
+          let imageW = Math.trunc(imageInfo.width * scale)
+          let imageH = Math.trunc(imageInfo.height * scale)
+          console.log("调用压缩", imageW, imageH)
           getCanvasImage(
             canvasId,
             imagePath,
@@ -108,26 +89,26 @@ function getLessLimitSizeImage(
                 limitSize,
                 drawWidth * 0.95,
                 callBack
-              );
+              )
             }
-          );
+          )
         },
-      });
+      })
     }
-  );
+  )
 }
 // 图片转basee64    io操作 使用异步方式
 function getBase64(img) {
   return new Promise(function (resolve, reject) {
-    const FSM = wx.getFileSystemManager();
+    const FSM = wx.getFileSystemManager()
     FSM.readFile({
       filePath: img,
       encoding: "base64",
       success(data) {
-        resolve(data);
+        resolve(data)
       },
-    });
-  });
+    })
+  })
 }
 
 module.exports = {
@@ -135,4 +116,4 @@ module.exports = {
   imageSizeIsLessLimitSize,
   getCanvasImage,
   getBase64,
-};
+}

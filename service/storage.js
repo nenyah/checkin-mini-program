@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-14 11:15:36
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 13:30:09
+ * @LastEditTime: 2020-08-04 09:59:24
  */
 
 /**
@@ -17,14 +17,14 @@ function getStorage(key) {
     my.getStorage({
       key: key,
       success: (res) => {
-        resolve(res);
+        resolve(res)
       },
       fail: (err) => {
-        reject(err);
+        reject(err)
       },
       complete: (res) => {},
-    });
-  });
+    })
+  })
 }
 
 /**
@@ -36,7 +36,7 @@ function getStorage(key) {
  * @returns object
  */
 function getStorageSync(key) {
-  return my.getStorageSync({ key });
+  return my.getStorageSync({ key })
 }
 
 /**
@@ -48,22 +48,22 @@ function getStorageSync(key) {
  * @returns Promise
  */
 function setStorage(option) {
-  let key = option.key;
-  let data = option.data;
+  let key = option.key
+  let data = option.data
 
   return new Promise((resolve, reject) => {
     my.setStorage({
       key: key,
       data: data,
       success: (res) => {
-        resolve(res);
+        resolve(res)
       },
       fail: (err) => {
-        reject(err);
+        reject(err)
       },
       complete: (res) => {},
-    });
-  });
+    })
+  })
 }
 
 /**
@@ -77,11 +77,11 @@ function setStorageSync(option) {
   my.setStorageSync({
     key: option.key,
     data: option.data,
-  });
+  })
 }
 module.exports = {
   getStorage,
   getStorageSync,
   setStorage,
   setStorageSync,
-};
+}

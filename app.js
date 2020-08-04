@@ -6,30 +6,30 @@
  * @LastEditTime: 2020-07-28 14:23:38
  */
 
-import moment from "moment";
-import EventEmitter from "eventemitter3";
-import { login } from "./service/login";
-moment.locale("zh-cn");
+import moment from "moment"
+import EventEmitter from "eventemitter3"
+import { login } from "./service/login"
+moment.locale("zh-cn")
 App({
   // 实例化eventemitter
   emitter: new EventEmitter(),
   onLaunch(options) {
-    console.log("App Launch", options);
-    console.log("getSystemInfoSync", my.getSystemInfoSync());
-    console.log("SDKVersion", dd.ExtSDKVersion || dd.SDKVersion);
-    login();
+    console.log("App Launch", options)
+    console.log("getSystemInfoSync", my.getSystemInfoSync())
+    console.log("SDKVersion", dd.ExtSDKVersion || dd.SDKVersion)
+    login()
   },
   onShow() {
     // 设置当前时间
-    this._setCurrentTime();
-    console.log("App Show", this.globalData.currentTime);
+    this._setCurrentTime()
+    console.log("App Show", this.globalData.currentTime)
   },
   onHide() {
-    console.log("App Hide", this.globalData.currentTime);
-    this.globalData.currentTime = null;
+    console.log("App Hide", this.globalData.currentTime)
+    this.globalData.currentTime = null
   },
   onError(msg) {
-    console.log(msg);
+    console.log(msg)
   },
   globalData: {
     version: "0.0.63",
@@ -49,7 +49,7 @@ App({
    */
   _setCurrentTime() {
     if (!this.globalData.currentTime) {
-      this.globalData.currentTime = moment().format();
+      this.globalData.currentTime = moment().format()
     }
   },
-});
+})

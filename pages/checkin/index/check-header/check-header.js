@@ -1,4 +1,11 @@
-import { formatDate } from "/util/utils";
+/*
+ * @Description: 首页头部
+ * @Author: Steven
+ * @Date: 2020-04-10 10:31:36
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-08-04 09:57:17
+ */
+import { formatDate } from "/util/utils"
 Component({
   mixins: [],
   data: {},
@@ -7,4 +14,4 @@ Component({
   didUpdate() {},
   didUnmount() {},
   methods: {},
-});
+})

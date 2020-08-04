@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment"
 Component({
   mixins: [],
   data: {
@@ -16,7 +16,7 @@ Component({
   didMount() {
     this.setData({
       today: moment().format("YYYY-MM-DD"),
-    });
+    })
   },
   didUpdate() {},
   didUnmount() {},
@@ -26,12 +26,12 @@ Component({
         format: "yyyy-MM-dd",
         currentDate: this.data.today,
         success: (res) => {
-          this.props.onGetNewDate(res.date);
+          this.props.onGetNewDate(res.date)
           this.setData({
             today: res.date,
-          });
+          })
         },
-      });
+      })
     },
     choosePerson() {
       my.complexChoose({
@@ -48,17 +48,17 @@ Component({
         permissionType: "xxx", //可添加权限校验，选人权限，目前只有GLOBAL这个参数
         responseUserOnly: true, //返回人，或者返回人和部门
         success: (res) => {
-          console.log("选人结束", res);
+          console.log("选人结束", res)
           this.setData({
             userNum: res.users.length,
-          });
-          this.props.onGetNewUser(res.users);
+          })
+          this.props.onGetNewUser(res.users)
         },
         fail: (err) => {},
-      });
+      })
     },
     goToHistory() {
-      this.props.onToHistory();
+      this.props.onToHistory()
     },
   },
-});
+})

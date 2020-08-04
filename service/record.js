@@ -1,4 +1,4 @@
-import { request, uploadFile } from "./network";
+import { request, uploadFile } from "./network"
 import {
   CheckInRecord,
   DeptRecord,
@@ -6,7 +6,7 @@ import {
   StaffMonthRecord,
   TodayCount,
   UploadFile,
-} from "/config/api";
+} from "/config/api"
 
 /**
  *当天签到记录
@@ -16,7 +16,7 @@ import {
 function getTodayCount() {
   return request({
     url: TodayCount,
-  });
+  })
 }
 /**
  *获取某人某天签到次数和最新一条签到记录
@@ -30,7 +30,7 @@ function getRecord(options) {
     data: {
       ...options,
     },
-  });
+  })
 }
 
 /**
@@ -47,7 +47,7 @@ function setRecord(options) {
       "Content-Type": "application/json",
     },
     data: JSON.stringify(options),
-  });
+  })
 }
 
 /**
@@ -61,7 +61,7 @@ function setRecordFile(options) {
     url: UploadFile,
     filePath: options.filePath,
     formData: options.formData || { detailPlace: "测试地址" },
-  });
+  })
 }
 
 /**
@@ -76,7 +76,7 @@ function getOneDayRecord(options) {
     data: {
       ...options,
     },
-  });
+  })
 }
 /**
  *获取指定用户当月签到记录
@@ -90,7 +90,7 @@ function getMonthRecord(options) {
     data: {
       ...options,
     },
-  });
+  })
 }
 /**
  *获取当前用户所在部门签到记录
@@ -104,7 +104,7 @@ function getOwnDeptRecord(options) {
     data: {
       ...options,
     },
-  });
+  })
 }
 
 module.exports = {
@@ -115,4 +115,4 @@ module.exports = {
   getMonthRecord,
   getOwnDeptRecord,
   setRecordFile,
-};
+}

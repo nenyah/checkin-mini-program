@@ -1,5 +1,5 @@
-import { getClients, getCustomer } from "/service/clients";
-let app = getApp();
+import { getClients, getCustomer } from "/service/clients"
+let app = getApp()
 const itemsMine = [
   {
     id: 0,
@@ -19,8 +19,8 @@ const itemsMine = [
     extraText: "李四 负责",
     name: "宁波第二医院-系统测试",
   },
-];
-const custCate = [itemsMine];
+]
+const custCate = [itemsMine]
 Page({
   data: {
     tabs: [
@@ -94,7 +94,7 @@ Page({
     orgName: "",
   },
   onLoad() {
-    this._getClients();
+    this._getClients()
   },
 
   // goToCate() {
@@ -118,125 +118,125 @@ Page({
   // },
   onItemClick(e) {
     // 把选择的客户传回首页
-    const item = e.target.dataset.item;
-    app.globalData.selectedClient = item;
-    app.emitter.emit("refresh", { type: "showClient" });
+    const item = e.target.dataset.item
+    app.globalData.selectedClient = item
+    app.emitter.emit("refresh", { type: "showClient" })
     my.switchTab({
       url: "/pages/checkin/index/index",
-    });
+    })
   },
   expand(e) {
     const index = e.currentTarget.dataset.index,
-      orgId = e.currentTarget.dataset.orgid;
-    console.log("expand", index, orgId);
+      orgId = e.currentTarget.dataset.orgid
+    console.log("expand", index, orgId)
 
     if (!this.data.items[index].expand) {
-      this._getCustomer({ orgId, index });
+      this._getCustomer({ orgId, index })
     } else {
-      const items = this.data.items;
-      this._setDefalutFalse(items);
+      const items = this.data.items
+      this._setDefalutFalse(items)
     }
   },
   handleClear(e) {
-    console.log("clear", e);
+    console.log("clear", e)
   },
   handleFocus(e) {
     this.setData({
       show: !this.data.show,
-    });
+    })
   },
   handleBlur(e) {
     this.setData({
       show: !this.data.show,
-    });
+    })
   },
   handleInput(e) {
-    console.log(e);
+    console.log(e)
     this.setData({
       orgName: e,
       current: 0,
       items: [],
-    });
-    this._getClients();
+    })
+    this._getClients()
   },
   handleCancel(e) {},
   handleSubmit(e) {},
   upper(e) {
-    console.log("向上", e);
+    console.log("向上", e)
   },
   lower(e) {
-    console.log("向下", e);
-    let items = this.data.items;
-    this._setDefalutFalse(items);
-    this._getClients();
+    console.log("向下", e)
+    let items = this.data.items
+    this._setDefalutFalse(items)
+    this._getClients()
   },
   scroll(e) {
     if (e.detail.scrollTop > 100) {
       this.setData({
         navShow: true,
-      });
+      })
     } else {
       this.setData({
         navShow: false,
-      });
+      })
     }
   },
 
   _getClients() {
-    const current = this.data.current + 1;
-    const pages = this.data.pages;
-    const orgName = this.data.orgName;
+    const current = this.data.current + 1
+    const pages = this.data.pages
+    const orgName = this.data.orgName
     if (current > pages) {
       this.setData({
         noMore: true,
-      });
+      })
     }
     getClients({ current, orgName })
       .then((res) => {
-        let oldItems = this.data.items;
-        let items = oldItems.concat(res.records);
-        this._setDefalutFalse(items);
-        const numClients = res.total;
-        const pages = res.pages;
+        let oldItems = this.data.items
+        let items = oldItems.concat(res.records)
+        this._setDefalutFalse(items)
+        const numClients = res.total
+        const pages = res.pages
         this.setData({
           current: current,
           numClients,
           pages,
-        });
+        })
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err)
         this.setData({
           loadingFailed: true,
-        });
-      });
+        })
+      })
   },
   _getCustomer(params) {
     getCustomer(params)
       .then((res) => {
-        const items = this.data.items;
-        items[params.index].customerList = res;
+        const items = this.data.items
+        items[params.index].customerList = res
         items.forEach((el, idx) => {
           if (idx === params.index) {
-            el.expand = !el.expand;
+            el.expand = !el.expand
           } else {
-            el.expand = false;
+            el.expand = false
           }
-        });
+        })
         this.setData({
           items,
-        });
+        })
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
   },
   _setDefalutFalse(items) {
     items.forEach((element) => {
-      element.expand = false;
-      element.customerList = null;
-      return element;
-    });
+      element.expand = false
+      element.customerList = null
+      return element
+    })
     this.setData({
       items,
-    });
+    })
   },
-});
+})

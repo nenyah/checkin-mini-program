@@ -7,25 +7,25 @@
  * @returns {string} 转码后url
  */
 function urlEncode(param, key, encode) {
-  if (param == null) return "";
-  let paramStr = "";
-  let t = typeof param;
+  if (param == null) return ""
+  let paramStr = ""
+  let t = typeof param
   if (t == "string" || t == "number" || t == "boolean") {
     paramStr +=
       "&" +
       key +
       "=" +
-      (encode == null || encode ? encodeURIComponent(param) : param);
+      (encode == null || encode ? encodeURIComponent(param) : param)
   } else {
     for (let i in param) {
       let k =
         key == null
           ? i
-          : key + (param instanceof Array ? "[" + i + "]" : "." + i);
-      paramStr += urlEncode(param[i], k, encode);
+          : key + (param instanceof Array ? "[" + i + "]" : "." + i)
+      paramStr += urlEncode(param[i], k, encode)
     }
   }
-  return paramStr;
+  return paramStr
 }
 
 /**
@@ -37,13 +37,13 @@ function urlEncode(param, key, encode) {
  */
 function formatUrl(url, params) {
   if (!params) {
-    return url;
+    return url
   }
-  let _url = url + "?";
+  let _url = url + "?"
   for (let key in params) {
-    _url += `${key}=${params[key]}&`;
+    _url += `${key}=${params[key]}&`
   }
-  return _url.substr(0, _url.length - 1);
+  return _url.substr(0, _url.length - 1)
 }
 
 /**
@@ -54,8 +54,8 @@ function formatUrl(url, params) {
  */
 function sleep(duration) {
   return new Promise((resolve) => {
-    setTimeout(resolve, duration);
-  });
+    setTimeout(resolve, duration)
+  })
 }
 
 /**
@@ -67,13 +67,13 @@ function getSysteminfo() {
   return new Promise((resolve, reject) => {
     my.getSystemInfo({
       success: (res) => {
-        resolve(res);
+        resolve(res)
       },
       fail: (err) => {
-        reject(err);
+        reject(err)
       },
-    });
-  });
+    })
+  })
 }
 /**
  * 根据比例计算压缩后的图片宽高
@@ -82,39 +82,39 @@ function getSysteminfo() {
  * @returns {object} 图片转换后宽高
  */
 async function imageUtil(e) {
-  let imageSize = {};
-  let originalWidth = e.width; //图片原始宽
-  let originalHeight = e.height; //图片原始高
-  let originalScale = originalHeight / originalWidth; //图片高宽比
+  let imageSize = {}
+  let originalWidth = e.width //图片原始宽
+  let originalHeight = e.height //图片原始高
+  let originalScale = originalHeight / originalWidth //图片高宽比
 
-  console.log("原始宽: " + originalWidth);
-  console.log("原始高: " + originalHeight);
-  console.log("宽高比" + originalScale);
-  let res = await getSysteminfo();
-  let windowWidth = res.windowWidth * 0.6;
-  let windowHeight = res.windowHeight * 0.6;
-  let windowscale = windowHeight / windowWidth; //屏幕高宽比
+  console.log("原始宽: " + originalWidth)
+  console.log("原始高: " + originalHeight)
+  console.log("宽高比" + originalScale)
+  let res = await getSysteminfo()
+  let windowWidth = res.windowWidth * 0.6
+  let windowHeight = res.windowHeight * 0.6
+  let windowscale = windowHeight / windowWidth //屏幕高宽比
   // 图片尺寸大于设备
   if (originalWidth > res.windowWidth || originalHeight > res.windowHeight) {
     if (originalScale < windowscale) {
       //图片高宽比小于屏幕高宽比
       //图片缩放后的宽为屏幕宽
-      imageSize.imageWidth = windowWidth;
-      imageSize.imageHeight = (windowWidth * originalHeight) / originalWidth;
+      imageSize.imageWidth = windowWidth
+      imageSize.imageHeight = (windowWidth * originalHeight) / originalWidth
     } else {
       //图片高宽比大于屏幕高宽比
       //图片缩放后的高为屏幕高
-      imageSize.imageHeight = windowHeight;
-      imageSize.imageWidth = (windowHeight * originalWidth) / originalHeight;
+      imageSize.imageHeight = windowHeight
+      imageSize.imageWidth = (windowHeight * originalWidth) / originalHeight
     }
   } else {
-    imageSize.imageHeight = originalHeight;
-    imageSize.imageWidth = originalWidth;
+    imageSize.imageHeight = originalHeight
+    imageSize.imageWidth = originalWidth
   }
-  console.log("缩放后的宽: " + imageSize.imageWidth);
-  console.log("缩放后的高: " + imageSize.imageHeight);
+  console.log("缩放后的宽: " + imageSize.imageWidth)
+  console.log("缩放后的高: " + imageSize.imageHeight)
 
-  return imageSize;
+  return imageSize
 }
 
 /**
@@ -125,7 +125,7 @@ async function imageUtil(e) {
  * @returns {number} 转换后的浮点数
  */
 function round(num, digits) {
-  return Math.round(num * Math.pow(10, digits)) / Math.pow(10, digits);
+  return Math.round(num * Math.pow(10, digits)) / Math.pow(10, digits)
 }
 
 /**
@@ -138,7 +138,7 @@ function ddToast({ type, text, interval }) {
     type: type,
     content: text,
     duration: interval,
-  });
+  })
 }
 
 /**
@@ -150,25 +150,24 @@ function ddToast({ type, text, interval }) {
 function isEmpty(v) {
   switch (typeof v) {
     case "undefined":
-      return true;
+      return true
     case "string":
-      if (v.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, "").length == 0)
-        return true;
-      break;
+      if (v.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, "").length == 0) return true
+      break
     case "boolean":
-      if (!v) return true;
-      break;
+      if (!v) return true
+      break
     case "number":
-      if (0 === v || isNaN(v)) return true;
-      break;
+      if (0 === v || isNaN(v)) return true
+      break
     case "object":
-      if (null === v || v.length === 0) return true;
+      if (null === v || v.length === 0) return true
       for (var i in v) {
-        return false;
+        return false
       }
-      return true;
+      return true
   }
-  return false;
+  return false
 }
 
 module.exports = {
@@ -177,4 +176,4 @@ module.exports = {
   round,
   ddToast,
   isEmpty,
-};
+}

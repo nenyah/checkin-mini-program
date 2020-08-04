@@ -6,4 +6,4 @@ Component({
   didUpdate() {},
   didUnmount() {},
   methods: {},
-});
+})

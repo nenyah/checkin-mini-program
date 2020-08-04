@@ -3,10 +3,11 @@
  * @Author: Steven
  * @Date: 2020-04-14 12:36:19
  * @LastEditors: Steven
- * @LastEditTime: 2020-06-22 13:14:11
- */ 
-import { urlEncode } from "/util/utils";
-let app = getApp();
+ * @LastEditTime: 2020-08-04 09:57:23
+ */
+
+import { urlEncode } from "/util/utils"
+let app = getApp()
 Component({
   mixins: [],
   data: {},
@@ -26,7 +27,7 @@ Component({
     goTest() {
       my.navigateTo({
         url: "/pages/test/test",
-      });
+      })
     },
   },
-});
+})

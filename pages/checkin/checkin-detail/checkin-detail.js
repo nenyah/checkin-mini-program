@@ -1,5 +1,12 @@
-import moment from "moment";
-import { markers } from "/config/api";
+/*
+ * @Description: 签到详情
+ * @Author: Steven
+ * @Date: 2020-04-14 15:03:48
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-08-04 09:47:52
+ */
+import moment from "moment"
+import { markers } from "/config/api"
 Page({
   data: {
     item: {
@@ -18,15 +25,15 @@ Page({
   },
   onLoad(query) {
     // console.log('签到详情',query)
-    const item = JSON.parse(query.item);
-    item.date = moment(item.date, "YYYY-MM-DD").format("MM月DD日");
-    item.time = moment(item.time, "hh:mm:ss").format("hh:mm");
-    console.log("签到详情", item);
-    markers[0].latitude = item.latitude;
-    markers[0].longitude = item.longitude;
+    const item = JSON.parse(query.item)
+    item.date = moment(item.date, "YYYY-MM-DD").format("MM月DD日")
+    item.time = moment(item.time, "hh:mm:ss").format("hh:mm")
+    console.log("签到详情", item)
+    markers[0].latitude = item.latitude
+    markers[0].longitude = item.longitude
     this.setData({
       item,
       markers,
-    });
+    })
   },
-});
+})

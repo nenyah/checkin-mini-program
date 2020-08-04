@@ -1,11 +1,11 @@
-import moment from "moment";
-import { companyName, markers } from "/config/api";
-import { getConfig } from "/service/config";
-import { getLocation } from "/service/location";
-import { getTodayCount } from "/service/record";
-import { handleError } from "/service/network";
-import utils from "/util/utils";
-let app = getApp();
+import moment from "moment"
+import { companyName, markers } from "/config/api"
+import { getConfig } from "/service/config"
+import { getLocation } from "/service/location"
+import { getTodayCount } from "/service/record"
+import { handleError } from "/service/network"
+import utils from "/util/utils"
+let app = getApp()
 
 Page({
   data: {
@@ -22,67 +22,67 @@ Page({
   },
 
   onLoad() {
-    console.log("首页加载");
+    console.log("首页加载")
     // 初始化事件监听器
-    this.initEventListener();
-    this._getOriLocation();
+    this.initEventListener()
+    this._getOriLocation()
     if (dd.canIUse("createMapContext")) {
-      console.log("createMapContext 可用");
-      this.mapCtx = dd.createMapContext("map");
-      this.mapCtx.showsCompass({ isShowsCompass: 0 });
+      console.log("createMapContext 可用")
+      this.mapCtx = dd.createMapContext("map")
+      this.mapCtx.showsCompass({ isShowsCompass: 0 })
     } else {
-      console.log("createMapContext 不可用");
+      console.log("createMapContext 不可用")
     }
   },
   onReady() {
     // 使用 dd.createMapContext 获取 map 上下文
-    this.mapCtx = dd.createMapContext("map");
+    this.mapCtx = dd.createMapContext("map")
     if (dd.canIUse("createMapContext.return.showsCompass")) {
-      this.mapCtx.showsCompass({ isShowsCompass: 1 });
+      this.mapCtx.showsCompass({ isShowsCompass: 1 })
     }
   },
   onShow() {
     // 页面显示
-    console.log("首页显示");
+    console.log("首页显示")
     // 获取当前时间
-    this._getCurrentTime();
+    this._getCurrentTime()
   },
   onHide() {
-    console.log("首页隐藏");
+    console.log("首页隐藏")
   },
   onUnload() {
-    console.log("首页卸载");
-    app.emitter.removeListener("refresh", this.handleEvent, this);
+    console.log("首页卸载")
+    app.emitter.removeListener("refresh", this.handleEvent, this)
   },
   onTitleClick() {
     // 标题被点击
-    utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` });
+    utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` })
   },
   // 初始化事件监听器
   initEventListener() {
-    app.emitter.on("refresh", this.handleEvent, this);
+    app.emitter.on("refresh", this.handleEvent, this)
   },
   // 事件处理
   handleEvent(event) {
     switch (event.type) {
       case "refresh":
-        this.refresh();
-        break;
+        this.refresh()
+        break
       case "showClient":
-        this._getClient();
-        break;
+        this._getClient()
+        break
       case "showLocation":
-        this._showLocation();
-        break;
+        this._showLocation()
+        break
       default:
-        break;
+        break
     }
   },
   // 刷新方法
   refresh() {
     // 获取签到数
-    this._checkRecordTimes();
-    this._getCurrentTime();
+    this._checkRecordTimes()
+    this._getCurrentTime()
   },
   /**
    *跳转到地点微调
@@ -92,19 +92,19 @@ Page({
    */
   async adjustLocation() {
     // console.log("跳转前地址", this.data.location);
-    await this._getConfig({ value: "limitRange" });
+    await this._getConfig({ value: "limitRange" })
     if (!this.data.location) {
       utils.ddToast({
         type: "fail",
         text: "请稍等，钉钉定位信息还没有获取成功！",
-      });
-      return;
+      })
+      return
     }
     my.navigateTo({
       url:
         "../location-adjust/location-adjust?location=" +
         JSON.stringify(this.data.location),
-    });
+    })
   },
   /**
    *跳转到签到提交
@@ -117,23 +117,23 @@ Page({
       timeStamp: this.data.mx.valueOf(),
       location: this.data.location,
       client: this.data.client,
-    };
+    }
 
-    const userInfo = app.globalData.userInfo;
+    const userInfo = app.globalData.userInfo
     if (utils.isEmpty(userInfo)) {
       utils.ddToast({
         type: "fail",
         text: "请稍等，用户信息还没有获取成功！",
-      });
-      return;
+      })
+      return
     }
     if (utils.isEmpty(this.data.location)) {
       utils.ddToast({
         type: "fail",
         text: "请稍等，位置信息还没有获取成功！",
-      });
-      this._getOriLocation();
-      return;
+      })
+      this._getOriLocation()
+      return
     }
     // 需要选择
     if (!utils.isEmpty(userInfo.selectOrg) && utils.isEmpty(this.data.client)) {
@@ -141,13 +141,13 @@ Page({
       utils.ddToast({
         type: "fail",
         text: "还没有选择拜访对象哦！",
-      });
-      return;
+      })
+      return
     }
     // 有拜访对象
     my.navigateTo({
       url: "../checkin-submit/checkin-submit?params=" + JSON.stringify(params),
-    });
+    })
   },
 
   /**
@@ -161,10 +161,10 @@ Page({
     // if (utils.isEmpty(userinfo)) {
     //   await app.checkLogin();
     // }
-    const checkTimes = await getTodayCount().catch((err) => console.error(err));
+    const checkTimes = await getTodayCount().catch((err) => console.error(err))
     this.setData({
       checkTimes,
-    });
+    })
   },
 
   /**
@@ -175,20 +175,20 @@ Page({
    */
   async _getOriLocation() {
     const res = await getLocation().catch((err) => {
-      console.error(err);
-      handleError(err);
-    });
-    const location = res;
-    const longitude = utils.round(res.longitude, 6);
-    const latitude = utils.round(res.latitude, 6);
-    const address = res.address;
+      console.error(err)
+      handleError(err)
+    })
+    const location = res
+    const longitude = utils.round(res.longitude, 6)
+    const latitude = utils.round(res.latitude, 6)
+    const address = res.address
     app.globalData.location = {
       longitude,
       latitude,
       name: address,
       address: address,
-    };
-    this._renderLocation(location, longitude, latitude, address);
+    }
+    this._renderLocation(location, longitude, latitude, address)
   },
   /**
    *显示微调后定位信息
@@ -197,13 +197,13 @@ Page({
    * @date 2020-06-24
    */
   _showLocation() {
-    let location, longitude, latitude, address;
-    const res = app.globalData.selectedLocation;
-    location = res;
-    longitude = res.longitude;
-    latitude = res.latitude;
-    address = res.address;
-    this._renderLocation(location, longitude, latitude, address);
+    let location, longitude, latitude, address
+    const res = app.globalData.selectedLocation
+    location = res
+    longitude = utils.round(res.longitude, 6)
+    latitude = utils.round(res.latitude, 6)
+    address = res.address
+    this._renderLocation(location, longitude, latitude, address)
   },
 
   /**
@@ -214,18 +214,18 @@ Page({
    * @returns
    */
   _getCurrentTime() {
-    const checkInDate = app.globalData.currentTime;
+    const checkInDate = app.globalData.currentTime
     if (!checkInDate) {
-      return;
+      return
     }
-    const mx = moment(checkInDate);
-    const today = mx.format("YYYY年MM月DD日");
-    const ctime = mx.format("HH:mm");
+    const mx = moment(checkInDate)
+    const today = mx.format("YYYY年MM月DD日")
+    const ctime = mx.format("HH:mm")
     this.setData({
       today,
       ctime,
       mx,
-    });
+    })
   },
 
   /**
@@ -236,13 +236,13 @@ Page({
    * @returns
    */
   _getClient() {
-    const client = app.globalData.selectedClient;
+    const client = app.globalData.selectedClient
     if (!client) {
-      return;
+      return
     }
     this.setData({
       client,
-    });
+    })
   },
   /**
    *获取配置信息
@@ -256,9 +256,9 @@ Page({
     return getConfig(params)
       .then((res) => {
         // console.log("启用获取配置信息", res);
-        app.globalData.limitRange = res.value;
+        app.globalData.limitRange = res.value
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
   },
   /**
    *渲染位置数据
@@ -279,6 +279,6 @@ Page({
       "markers[0].id": 1,
       "markers[0].longitude": longitude,
       "markers[0].latitude": latitude,
-    });
+    })
   },
-});
+})
