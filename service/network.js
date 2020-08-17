@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-23 17:04:48
  * @LastEditors: Steven
- * @LastEditTime: 2020-07-28 10:22:47
+ * @LastEditTime: 2020-08-17 13:16:26
  */
 
 import util from "/util/utils"
@@ -32,7 +32,7 @@ function request(options) {
           resolve(res.data)
         } else {
           reject(res)
-          handleError(err)
+          handleError(res)
         }
       },
       fail: (err) => {
@@ -67,7 +67,7 @@ function uploadFile(options) {
           resolve(JSON.parse(res.data))
         } else {
           reject(res)
-          handleUploadError(err)
+          handleUploadError(res)
         }
       },
       fail: (err) => {
