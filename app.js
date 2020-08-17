@@ -32,7 +32,7 @@ App({
     console.log(msg)
   },
   globalData: {
-    version: "0.0.65",
+    version: "0.0.66",
     userInfo: {},
     records: {},
     selectedClient: {},

@@ -1,7 +1,8 @@
 import moment from "moment"
-import { companyName } from "/config/api"
-import { setRecord, setRecordFile } from "/service/record"
+import {companyName} from "/config/api"
+import {setRecord, setRecordFile} from "/service/record"
 import util from "/util/utils"
+
 let app = getApp()
 
 Page({
@@ -22,7 +23,7 @@ Page({
     // 页面加载
 
     let data = JSON.parse(query.params)
-    console.log(JSON.parse(query.params))
+    console.log(JSON.parse(params))
     data.location.name = data.location.address
     if (!util.isEmpty(app.globalData.selectedLocation)) {
       data.location = app.globalData.selectedLocation
