@@ -26,7 +26,10 @@ Page({
     // 初始化事件监听器
     this.initEventListener()
     this._getOriLocation()
-    if (dd.canIUse("createMapContext")) {
+    if (
+      dd.canIUse("createMapContext") &&
+      dd.canIUse("createMapContext.object.showsCompass")
+    ) {
       console.log("createMapContext 可用")
       this.mapCtx = dd.createMapContext("map")
       this.mapCtx.showsCompass({ isShowsCompass: 0 })
@@ -34,13 +37,7 @@ Page({
       console.log("createMapContext 不可用")
     }
   },
-  onReady() {
-    // 使用 dd.createMapContext 获取 map 上下文
-    this.mapCtx = dd.createMapContext("map")
-    if (dd.canIUse("createMapContext.return.showsCompass")) {
-      this.mapCtx.showsCompass({ isShowsCompass: 1 })
-    }
-  },
+  onReady() {},
   onShow() {
     // 页面显示
     console.log("首页显示")

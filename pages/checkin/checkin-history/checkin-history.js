@@ -3,7 +3,7 @@
  * @Author: Steven
  * @Date: 2020-04-15 15:53:13
  * @LastEditors: Steven
- * @LastEditTime: 2020-08-04 09:48:04
+ * @LastEditTime: 2020-08-12 17:20:19
  */
 import { markers } from "/config/api"
 Page({
@@ -18,7 +18,7 @@ Page({
   },
   onLoad(query) {
     const page = query.page
-    if (page == "stats") {
+    if (page === "stats") {
       const checkininfo = JSON.parse(query.items)
       console.log("历史页面", checkininfo)
       if (!checkininfo.length) {
@@ -27,8 +27,8 @@ Page({
       this._parseItem(checkininfo)
     } else {
       console.log("历史页面", JSON.parse(query.items).signInMonthDTOS[0])
-      const checkininfo = JSON.parse(query.items).signInMonthDTOS[0]
-        .signInHisVOS
+      const items = JSON.parse(query.items)
+      const checkininfo = items.signInMonthDTOS[0].signInHisVOS
 
       if (!checkininfo.length) {
         return

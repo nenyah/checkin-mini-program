@@ -108,7 +108,12 @@ Page({
    */
   handleSubmit(e) {
     console.log("submit", e)
-    const searchItems = this.data.items.filter((el) => el.title.includes(e))
+    const searchItems = this.data.items.filter((el) => {
+      if (el.title) {
+        return el.title.includes(e)
+      }
+      return false
+    })
     this.setData({
       searchItems,
     })
@@ -121,15 +126,18 @@ Page({
   _getAround(opt) {
     getAround(opt)
       .then((res) => {
-        const items = res.pois.map((item, index) => {
-          return {
-            index,
-            title: item.name,
-            brief: item.pname + item.cityname + item.adname + item.address,
-            location: item.location,
-            selected: index === 0 ? true : false,
-          }
-        })
+        console.log("获取周边", res)
+        const items = res.pois
+          .filter((el) => typeof el.name !== "undefined")
+          .map((item, index) => {
+            return {
+              index,
+              title: item.name,
+              brief: item.pname + item.cityname + item.adname + item.address,
+              location: item.location,
+              selected: index === 0 ? true : false,
+            }
+          })
         this.setData({
           items,
         })
