@@ -3,9 +3,10 @@
  * @Author: Steven
  * @Date: 2020-04-15 15:53:13
  * @LastEditors: Steven
- * @LastEditTime: 2020-08-12 17:20:19
+ * @LastEditTime: 2020-08-17 15:07:47
  */
-import { markers } from "/config/api"
+import {markers} from "/config/api"
+
 Page({
   data: {
     today: "2020-04-15",
@@ -18,26 +19,14 @@ Page({
   },
   onLoad(query) {
     const page = query.page
-    if (page === "stats") {
-      const checkininfo = JSON.parse(query.items)
-      console.log("历史页面", checkininfo)
-      if (!checkininfo.length) {
-        return
-      }
-      this._parseItem(checkininfo)
-    } else {
-      console.log("历史页面", JSON.parse(query.items).signInMonthDTOS[0])
-      const items = JSON.parse(query.items)
-      const checkininfo = items.signInMonthDTOS[0].signInHisVOS
-
-      if (!checkininfo.length) {
-        return
-      }
-      this.setData({
-        pageProfile: true,
-      })
-      this._parseItem(checkininfo)
+    let checkininfo =
+      page === "stats"
+        ? JSON.parse(query.items)
+        : JSON.parse(query.items).signInMonthDTOS[0].signInHisVOS
+    if (!checkininfo.length) {
+      return
     }
+    this._parseItem(checkininfo, page)
   },
   onShow() {
     // 页面显示
@@ -51,24 +40,26 @@ Page({
   onUnload() {
     // 页面被关闭
   },
-  _parseItem(checkininfo) {
+  _parseItem(checkininfo, page) {
     // 处理markers
     const mymarkers = checkininfo.map((el, idx) => {
-      return {
-        ...markers[0],
-        id: idx + 1,
-        longitude: el.longitude,
-        latitude: el.latitude,
-      }
-    })
-    const latitude = checkininfo[0].latitude
-    const longitude = checkininfo[0].longitude
+        return {
+          ...markers[0],
+          id: idx + 1,
+          longitude: el.longitude,
+          latitude: el.latitude,
+        }
+      }),
+      latitude = checkininfo[0].latitude,
+      longitude = checkininfo[0].longitude,
+      pageProfile = page !== "stats"
     this.setData({
       checkininfo,
       markers: mymarkers,
       latitude,
       longitude,
       history: true,
+      pageProfile,
     })
   },
 })

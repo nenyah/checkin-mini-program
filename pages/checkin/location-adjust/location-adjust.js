@@ -135,7 +135,7 @@ Page({
               title: item.name,
               brief: item.pname + item.cityname + item.adname + item.address,
               location: item.location,
-              selected: index === 0 ? true : false,
+              selected: index === 0,
             }
           })
         this.setData({
@@ -166,11 +166,7 @@ Page({
     const items = this.data.items
     const [longitude, latitude] = items[index].location.split(",")
     items.forEach((el) => {
-      if (el.index === index) {
-        el.selected = true
-      } else {
-        el.selected = false
-      }
+      el.selected = el.index === index
     })
     this.setData({
       items,

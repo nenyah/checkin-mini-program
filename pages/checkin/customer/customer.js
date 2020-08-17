@@ -1,4 +1,5 @@
-import { getClients, getCustomer } from "/service/clients"
+import {getClients, getCustomer} from "/service/clients"
+
 let app = getApp()
 const itemsMine = [
   {
@@ -118,8 +119,7 @@ Page({
   // },
   onItemClick(e) {
     // 把选择的客户传回首页
-    const item = e.target.dataset.item
-    app.globalData.selectedClient = item
+    app.globalData.selectedClient = e.target.dataset.item
     app.emitter.emit("refresh", { type: "showClient" })
     my.switchTab({
       url: "/pages/checkin/index/index",

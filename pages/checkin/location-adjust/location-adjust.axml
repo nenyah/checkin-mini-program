@@ -1,3 +1,10 @@
+<!--
+ * @Description: 地点微调
+ * @Author: Steven
+ * @Date: 2020-04-14 09:05:04
+ * @LastEditors: Steven
+ * @LastEditTime: 2020-08-17 13:23:35
+-->
 <view
   a:if="{{search}}"
   class="flex flex-col"
@@ -5,9 +12,7 @@
   <search-bar
     placeholder="搜索"
     focus="{{true}}"
-    onInput="handleInput"
     onClear="handleClear"
-    onFocus="handleFocus"
     onCancel="handleCancel"
     onSubmit="handleSubmit"
     showCancelButton="{{false}}"
