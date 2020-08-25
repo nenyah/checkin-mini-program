@@ -21,12 +21,30 @@ Page({
     hasMore: true,
   },
   onLoad() {
+    // 初始化事件监听器
+    this.initEventListener()
     // 首次进入显示本部门信息
     this.setData({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     })
-    this._getDeptInfo()
-    this._getRecords()
+    // this._getDeptInfo()
+    // this._getRecords()
+  },
+  // 初始化事件监听器
+  initEventListener() {
+    app.emitter.on("refresh", this.handleEvent, this)
+  },
+  // 事件处理
+  handleEvent(event) {
+    switch (event.type) {
+      case "refresh":
+        this._getDeptInfo()
+        this._getRecords()
+        break
+
+      default:
+        break
+    }
   },
   onPullDownRefresh() {
     console.log("onPullDownRefresh", new Date())

@@ -1,6 +1,6 @@
 import moment from "moment"
-import {companyName} from "/config/api"
-import {setRecord, setRecordFile} from "/service/record"
+import { companyName } from "/config/api"
+import { setRecord, setRecordFile } from "/service/record"
 import util from "/util/utils"
 
 let app = getApp()
@@ -20,6 +20,8 @@ Page({
     imageSize: "",
   },
   onLoad(query) {
+    // 初始化事件监听器
+    this.initEventListener()
     // 页面加载
 
     let data = JSON.parse(query.params)
@@ -34,7 +36,26 @@ Page({
       picUrls: [],
     })
   },
-
+  // 初始化事件监听器
+  initEventListener() {
+    app.emitter.on("refresh", this.handleEvent, this)
+  },
+  // 事件处理
+  handleEvent(event) {
+    switch (event.type) {
+      case "refresh":
+        this.refresh()
+        break
+      case "showClient":
+        this._getClient()
+        break
+      case "showLocation":
+        this._showLocation()
+        break
+      default:
+        break
+    }
+  },
   /**
    *拍照
    *
