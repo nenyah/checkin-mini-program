@@ -23,7 +23,6 @@ Page({
     // 页面加载
 
     let data = JSON.parse(query.params)
-    console.log(JSON.parse(params))
     data.location.name = data.location.address
     if (!util.isEmpty(app.globalData.selectedLocation)) {
       data.location = app.globalData.selectedLocation
