@@ -1,7 +1,6 @@
 import moment from "moment"
 import {getDeptInfo} from "/service/dept"
 import {getOwnDeptRecord, getRecord} from "/service/record"
-import {login} from "/service/login"
 import utils from "/util/utils"
 
 let app = getApp()
@@ -32,23 +31,29 @@ Page({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     })
     const userInfo = app.globalData.userInfo
-    if (utils.isEmpty(userInfo)) {
-      console.log("没有获取到用户信息", app.globalData.userInfo)
-      login()
-    } else {
+    if (!utils.isEmpty(userInfo)) {
       console.log("获取到用户信息", app.globalData.userInfo)
       this._getDeptInfo()
       this._getRecords()
     }
   },
-  // 初始化事件监听器
+  onUnload() {
+    console.log("统计页卸载")
+    app.emitter.removeListener("freshstat", this.handleEvent, this)
+  },
+  /**
+   * 初始化事件监听器
+   */
   initEventListener() {
     app.emitter.on("refresh", this.handleEvent, this)
   },
-  // 事件处理
+  /**
+   * 事件处理
+   */
   handleEvent(event) {
     switch (event.type) {
       case "refresh":
+        console.log("触发更新")
         this._getDeptInfo()
         this._getRecords()
         break
@@ -56,6 +61,9 @@ Page({
         break
     }
   },
+  /**
+   * 下拉刷新
+   */
   onPullDownRefresh() {
     console.log("onPullDownRefresh", new Date())
     this.setData({
@@ -64,8 +72,10 @@ Page({
     })
     this._getRecords()
   },
+  /**
+   * 下拉时加载更多
+   */
   onLower() {
-    // 下拉时加载更多
     console.log("统计页向下")
     const pages = this.data.pages,
       current = this.data.current
@@ -76,11 +86,19 @@ Page({
     }
     this._getRecords()
   },
+  /**
+   * 点击tab
+   * @param e
+   */
   onTabClick(e) {
     this.setData({
       activeTab: e.index,
     })
   },
+  /**
+   * 获取日期
+   * @param data
+   */
   onGetNewDate(data) {
     console.log("统计页获得日期数据", data)
     this.setData({
@@ -91,6 +109,10 @@ Page({
     })
     this._getRecords()
   },
+  /**
+   * 获取用户
+   * @param users
+   */
   onGetNewUser(users) {
     console.log("统计页获得人员数据", users)
     const userNum = users.length
@@ -106,6 +128,9 @@ Page({
     })
     this._getRecords()
   },
+  /**
+   * 跳转历史页面
+   */
   onToHistory() {
     console.log("到历史页面")
     if (this.data.items.length > 0) {
@@ -120,6 +145,11 @@ Page({
       })
     }
   },
+  /**
+   * 获取本部门签到记录
+   * @return {Promise<void>}
+   * @private
+   */
   async _getOwnDeptRecord() {
     const date = this.data.date,
       size = this.data.size,
@@ -140,6 +170,11 @@ Page({
         })
     }
   },
+  /**
+   * 获取签到记录
+   * @return {Promise<void>}
+   * @private
+   */
   async _getRecord() {
     const date = this.data.date,
       userIds = this.data.userIds,
@@ -160,6 +195,11 @@ Page({
         })
     }
   },
+  /**
+   * 获取部门信息
+   * @return {Promise<void>}
+   * @private
+   */
   async _getDeptInfo() {
     const dingUserId = await app.globalData.userInfo.dingUserId
     getDeptInfo({dingUserId})
@@ -175,13 +215,19 @@ Page({
         })
       })
   },
+  /**
+   * 渲染数据
+   * @param res
+   * @private
+   */
   _renderData(res) {
-    const checkinNums = res.signInQty,
-      uncheckinNums = res.notSignInList === null ? 0 : res.notSignInList.length,
-      pages = Number(res.signInHisPage.pages),
-      current = Number(res.signInHisPage.current),
-      notSignRecords = res.notSignInList,
-      items = [...this.data.items, ...res.signInHisPage.records]
+    let checkinNums, uncheckinNums, pages, current, notSignRecords, items
+    checkinNums = res.signInQty
+    uncheckinNums = res.notSignInList === null ? 0 : res.notSignInList.length
+    pages = Number(res.signInHisPage.pages)
+    current = Number(res.signInHisPage.current)
+    notSignRecords = res.notSignInList
+    items = [...this.data.items, ...res.signInHisPage.records]
     this.setData({
       "tabs[0].title": checkinNums,
       "tabs[1].title": uncheckinNums,
@@ -191,6 +237,10 @@ Page({
       items,
     })
   },
+  /**
+   * 获取记录
+   * @private
+   */
   _getRecords() {
     if (this.data.userNum > 0) {
       this._getRecord()

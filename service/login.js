@@ -10,7 +10,7 @@ import { request } from "./network"
 import { Userinfo } from "/config/api"
 import util from "/util/utils"
 /**
- *免官登录
+ *免密登录
  *
  * @author Steven
  * @date 2020-06-24
@@ -23,11 +23,12 @@ async function login() {
       authCode: authCode,
     },
   }).catch((err) => console.error(err))
-  // 储存用户信息、tolen
+  // 储存用户信息、token
   getApp().globalData.userInfo = user
   getApp().globalData.token = token
   welcome(user.userName)
   getApp().emitter.emit("refresh", { type: "refresh" })
+  // getApp().emitter.emit("freshstat", { type: "freshstat" })
 }
 
 /**
