@@ -225,7 +225,8 @@ Page({
    */
   _getCurrentTime() {
     const checkInDate = app.globalData.currentTime
-    if (!checkInDate) {
+    console.log("checkInDate 类型", checkInDate)
+    if (utils.isEmpty(checkInDate)) {
       return
     }
     const ctime = checkInDate.format("HH:mm")
