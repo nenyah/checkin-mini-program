@@ -1,6 +1,6 @@
 {
-  "usingComponents":{
-    "s-card":"/components/s-card/s-card"
+  "usingComponents": {
+    "s-card": "/components/s-card/s-card"
   },
-  "defaultTitle":"我的"
+  "defaultTitle": "我的"
 }

@@ -1,19 +1,20 @@
 .pin-right-angel {
-  position: relative;
-  z-index: 1;
-  left: -10rpx;
-  top: -10rpx;
-  color: red;
+    position: relative;
+    z-index: 1;
+    left: -10rpx;
+    top: -10rpx;
+    color: red;
 }
 
 .sucess-stamp {
-  width: 150px;
-  height: 150px;
-  background: no-repeat url("/assets/images/checkinstamp.png");
-  background-size: 150px;
+    width: 150px;
+    height: 150px;
+    background: no-repeat url("/assets/images/checkinstamp.png");
+    background-size: 150px;
 }
+
 .canvas {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
 }

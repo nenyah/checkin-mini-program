@@ -1,12 +1,15 @@
 import moment from "moment"
-import { getDeptInfo } from "/service/dept"
-import { getOwnDeptRecord, getRecord } from "/service/record"
+import {getDeptInfo} from "/service/dept"
+import {getOwnDeptRecord, getRecord} from "/service/record"
+import {login} from "/service/login"
+import utils from "/util/utils"
+
 let app = getApp()
 Page({
   data: {
     tabs: [
-      { title: "0", subTitle: "最新签到" },
-      { title: "0", subTitle: "未签到" },
+      {title: "0", subTitle: "最新签到"},
+      {title: "0", subTitle: "未签到"},
     ],
     activeTab: 0,
     items: [],
@@ -21,14 +24,22 @@ Page({
     hasMore: true,
   },
   onLoad() {
+    console.log("进入统计页面")
     // 初始化事件监听器
     this.initEventListener()
     // 首次进入显示本部门信息
     this.setData({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     })
-    // this._getDeptInfo()
-    // this._getRecords()
+    const userInfo = app.globalData.userInfo
+    if (utils.isEmpty(userInfo)) {
+      console.log("没有获取到用户信息", app.globalData.userInfo)
+      login()
+    } else {
+      console.log("获取到用户信息", app.globalData.userInfo)
+      this._getDeptInfo()
+      this._getRecords()
+    }
   },
   // 初始化事件监听器
   initEventListener() {
@@ -41,7 +52,6 @@ Page({
         this._getDeptInfo()
         this._getRecords()
         break
-
       default:
         break
     }
@@ -118,7 +128,7 @@ Page({
 
     if (hasMore) {
       current += 1
-      getOwnDeptRecord({ current, date, size })
+      getOwnDeptRecord({current, date, size})
         .then((res) => {
           this._renderData(res)
         })
@@ -138,7 +148,7 @@ Page({
     let current = this.data.current
     if (hasMore) {
       current += 1
-      getRecord({ current, userIds, date, size })
+      getRecord({current, userIds, date, size})
         .then((res) => {
           this._renderData(res)
         })
@@ -152,7 +162,7 @@ Page({
   },
   async _getDeptInfo() {
     const dingUserId = await app.globalData.userInfo.dingUserId
-    getDeptInfo({ dingUserId })
+    getDeptInfo({dingUserId})
       .then((res) => {
         this.setData({
           dept: res,

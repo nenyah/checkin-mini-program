@@ -6,7 +6,8 @@
  * @LastEditTime: 2020-08-04 09:47:52
  */
 import moment from "moment"
-import { markers } from "/config/api"
+import {markers} from "/config/api"
+
 Page({
   data: {
     item: {
@@ -16,7 +17,7 @@ Page({
       detailPlace: "浙江省宁波市北仑区大碶街道大浦河北路",
       remark:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum aperiam, mollitia repudiandae alias officiis aliquid aliquam repellat, voluptas necessitatibus rerum quae, explicabo unde accusantium fugit vel debitis! Est, nemo quos!",
-      org: { name: "华东宁波医药有限公司" },
+      org: {name: "华东宁波医药有限公司"},
       picUrls: [],
       latitude: "29.903595",
       longitude: "121.79692",

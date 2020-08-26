@@ -1,4 +1,5 @@
 import moment from "moment"
+
 Component({
   mixins: [],
   data: {
@@ -11,15 +12,18 @@ Component({
     onGetNewDate: (day) => console.log(day),
     onGetNewDept: (dept) => console.log(dept),
     onGetNewUser: (users) => console.log(users),
-    onToHistory: () => {},
+    onToHistory: () => {
+    },
   },
   didMount() {
     this.setData({
       today: moment().format("YYYY-MM-DD"),
     })
   },
-  didUpdate() {},
-  didUnmount() {},
+  didUpdate() {
+  },
+  didUnmount() {
+  },
   methods: {
     chooseDate() {
       my.datePicker({
@@ -54,7 +58,8 @@ Component({
           })
           this.props.onGetNewUser(res.users)
         },
-        fail: (err) => {},
+        fail: (err) => {
+        },
       })
     },
     goToHistory() {

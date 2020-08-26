@@ -3,7 +3,6 @@
 }
 
 .map-bg {
-    background: url('/assets/images/map_bg.png');
     background-size: 100%;
-    background-repeat: no-repeat;
+    background: url('/assets/images/map_bg.png') no-repeat;
 }

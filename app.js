@@ -3,12 +3,13 @@
  * @Author: Steven
  * @Date: 2020-05-18 16:33:16
  * @LastEditors: Steven
- * @LastEditTime: 2020-08-17 15:49:12
+ * @LastEditTime: 2020-08-25 15:53:58
  */
 
 import moment from "moment"
 import EventEmitter from "eventemitter3"
-import { login } from "./service/login"
+import { login } from "/service/login"
+import utils from "/util/utils"
 moment.locale("zh-cn")
 App({
   // 实例化eventemitter
@@ -22,17 +23,28 @@ App({
   onShow() {
     // 设置当前时间
     this._setCurrentTime()
-    console.log("App Show", this.globalData.currentTime)
+    console.log(
+      "App Show",
+      this.globalData.currentTime,
+      this.globalData.location
+    )
   },
   onHide() {
-    console.log("App Hide", this.globalData.currentTime)
-    this.globalData.currentTime = null
+    this.globalData.currentTime = {}
+    this.globalData.location = {}
+    this.globalData.selectedLocation = {}
+    this.globalData.selectedClient = {}
+    console.log(
+      "App Hide",
+      this.globalData.currentTime,
+      this.globalData.location
+    )
   },
   onError(msg) {
     console.log(msg)
   },
   globalData: {
-    version: "0.0.67",
+    version: "0.0.68",
     userInfo: {},
     records: {},
     selectedClient: {},
@@ -48,8 +60,8 @@ App({
    * @date 2020-06-24
    */
   _setCurrentTime() {
-    if (!this.globalData.currentTime) {
-      this.globalData.currentTime = moment().format()
+    if (utils.isEmpty(this.globalData.currentTime)) {
+      this.globalData.currentTime = moment()
     }
   },
 })

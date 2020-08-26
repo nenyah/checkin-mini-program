@@ -1,5 +1,6 @@
-import { getAround } from "/libs/amap-dd"
+import {getAround} from "/libs/amap-dd"
 import utils from "/util/utils"
+
 let app = getApp()
 Page({
   data: {
@@ -37,18 +38,21 @@ Page({
     console.log("地点微调页面", JSON.parse(query.location))
     location.longitude = utils.round(location.longitude, 6)
     location.latitude = utils.round(location.latitude, 6)
-    let { longitude, latitude } = location
+    let {longitude, latitude} = location
     const radius = app.globalData.limitRange
 
     this.setData({
       originLocation: location,
     })
     this._getCurrentLocation()
-    this._getAround({ longitude, latitude, radius })
+    this._getAround({longitude, latitude, radius})
   },
-  onReady() {},
+  onReady() {
+  },
 
-  // 确认选择
+  /**
+   * 确认选择
+   */
   comfirm() {
     const selectItem = this.data.items.filter((el) => el.selected === true)[0]
     console.log("选择地址：", selectItem)
@@ -62,9 +66,13 @@ Page({
       name,
       address,
     }
-    app.emitter.emit("refresh", { type: "showLocation" })
+    app.emitter.emit("refresh", {type: "showLocation"})
     my.navigateBack()
   },
+  /**
+   * 选择搜索项目
+   * @param e
+   */
   onSearchItemClick(e) {
     // console.log(e);
     let items = [e.target.dataset.item]
@@ -74,12 +82,15 @@ Page({
       search: !this.data.search,
     })
   },
-  // 选择地址
+  /**
+   * 选择地址
+   * @param e
+   */
   onItemClick(e) {
     const index = e.index
     this._chooseItem(index)
   },
-  // 控制点
+
   /**
    *回到初始点
    *
@@ -94,6 +105,9 @@ Page({
     this._getCurrentLocation()
     this._chooseItem(0)
   },
+  /**
+   * 搜索
+   */
   changeToSearch() {
     const search = !this.data.search
     console.log(search)

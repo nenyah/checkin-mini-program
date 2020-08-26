@@ -12,11 +12,15 @@ Component({
     signRecords: [],
     notSignRecords: [],
     activeIndex: 1,
-    onLower: () => {},
+    onLower: () => {
+    },
   },
-  didMount() {},
-  didUpdate() {},
-  didUnmount() {},
+  didMount() {
+  },
+  didUpdate() {
+  },
+  didUnmount() {
+  },
   methods: {
     lower() {
       this.props.onLower()

@@ -1,6 +1,6 @@
 import moment from "moment"
-import { companyName } from "/config/api"
-import { setRecord, setRecordFile } from "/service/record"
+import {companyName} from "/config/api"
+import {setRecord, setRecordFile} from "/service/record"
 import util from "/util/utils"
 
 let app = getApp()
@@ -20,41 +20,21 @@ Page({
     imageSize: "",
   },
   onLoad(query) {
-    // 初始化事件监听器
-    this.initEventListener()
     // 页面加载
 
     let data = JSON.parse(query.params)
+    console.log(data);
     data.location.name = data.location.address
     if (!util.isEmpty(app.globalData.selectedLocation)) {
       data.location = app.globalData.selectedLocation
     }
     this.setData({
       ...data,
-      checkinTime: moment(data.timeStamp).format("HH:mm"),
+      checkinTime: app.globalData.currentTime.format("HH:mm"),
+      timeStamp: app.globalData.currentTime.valueOf(),
       disabled: false,
       picUrls: [],
     })
-  },
-  // 初始化事件监听器
-  initEventListener() {
-    app.emitter.on("refresh", this.handleEvent, this)
-  },
-  // 事件处理
-  handleEvent(event) {
-    switch (event.type) {
-      case "refresh":
-        this.refresh()
-        break
-      case "showClient":
-        this._getClient()
-        break
-      case "showLocation":
-        this._showLocation()
-        break
-      default:
-        break
-    }
   },
   /**
    *拍照
@@ -138,8 +118,10 @@ Page({
             })
         }
       },
-      fail: () => {},
-      complete: () => {},
+      fail: () => {
+      },
+      complete: () => {
+      },
     })
   },
 
@@ -246,14 +228,15 @@ Page({
       // 签到动画
       this._sucessAnimation()
       // 更新时间
-      app.globalData.currentTime = moment().format()
-      app.emitter.emit("refresh", { type: "refresh" })
+      app.globalData.currentTime = moment()
+      app.emitter.emit("refresh", {type: "refresh"})
       setTimeout(() => {
         my.switchTab({
           url: "/pages/checkin/index/index",
         })
       }, 1000)
     } catch (error) {
+      console.log("错误",JSON.stringify(error))
       util.ddToast({
         type: "fail",
         text:

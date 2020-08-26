@@ -6,7 +6,6 @@
  * @LastEditTime: 2020-08-04 09:57:23
  */
 
-import { urlEncode } from "/util/utils"
 let app = getApp()
 Component({
   mixins: [],
@@ -15,11 +14,15 @@ Component({
     client: "",
     ctime: "00:00",
     checkTimes: 0,
-    onSubmit: () => {},
+    onSubmit: () => {
+    },
   },
-  didMount() {},
-  didUpdate() {},
-  didUnmount() {},
+  didMount() {
+  },
+  didUpdate() {
+  },
+  didUnmount() {
+  },
   methods: {
     goSubmit() {
       this.props.onSubmit()

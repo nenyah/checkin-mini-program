@@ -7,7 +7,7 @@
       class="p-2 ml-2 w-2-3 text-sm {{visitsPerson.length===0?'color-label':'color-big-title'}} no-wrap"
       onTap="handleTap"
     >
-      {{isSelected?client.name:"请选择拜访客户"}}
+      {{client.name.length>0?client.name:"请选择拜访客户"}}
     </view>
   </view>
   <view

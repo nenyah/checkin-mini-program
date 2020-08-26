@@ -1,10 +1,10 @@
 {
-    "usingComponents": {
-        "s-scope": "./scope/scope",
-        "s-tab-control": "/components/s-tab-control/s-tab-control",
-        "s-person-cards": "./person-cards/person-cards",
-        "s-button": "./export-button/export-button"
-    },
-    "defaultTitle": "团队签到统计",
-    "pullRefresh": true
+  "usingComponents": {
+    "s-scope": "./scope/scope",
+    "s-tab-control": "/components/s-tab-control/s-tab-control",
+    "s-person-cards": "./person-cards/person-cards",
+    "s-button": "./export-button/export-button"
+  },
+  "defaultTitle": "团队签到统计",
+  "pullRefresh": true
 }

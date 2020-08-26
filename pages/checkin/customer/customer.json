@@ -1,10 +1,10 @@
 {
-    "usingComponents": {
-        "tabs": "mini-ali-ui-rpx/es/tabs/index",
-        "tab-content": "mini-ali-ui-rpx/es/tabs/tab-content/index",
-        "search-bar": "mini-ali-ui-rpx/es/search-bar/index",
-        "list-item": "mini-ali-ui-rpx/es/list/list-item/index",
-        "list": "mini-ali-ui-rpx/es/list/index"
-    },
-    "defaultTitle": "选择接收人"
+  "usingComponents": {
+    "tabs": "mini-ali-ui-rpx/es/tabs/index",
+    "tab-content": "mini-ali-ui-rpx/es/tabs/tab-content/index",
+    "search-bar": "mini-ali-ui-rpx/es/search-bar/index",
+    "list-item": "mini-ali-ui-rpx/es/list/list-item/index",
+    "list": "mini-ali-ui-rpx/es/list/index"
+  },
+  "defaultTitle": "选择接收人"
 }

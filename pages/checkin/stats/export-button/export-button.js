@@ -2,8 +2,11 @@ Component({
   mixins: [],
   data: {},
   props: {},
-  didMount() {},
-  didUpdate() {},
-  didUnmount() {},
+  didMount() {
+  },
+  didUpdate() {
+  },
+  didUnmount() {
+  },
   methods: {},
 })

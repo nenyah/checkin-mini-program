@@ -120,7 +120,7 @@ Page({
   onItemClick(e) {
     // 把选择的客户传回首页
     app.globalData.selectedClient = e.target.dataset.item
-    app.emitter.emit("refresh", { type: "showClient" })
+    app.emitter.emit("refresh", {type: "showClient"})
     my.switchTab({
       url: "/pages/checkin/index/index",
     })
@@ -131,7 +131,7 @@ Page({
     console.log("expand", index, orgId)
 
     if (!this.data.items[index].expand) {
-      this._getCustomer({ orgId, index })
+      this._getCustomer({orgId, index})
     } else {
       const items = this.data.items
       this._setDefalutFalse(items)
@@ -159,8 +159,10 @@ Page({
     })
     this._getClients()
   },
-  handleCancel(e) {},
-  handleSubmit(e) {},
+  handleCancel(e) {
+  },
+  handleSubmit(e) {
+  },
   upper(e) {
     console.log("向上", e)
   },
@@ -191,7 +193,7 @@ Page({
         noMore: true,
       })
     }
-    getClients({ current, orgName })
+    getClients({current, orgName})
       .then((res) => {
         let oldItems = this.data.items
         let items = oldItems.concat(res.records)

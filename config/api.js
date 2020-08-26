@@ -21,6 +21,7 @@ const markers = [
     iconPath: "/assets/images/location.png",
     width: 26,
     height: 26,
+    id: 1,
   },
 ];
 
@@ -41,7 +42,7 @@ module.exports = {
 
   timeout: 5000, // 超时
   companyName: "华东宁波医药有限公司", //默认公司名
-  markers: markers, // 地图标签
+  markers, // 地图标签
   debug: dev,
   limitRange: 200,
   compressLevel: 4,

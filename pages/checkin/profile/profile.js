@@ -7,8 +7,8 @@
  */
 
 import moment from "moment"
-import { companyName } from "/config/api"
-import { getMonthRecord } from "/service/record"
+import {companyName} from "/config/api"
+import {getMonthRecord} from "/service/record"
 
 Page({
   data: {
@@ -71,11 +71,10 @@ Page({
     })
   },
   _getMonthRecord(options) {
-    getMonthRecord({ ...options })
+    getMonthRecord({...options})
       .then((res) => {
         console.log("月记录", res)
-        let items = res
-        items.signInMonthDTOS.forEach((element) => {
+        res.signInMonthDTOS.forEach((element) => {
           element.date = moment(element.date).format("MM月DD日")
           return element
         })

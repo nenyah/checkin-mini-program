@@ -1,8 +1,8 @@
 {
-  "usingComponents":{
-    "list":"mini-ali-ui-rpx/es/list/index",
-    "list-item":"mini-ali-ui-rpx/es/list/list-item/index",
-    "search-bar":"mini-ali-ui-rpx/es/search-bar/index"
+  "usingComponents": {
+    "list": "mini-ali-ui-rpx/es/list/index",
+    "list-item": "mini-ali-ui-rpx/es/list/list-item/index",
+    "search-bar": "mini-ali-ui-rpx/es/search-bar/index"
   },
-  "defaultTitle":"地点微调"
+  "defaultTitle": "地点微调"
 }

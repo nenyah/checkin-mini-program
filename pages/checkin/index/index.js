@@ -1,24 +1,21 @@
-import moment from "moment"
-import { companyName, markers } from "/config/api"
-import { getConfig } from "/service/config"
-import { getLocation } from "/service/location"
-import { getTodayCount } from "/service/record"
-import { handleError } from "/service/network"
+import {companyName, markers} from "/config/api"
+import {getConfig} from "/service/config"
+import {getLocation} from "/service/location"
+import {getTodayCount} from "/service/record"
+import {handleError} from "/service/network"
 import utils from "/util/utils"
+
 let app = getApp()
 
 Page({
   data: {
-    longitude: "",
-    latitude: "",
-    address: "",
     markers: markers,
     client: "",
-    today: "",
     ctime: "",
     company: companyName,
     checkTimes: 0,
     location: "",
+    selectLocation: "",
   },
 
   onLoad() {
@@ -32,34 +29,43 @@ Page({
     ) {
       console.log("createMapContext 可用")
       this.mapCtx = dd.createMapContext("map")
-      this.mapCtx.showsCompass({ isShowsCompass: 0 })
+      this.mapCtx.showsCompass({isShowsCompass: 0})
     } else {
       console.log("createMapContext 不可用")
     }
   },
-  onReady() {},
+  onReady() {
+  },
   onShow() {
     // 页面显示
     console.log("首页显示")
     // 获取当前时间
     this._getCurrentTime()
-  },
-  onHide() {
-    console.log("首页隐藏")
+    this._getOriLocation()
+    this._showLocation()
+    this._getClient()
   },
   onUnload() {
     console.log("首页卸载")
     app.emitter.removeListener("refresh", this.handleEvent, this)
   },
+  /**
+   * 显示版本号
+   */
   onTitleClick() {
     // 标题被点击
-    utils.ddToast({ text: `当前版本号为 v${app.globalData.version}` })
+    utils.ddToast({text: `当前版本号为 v${app.globalData.version}`})
   },
-  // 初始化事件监听器
+  /**
+   * 初始化事件监听器
+   */
   initEventListener() {
     app.emitter.on("refresh", this.handleEvent, this)
   },
-  // 事件处理
+  /**
+   * 事件处理
+   * @param {Object} event
+   */
   handleEvent(event) {
     switch (event.type) {
       case "refresh":
@@ -75,7 +81,11 @@ Page({
         break
     }
   },
-  // 刷新方法
+  /**
+   * 刷新方法
+   * @author Steven
+   * @date 2020-06-22
+   */
   refresh() {
     // 获取签到数
     this._checkRecordTimes()
@@ -89,7 +99,7 @@ Page({
    */
   async adjustLocation() {
     // console.log("跳转前地址", this.data.location);
-    await this._getConfig({ value: "limitRange" })
+    await this._getConfig({value: "limitRange"})
     if (!this.data.location) {
       utils.ddToast({
         type: "fail",
@@ -108,10 +118,10 @@ Page({
    * @description 判断是否需要选择拜访对象
    * @author Steven
    * @date 2020-06-22
+   * @return undefined
    */
   onSubmit() {
     const params = {
-      timeStamp: this.data.mx.valueOf(),
       location: this.data.location,
       client: this.data.client,
     }
@@ -154,10 +164,6 @@ Page({
    * @date 2020-06-23
    */
   async _checkRecordTimes() {
-    // const userinfo = app.globalData.userInfo;
-    // if (utils.isEmpty(userinfo)) {
-    //   await app.checkLogin();
-    // }
     const checkTimes = await getTodayCount().catch((err) => console.error(err))
     this.setData({
       checkTimes,
@@ -171,21 +177,29 @@ Page({
    * @date 2020-06-24
    */
   async _getOriLocation() {
-    const res = await getLocation().catch((err) => {
-      console.error(err)
-      handleError(err)
-    })
-    const location = res
-    const longitude = utils.round(res.longitude, 6)
-    const latitude = utils.round(res.latitude, 6)
-    const address = res.address
-    app.globalData.location = {
-      longitude,
-      latitude,
-      name: address,
-      address: address,
+    /**
+     * 1. 判断app中有没有location
+     * 2. 有就直接取location的值
+     * 3. 无再调用api获取location并且设置app中的location
+     */
+    let location = app.globalData.location
+    let longitude, latitude
+    if (utils.isEmpty(location)) {
+      location = await getLocation().catch((err) => {
+        console.error(err)
+        handleError(err)
+      })
+      // 设置globalData中location
+      app.globalData.location = {
+        longitude: location.longitude,
+        latitude: location.latitude,
+        name: location.address,
+        address: location.address,
+      }
     }
-    this._renderLocation(location, longitude, latitude, address)
+    longitude = utils.round(location.longitude, 6)
+    latitude = utils.round(location.latitude, 6)
+    this._renderLocation(location)
   },
   /**
    *显示微调后定位信息
@@ -194,13 +208,12 @@ Page({
    * @date 2020-06-24
    */
   _showLocation() {
-    let location, longitude, latitude, address
-    const res = app.globalData.selectedLocation
-    location = res
-    longitude = utils.round(res.longitude, 6)
-    latitude = utils.round(res.latitude, 6)
-    address = res.address
-    this._renderLocation(location, longitude, latitude, address)
+
+    // FIXME 选择新的地址后地图图标应该改变
+    let selectLocation = app.globalData.selectedLocation
+    this.setData({
+      selectLocation,
+    })
   },
 
   /**
@@ -208,20 +221,17 @@ Page({
    *
    * @author Steven
    * @date 2020-06-23
-   * @returns
+   *
    */
   _getCurrentTime() {
     const checkInDate = app.globalData.currentTime
     if (!checkInDate) {
       return
     }
-    const mx = moment(checkInDate)
-    const today = mx.format("YYYY年MM月DD日")
-    const ctime = mx.format("HH:mm")
+    const ctime = checkInDate.format("HH:mm")
     this.setData({
-      today,
       ctime,
-      mx,
+      checkInDate,
     })
   },
 
@@ -230,7 +240,7 @@ Page({
    *
    * @author Steven
    * @date 2020-06-23
-   * @returns
+   *
    */
   _getClient() {
     const client = app.globalData.selectedClient
@@ -246,8 +256,8 @@ Page({
    *
    * @author Steven
    * @date 2020-06-23
-   * @param {object}} params 配置参数
    * @returns Promise
+   * @param {Object} params 配置参数
    */
   _getConfig(params) {
     return getConfig(params)
@@ -262,20 +272,13 @@ Page({
    *
    * @author Steven
    * @date 2020-06-24
-   * @param {*} location 位置信息
-   * @param {*} longitude 经度
-   * @param {*} latitude 纬度
-   * @param {*} address 地址
+   * @param {Object} location 位置信息
    */
-  _renderLocation(location, longitude, latitude, address) {
+  _renderLocation(location) {
     this.setData({
       location,
-      longitude,
-      latitude,
-      address,
-      "markers[0].id": 1,
-      "markers[0].longitude": longitude,
-      "markers[0].latitude": latitude,
+      "markers[0].longitude": location.longitude,
+      "markers[0].latitude": location.latitude,
     })
   },
 })
