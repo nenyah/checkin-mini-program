@@ -28,7 +28,6 @@ async function login() {
   getApp().globalData.token = token
   welcome(user.userName)
   getApp().emitter.emit("refresh", { type: "refresh" })
-  // getApp().emitter.emit("freshstat", { type: "freshstat" })
 }
 
 /**

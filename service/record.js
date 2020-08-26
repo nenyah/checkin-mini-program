@@ -1,12 +1,5 @@
-import { request, uploadFile } from "./network"
-import {
-  CheckInRecord,
-  DeptRecord,
-  StaffDayRecord,
-  StaffMonthRecord,
-  TodayCount,
-  UploadFile,
-} from "/config/api"
+import {request, uploadFile} from "./network"
+import {CheckInRecord, DeptRecord, StaffDayRecord, StaffMonthRecord, TodayCount, UploadFile,} from "/config/api"
 
 /**
  *当天签到记录
@@ -18,6 +11,7 @@ function getTodayCount() {
     url: TodayCount,
   })
 }
+
 /**
  *获取某人某天签到次数和最新一条签到记录
  * @author steven
@@ -60,7 +54,7 @@ function setRecordFile(options) {
   return uploadFile({
     url: UploadFile,
     filePath: options.filePath,
-    formData: options.formData || { detailPlace: "测试地址" },
+    formData: options.formData || {detailPlace: "测试地址"},
   })
 }
 
@@ -78,6 +72,7 @@ function getOneDayRecord(options) {
     },
   })
 }
+
 /**
  *获取指定用户当月签到记录
  * @author steven
@@ -92,6 +87,7 @@ function getMonthRecord(options) {
     },
   })
 }
+
 /**
  *获取当前用户所在部门签到记录
  * @author steven

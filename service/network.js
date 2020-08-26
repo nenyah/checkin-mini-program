@@ -28,7 +28,7 @@ function request(options) {
         Authorization: getApp().globalData.token || undefined,
       },
       success: (res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           resolve(res.data)
         } else {
           reject(res)

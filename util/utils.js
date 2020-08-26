@@ -10,7 +10,7 @@ function urlEncode(param, key, encode) {
   if (param == null) return ""
   let paramStr = ""
   let t = typeof param
-  if (t == "string" || t == "number" || t == "boolean") {
+  if (t === "string" || t === "number" || t === "boolean") {
     paramStr +=
       "&" +
       key +
@@ -21,7 +21,7 @@ function urlEncode(param, key, encode) {
       let k =
         key == null
           ? i
-          : key + (param instanceof Array ? "[" + i + "]" : "." + i)
+          : `${key}${param instanceof Array ? `[${i}]` : `.${i}`}`
       paramStr += urlEncode(param[i], k, encode)
     }
   }

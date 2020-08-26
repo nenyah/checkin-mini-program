@@ -1,4 +1,4 @@
-/*
+/**
  * @Description: 缓存接口
  * @Author: Steven
  * @Date: 2020-04-14 11:15:36
@@ -22,7 +22,8 @@ function getStorage(key) {
       fail: (err) => {
         reject(err)
       },
-      complete: (res) => {},
+      complete: (res) => {
+      },
     })
   })
 }
@@ -36,7 +37,7 @@ function getStorage(key) {
  * @returns object
  */
 function getStorageSync(key) {
-  return my.getStorageSync({ key })
+  return my.getStorageSync({key})
 }
 
 /**
@@ -44,7 +45,7 @@ function getStorageSync(key) {
  *
  * @author Steven
  * @date 2020-06-22
- * @param {object}} option
+ * @param {object} option
  * @returns Promise
  */
 function setStorage(option) {
@@ -61,7 +62,8 @@ function setStorage(option) {
       fail: (err) => {
         reject(err)
       },
-      complete: (res) => {},
+      complete: (res) => {
+      },
     })
   })
 }
@@ -79,6 +81,7 @@ function setStorageSync(option) {
     data: option.data,
   })
 }
+
 module.exports = {
   getStorage,
   getStorageSync,

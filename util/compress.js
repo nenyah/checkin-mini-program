@@ -1,5 +1,10 @@
-// 判断图片大小是否满足需求
-
+/**
+ * 判断图片大小是否满足需求
+ * @param imagePath
+ * @param limitSize
+ * @param lessCallBack
+ * @param moreCallBack
+ */
 function imageSizeIsLessLimitSize(
   imagePath,
   limitSize,
@@ -97,6 +102,7 @@ function getLessLimitSizeImage(
     }
   )
 }
+
 // 图片转basee64    io操作 使用异步方式
 function getBase64(img) {
   return new Promise(function (resolve, reject) {
