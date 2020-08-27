@@ -1,4 +1,4 @@
-/**
+/*
  * @Description: 缓存接口
  * @Author: Steven
  * @Date: 2020-04-14 11:15:36
@@ -7,7 +7,7 @@
  */
 
 /**
- *异步步获取缓存
+ * 异步步获取缓存
  * @author steven
  * @param {string} key
  * @returns Promise

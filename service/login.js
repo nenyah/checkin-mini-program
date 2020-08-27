@@ -6,9 +6,10 @@
  * @LastEditTime: 2020-06-24 14:41:57
  */
 
-import { request } from "./network"
-import { AuthInfo } from "/config/api"
+import {request} from "./network"
+import {AuthInfo} from "/config/api"
 import util from "/util/utils"
+
 /**
  *免密登录
  *
@@ -16,8 +17,8 @@ import util from "/util/utils"
  * @date 2020-06-24
  */
 async function login() {
-  const { authCode } = await getAuthCode().catch((err) => console.error(err))
-  const { token, user } = await request({
+  const {authCode} = await getAuthCode().catch((err) => console.error(err))
+  const {token, user} = await request({
     url: AuthInfo,
     data: {
       authCode: authCode,
@@ -27,7 +28,7 @@ async function login() {
   getApp().globalData.userInfo = user
   getApp().globalData.token = token
   welcome(user.userName)
-  getApp().emitter.emit("refresh", { type: "refresh" })
+  getApp().emitter.emit("refresh", {type: "refresh"})
 }
 
 /**
@@ -50,8 +51,9 @@ function welcome(name) {
     interval: 1000,
   })
 }
+
 /**
- *获取authCode
+ * 获取authCode
  *
  * @author Steven
  * @date 2020-06-24

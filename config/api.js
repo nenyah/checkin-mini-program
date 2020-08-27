@@ -38,11 +38,13 @@ module.exports = {
   SubUserInfo: `${RootUrl}/user/sub`, // 用户和下属信息
 
   // 部门信息
-  DeptInfo:`${RootUrl}/dept`, // 部门信息
+  DeptInfo: `${RootUrl}/dept`, // 部门信息
 
   // 签到信息
   CheckinRecord: ApiRootUrl + "signin", // 个人签到信息 get 获取 post 新增
   UploadFile: ApiRootUrl + "signin/uploadImg", //上传图片
+
+  // 配置信息
   Config: ConfigUrl + "simple/one", //获取配置信息
 
   // 其他

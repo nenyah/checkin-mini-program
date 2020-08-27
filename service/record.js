@@ -1,114 +1,95 @@
 import {request, uploadFile} from "./network"
-import {CheckInRecord, DeptRecord, StaffDayRecord, StaffMonthRecord, TodayCount, UploadFile,} from "/config/api"
+import {CheckinRecord, UploadFile} from "/config/api"
+
 
 /**
- *当天签到记录
- * @author steven
- * @returns Promise
+ * 获取签到记录
+ * @param {number} current 当前页码
+ * @param {number} size 每页条数
+ * @param {array<number>} userIds 用户id列表
+ * @param {string} startDate 开始日期，默认当天，格式：yyyy-MM-dd
+ * @param {string} endDate 结束日期，默认当天，格式：yyyy-MM-dd
+ * @return {Promise}
  */
-function getTodayCount() {
+function getRecord({
+                     current = 1,
+                     size = 10,
+                     userIds,
+                     startDate,
+                     endDate,
+                   }) {
   return request({
-    url: TodayCount,
-  })
-}
-
-/**
- *获取某人某天签到次数和最新一条签到记录
- * @author steven
- * @param {object} options
- * @returns Promise
- */
-function getRecord(options) {
-  return request({
-    url: CheckInRecord,
+    url: CheckinRecord,
     data: {
-      ...options,
+      current,
+      size,
+      userIds,
+      startDate,
+      endDate
     },
   })
 }
 
 /**
- *上传签到信息
- * @author steven
- * @param {object} options
- * @returns Promise
+ * 上传签到信息
+ * @param {object} org 机构
+ * @param {number} org.id 机构id
+ * @param {string} org.name 机构名称
+ * @param {number} timeStamp 时间戳
+ * @param {array<string>} imageUrlList 图片url列表
+ * @param {string} place 地址
+ * @param {string} detailPlace 详细地址
+ * @param {string} remark 备注
+ * @param {number} longitude 经度
+ * @param {number} latitude 纬度
+ * @return {Promise}
  */
-function setRecord(options) {
+function setRecord({
+                     org,
+                     timeStamp,
+                     imageUrlList = [],
+                     place,
+                     detailPlace,
+                     remark = "",
+                     longitude,
+                     latitude,
+                   }) {
   return request({
     url: CheckInRecord,
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    data: JSON.stringify(options),
+    data: JSON.stringify({
+      org,
+      timeStamp,
+      imageUrlList,
+      place,
+      detailPlace,
+      remark,
+      longitude,
+      latitude,
+    }),
   })
 }
 
 /**
- *上传文件
- * @author steven
- * @param {object} options
- * @returns Promise
+ * 上传文件
+ * @param {string} filePath 文件路径
+ * @param {object} formData 上传附加内容
+ * @return {Promise}
  */
-function setRecordFile(options) {
+function setRecordFile({filePath, formData}) {
   return uploadFile({
     url: UploadFile,
-    filePath: options.filePath,
-    formData: options.formData || {detailPlace: "测试地址"},
+    filePath: filePath,
+    formData: formData || {detailPlace: "测试地址"},
   })
 }
 
-/**
- *获取用户固定日期的签到记录
- * @author steven
- * @param {object} options
- * @returns Promise
- */
-function getOneDayRecord(options) {
-  return request({
-    url: StaffDayRecord,
-    data: {
-      ...options,
-    },
-  })
-}
-
-/**
- *获取指定用户当月签到记录
- * @author steven
- * @param {*} options
- * @returns Promise
- */
-function getMonthRecord(options) {
-  return request({
-    url: StaffMonthRecord,
-    data: {
-      ...options,
-    },
-  })
-}
-
-/**
- *获取当前用户所在部门签到记录
- * @author steven
- * @param {*} options
- * @returns Promise
- */
-function getOwnDeptRecord(options) {
-  return request({
-    url: DeptRecord,
-    data: {
-      ...options,
-    },
-  })
-}
 
 module.exports = {
-  getTodayCount,
   getRecord,
   setRecord,
-  getOneDayRecord,
-  getMonthRecord,
-  getOwnDeptRecord,
   setRecordFile,
 }

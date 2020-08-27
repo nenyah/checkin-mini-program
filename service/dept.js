@@ -5,17 +5,23 @@
  * @LastEditors: Steven
  * @LastEditTime: 2020-08-04 09:58:38
  */
-import { request } from "./network"
-import { DeptInfo } from "../config/api"
+import {request} from "./network"
+import {DeptInfo} from "../config/api"
 
-function getDeptInfo(params) {
+/**
+ * 获取部门信息
+ * @param {array<number>} deptIds
+ * @return {Promise}
+ */
+function getDeptInfo({deptIds}) {
   return request({
     url: DeptInfo,
     data: {
-      ...params,
+      deptIds,
     },
   })
 }
+
 module.exports = {
   getDeptInfo,
 }

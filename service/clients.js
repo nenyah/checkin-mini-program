@@ -18,11 +18,11 @@ import {ClientsInfo} from "/config/api"
  * @param {number} current 当前页数
  * @return {Promise}
  */
-function getClients({current, size, userId, groupId, orgName}) {
+function getClients({current = 1, size = 10, userId, groupId, orgName}) {
   return request({
     url: ClientsInfo,
     data: {
-      userId, groupId, orgName
+      current, size, userId, groupId, orgName
     },
   })
 }

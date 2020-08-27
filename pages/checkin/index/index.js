@@ -1,7 +1,7 @@
 import {companyName, markers} from "/config/api"
 import {getConfig} from "/service/config"
 import {getLocation} from "/service/location"
-import {getTodayCount} from "/service/record"
+import {getRecord} from "/service/record"
 import {handleError} from "/service/network"
 import utils from "/util/utils"
 
@@ -92,7 +92,7 @@ Page({
     this._getCurrentTime()
   },
   /**
-   *跳转到地点微调
+   * 跳转到地点微调
    *
    * @author Steven
    * @date 2020-06-22
@@ -114,7 +114,7 @@ Page({
     })
   },
   /**
-   *跳转到签到提交
+   * 跳转到签到提交
    * @description 判断是否需要选择拜访对象
    * @author Steven
    * @date 2020-06-22
@@ -164,7 +164,7 @@ Page({
    * @date 2020-06-23
    */
   async _checkRecordTimes() {
-    const checkTimes = await getTodayCount().catch((err) => console.error(err))
+    const checkTimes = await getRecord().catch((err) => console.error(err))
     this.setData({
       checkTimes,
     })

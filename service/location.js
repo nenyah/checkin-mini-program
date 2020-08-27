@@ -1,3 +1,7 @@
+/**
+ * 获取定位
+ * @return {Promise<object>}
+ */
 function getLocation() {
   my.showLoading({
     title: "数据加载中ing",

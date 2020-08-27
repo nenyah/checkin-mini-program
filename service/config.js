@@ -6,8 +6,9 @@
  * @LastEditTime: 2020-08-04 09:58:45
  */
 
-import { request } from "./network"
-import { Config } from "/config/api"
+import {request} from "./network"
+import {Config} from "/config/api"
+
 function getConfig(params) {
   return request({
     url: Config,
@@ -16,6 +17,7 @@ function getConfig(params) {
     },
   })
 }
+
 module.exports = {
   getConfig,
 }
