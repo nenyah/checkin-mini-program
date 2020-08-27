@@ -55,7 +55,7 @@ function setRecord({
                      latitude,
                    }) {
   return request({
-    url: CheckInRecord,
+    url: CheckinRecord,
     method: "POST",
     headers: {
       "Content-Type": "application/json",

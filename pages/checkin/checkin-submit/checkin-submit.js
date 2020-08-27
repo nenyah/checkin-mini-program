@@ -23,7 +23,7 @@ Page({
     // 页面加载
 
     let data = JSON.parse(query.params)
-    console.log(data);
+    console.log(data)
     data.location.name = data.location.address
     if (!util.isEmpty(app.globalData.selectedLocation)) {
       data.location = app.globalData.selectedLocation
@@ -236,7 +236,7 @@ Page({
         })
       }, 1000)
     } catch (error) {
-      console.log("错误",JSON.stringify(error))
+      console.log("错误", JSON.stringify(error))
       util.ddToast({
         type: "fail",
         text:
