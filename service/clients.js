@@ -22,7 +22,11 @@ function getClients({current = 1, size = 10, userId, groupId, orgName}) {
   return request({
     url: ClientsInfo,
     data: {
-      current, size, userId, groupId, orgName
+      current,
+      size,
+      userId: userId ? userId : undefined,
+      groupId: groupId ? groupId : undefined,
+      orgName: orgName ? orgName : undefined
     },
   })
 }

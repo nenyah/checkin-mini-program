@@ -23,7 +23,66 @@ const markers = [
     id: 1,
   },
 ]
-
+const tabs = [
+  {
+    title: "我负责的",
+    subTitle: "",
+    number: "0",
+  },
+  {
+    title: "共享给我的",
+    subTitle: "",
+    number: "1",
+  },
+  {
+    title: "全公司的",
+    subTitle: "",
+    number: "2",
+  },
+  {
+    title: "无人负责的",
+    subTitle: "",
+    number: "3",
+  },
+]
+const defaltItems = [
+  {
+    orgGroup: {
+      id: "1000000000",
+      code: "ALL",
+      name: "全公司",
+      remark: "",
+      revision: null,
+    },
+    customerList: null,
+    id: "1000000000",
+    code: "GS000001",
+    name: "华东医药有限公司-杭州办公室",
+    groupId: null,
+    address: "杭州市江干区香樟街2号",
+    outId: "100000000000",
+    longitude: 121.796914,
+    latitude: 29.903575,
+  },
+  {
+    orgGroup: {
+      id: "20000000000",
+      code: "ALL",
+      name: "全公司",
+      remark: "",
+      revision: null,
+    },
+    customerList: null,
+    id: "2000000000",
+    code: "GS000002",
+    name: "华东医药有限公司-宁波办公室",
+    groupId: null,
+    address: "宁波市北仑区大碶镇庐山西路16号",
+    outId: "100000000000",
+    longitude: 120.210848,
+    latitude: 30.240917,
+  },
+]
 module.exports = {
   // 认证授权
   AuthInfo: `${ApiRootUrl}auth`, // 获取用户信息
@@ -53,4 +112,6 @@ module.exports = {
   debug: dev,
   limitRange: 200, //地图周边范围
   compressLevel: 4, //压缩等级
+  tabs, // 客户标签
+  defaltItems, // 公司地址作默认客户
 }

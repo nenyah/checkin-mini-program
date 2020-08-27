@@ -75,6 +75,7 @@ function getSysteminfo() {
     })
   })
 }
+
 /**
  * 根据比例计算压缩后的图片宽高
  *
@@ -133,7 +134,7 @@ function round(num, digits) {
  *
  * @param {{type:string,text:string,interval:number}} { type, text, interval }
  */
-function ddToast({ type, text, interval }) {
+function ddToast({type, text, interval}) {
   my.showToast({
     type: type,
     content: text,
@@ -170,10 +171,25 @@ function isEmpty(v) {
   return false
 }
 
+/**
+ * 去抖函数
+ */
+function debounce(func, delay) {
+  let timer
+  return function () {
+    let args = arguments
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, delay || 1000)
+  }
+}
+
 module.exports = {
   urlEncode,
   imageUtil,
   round,
   ddToast,
   isEmpty,
+  debounce,
 }

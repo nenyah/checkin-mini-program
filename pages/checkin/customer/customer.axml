@@ -1,5 +1,3 @@
-<!-- <tabs tabs="{{tabs}}" onTabClick="handleTabClick" activeTab="{{activeIndex}}" swipeable="{{true}}">
-</tabs> -->
 <scroll-view
   scroll-y="{{true}}"
   style="height: 100vh;"
@@ -36,7 +34,7 @@
       <view class="ml-2">
         共 {{numClients}} 家
       </view>
-      <block a:for="{{items}}">
+      <block a:for="{{searchItems.length>0?searchItems:items}}">
         <list-item
           onClick="onItemClick"
           index="{{index}}"
@@ -109,6 +107,7 @@
   <view
     a:if="{{noMore}}"
     class="text-xs text-center mt-2"
-  >---- 没有更多数据了！---</view>
+  >---- 没有更多数据了！---
+  </view>
   <view a:if="{{loadingFailed}}">数据加载失败,请重试</view>
 </scroll-view>
