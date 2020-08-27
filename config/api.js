@@ -6,10 +6,10 @@
  * @LastEditTime: 2020-06-22 13:46:13
  */
 
-let dev = false;
+let dev = true;
 let RootUrl, ApiRootUrl, ConfigUrl;
 if (dev) {
-  RootUrl = "http://192.168.13.170:9102";
+  RootUrl = "http://192.168.0.175:10002";
 } else {
   RootUrl = "http://www2.huadongbio.com:9102";
 }
