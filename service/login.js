@@ -7,7 +7,7 @@
  */
 
 import { request } from "./network"
-import { Userinfo } from "/config/api"
+import { AuthInfo } from "/config/api"
 import util from "/util/utils"
 /**
  *免密登录
@@ -18,7 +18,7 @@ import util from "/util/utils"
 async function login() {
   const { authCode } = await getAuthCode().catch((err) => console.error(err))
   const { token, user } = await request({
-    url: Userinfo,
+    url: AuthInfo,
     data: {
       authCode: authCode,
     },
