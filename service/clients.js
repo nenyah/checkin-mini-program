@@ -6,26 +6,28 @@
  * @LastEditTime: 2020-06-22 13:12:42
  */
 
-import { request } from "./network"
-import { Clientsinfo, Customerinfo } from "/config/api"
+import {request} from "./network"
+import {ClientsInfo} from "/config/api"
 
-function getClients(params) {
+/**
+ * 获取机构信息
+ * @param {number} userId 用户id
+ * @param {number} groupId 集团id
+ * @param {string} orgName 组织名称 可模糊查询
+ * @param {number} size 页面数据量
+ * @param {number} current 当前页数
+ * @return {Promise}
+ */
+function getClients({current, size, userId, groupId, orgName}) {
   return request({
-    url: Clientsinfo,
+    url: ClientsInfo,
     data: {
-      ...params,
+      userId, groupId, orgName
     },
   })
 }
-function getCustomer(params) {
-  return request({
-    url: Customerinfo,
-    data: {
-      ...params,
-    },
-  })
-}
+
+
 module.exports = {
   getClients,
-  getCustomer,
 }
