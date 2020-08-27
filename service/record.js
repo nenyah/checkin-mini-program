@@ -14,9 +14,9 @@ import {CheckinRecord, UploadFile} from "/config/api"
 function getRecord({
                      current = 1,
                      size = 10,
-                     userIds,
-                     startDate,
-                     endDate,
+                     userIds = [],
+                     startDate = "",
+                     endDate = "",
                    }) {
   return request({
     url: CheckinRecord,
@@ -24,8 +24,8 @@ function getRecord({
       current,
       size,
       userIds,
-      startDate,
-      endDate
+      startDate: startDate ? startDate : undefined,
+      endDate: endDate ? endDate : undefined
     },
   })
 }

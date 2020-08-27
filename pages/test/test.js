@@ -5,15 +5,21 @@
  * @LastEditors: Steven
  * @LastEditTime: 2020-08-04 09:58:14
  */
+import {getRecord} from "/service/record"
+import {login} from "/service/login"
+
 
 Page({
   data: {
     imageSize: "",
   },
   async onLoad() {
-    await this._step1(3000)
-    await this._step2(2000)
-    await this._step3(1000)
+    // await this._step1(3000)
+    // await this._step2(2000)
+    // await this._step3(1000)
+    await login()
+    const {data: [{userSignCount: checkTimes}], ...rest} = await getRecord({}).catch((err) => console.error(err))
+    console.log("获取内容", checkTimes)
   },
   async _step1(n) {
     console.log(`step1 with ${n} --> Time ${new Date().toLocaleTimeString()}`)

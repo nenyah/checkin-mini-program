@@ -7,13 +7,13 @@
  */
 
 import {request} from "./network"
-import {Config} from "/config/api"
+import {ConfigInfo} from "/config/api"
 
-function getConfig(params) {
+function getConfig({name}) {
   return request({
-    url: Config,
+    url: ConfigInfo,
     data: {
-      name: params.value,
+      name,
     },
   })
 }

@@ -99,7 +99,9 @@ Page({
    */
   async adjustLocation() {
     // console.log("跳转前地址", this.data.location);
-    await this._getConfig({value: "limitRange"})
+    let {value} = await this._getConfig({name: "limitRange"})
+    app.globalData.limitRange = 1 * value
+    // await this._getConfig({value: "limitRange"})
     if (!this.data.location) {
       utils.ddToast({
         type: "fail",
@@ -164,7 +166,7 @@ Page({
    * @date 2020-06-23
    */
   async _checkRecordTimes() {
-    const checkTimes = await getRecord().catch((err) => console.error(err))
+    const {data: [{userSignCount: checkTimes}], ...rest} = await getRecord({}).catch((err) => console.error(err))
     this.setData({
       checkTimes,
     })
@@ -253,20 +255,18 @@ Page({
     })
   },
   /**
-   *获取配置信息
-   *
-   * @author Steven
-   * @date 2020-06-23
-   * @returns Promise
-   * @param {Object} params 配置参数
+   * 获取配置信息
+   * @param name
+   * @return {Promise<unknown>}
+   * @private
    */
-  _getConfig(params) {
-    return getConfig(params)
-      .then((res) => {
-        // console.log("启用获取配置信息", res);
-        app.globalData.limitRange = res.value
-      })
-      .catch((err) => console.error(err))
+  _getConfig({name}) {
+    return getConfig({name})
+    // .then((res) => {
+    //   // console.log("启用获取配置信息", res);
+    //   app.globalData.limitRange = res.value
+    // })
+    // .catch((err) => console.error(err))
   },
   /**
    *渲染位置数据
