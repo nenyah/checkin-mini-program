@@ -57,6 +57,7 @@ Component({
             userNum: res.users.length,
           })
           this.props.onGetNewUser(res.users)
+
         },
         fail: (err) => {
         },

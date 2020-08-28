@@ -5,10 +5,10 @@
       onTap="choosePerson"
     >
       <view
-        class="fa fa-globe mx-1"
         aria-hidden="true"
+        class="fa fa-globe mx-1"
       ></view>
-      <view>范围：{{userNum>0?userNum+'人':dept.deptName}}</view>
+      <view>范围：{{userNum>0?userNum+'人':dept.name}}</view>
       <view
         class="fa fa-angle-down mx-1"
         aria-hidden="true"

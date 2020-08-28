@@ -1,7 +1,10 @@
 import moment from "moment"
-import {getDeptInfo} from "/service/dept"
+import {getDeptInfo, getDeptUserInfo} from "/service/dept"
 import {getRecord} from "/service/record"
 import utils from "/util/utils"
+import array from "lodash/array"
+import lang from "lodash/lang"
+
 
 let app = getApp()
 Page({
@@ -20,13 +23,14 @@ Page({
     pages: 0,
     current: 0,
     size: 20,
+    currentNum: 0,
     hasMore: true,
   },
   onLoad() {
     console.log("进入统计页面")
     // 初始化事件监听器
     this.initEventListener()
-    // 首次进入显示本部门信息
+    // 设置显示日期
     this.setData({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     })
@@ -77,12 +81,12 @@ Page({
    */
   onLower() {
     console.log("统计页向下")
-    const pages = this.data.pages,
-      current = this.data.current
-    if (current > pages) {
+    const size = this.data.size, currentNum = this.data.currentNum
+    if (size > currentNum) {
       this.setData({
         hasMore: false,
       })
+      return
     }
     this._getRecords()
   },
@@ -155,12 +159,14 @@ Page({
       size = this.data.size,
       hasMore = this.data.hasMore
     let current = this.data.current
-
+    let userInfo = await this._getDeptUserInfo()
+    let userIds = userInfo.map(el => el.id)
     if (hasMore) {
       current += 1
-      getRecord({current, size, startDate: date, endDate: date})
+      getRecord({current, size, userIds, startDate: date, endDate: date})
         .then((res) => {
-          this._renderData(res)
+          console.log("获取信息", res)
+          this._renderData(res, userInfo)
         })
         .catch((err) => {
           console.error(err)
@@ -185,7 +191,7 @@ Page({
       current += 1
       getRecord({current, userIds, date, size})
         .then((res) => {
-          this._renderData(res)
+          this._renderData(res, userIds)
         })
         .catch((err) => {
           console.error(err)
@@ -201,8 +207,8 @@ Page({
    * @private
    */
   async _getDeptInfo() {
-    const dingUserId = await app.globalData.userInfo.dingUserId
-    getDeptInfo({dingUserId})
+    // const dingUserId = await app.globalData.userInfo.dingUserId
+    getDeptInfo({})
       .then((res) => {
         this.setData({
           dept: res,
@@ -220,14 +226,26 @@ Page({
    * @param res
    * @private
    */
-  _renderData(res) {
-    let checkinNums, uncheckinNums, pages, current, notSignRecords, items
-    checkinNums = res.signInQty
-    uncheckinNums = res.notSignInList === null ? 0 : res.notSignInList.length
-    pages = Number(res.signInHisPage.pages)
-    current = Number(res.signInHisPage.current)
-    notSignRecords = res.notSignInList
-    items = [...this.data.items, ...res.signInHisPage.records]
+  _renderData(res, userInfo) {
+    let checkinNums, uncheckinNums, pages, current, notSignRecords = [], items
+    checkinNums = res.data.length
+    uncheckinNums = userInfo.length - res.data.length
+    current = res.current
+    let userInfoSet = userInfo.map(({code, name}) => {
+        return {code, name}
+      }
+    )
+    let userSignInfoSet = res.data.map(el => {
+      return {code: el.jobNumber, name: el.userName}
+    })
+    notSignRecords = array.differenceWith(userInfoSet, userSignInfoSet, lang.isEqual)
+    let newItems = res.data.map(el => {
+      if (el.userSignVOList.length > 0) {
+        el.userSignVOList[0].quantity = el.userSignCount
+        return el.userSignVOList[0]
+      }
+    })
+    items = [...this.data.items, ...newItems]
     this.setData({
       "tabs[0].title": checkinNums,
       "tabs[1].title": uncheckinNums,
@@ -248,4 +266,13 @@ Page({
       this._getOwnDeptRecord()
     }
   },
+  async _getDeptUserInfo() {
+    return getDeptUserInfo({})
+      .catch(err => {
+        console.error(err)
+        my.showToast({
+          content: "数据获取错误" + JSON.stringify(err.data),
+        })
+      })
+  }
 })

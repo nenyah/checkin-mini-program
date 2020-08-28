@@ -99,10 +99,8 @@ Page({
    * @date 2020-06-22
    */
   async adjustLocation() {
-    // console.log("跳转前地址", this.data.location);
     let {value} = await this._getConfig({name: "limitRange"})
     app.globalData.limitRange = 1 * value
-    // await this._getConfig({value: "limitRange"})
     if (!this.data.location) {
       utils.ddToast({
         type: "fail",
@@ -161,23 +159,26 @@ Page({
   },
 
   /**
-   *获取当日签到次数
-   *
-   * @author Steven
-   * @date 2020-06-23
+   * 获取当日签到次数
+   * @return {Promise<void>}
+   * @private
    */
   async _checkRecordTimes() {
-    const {data: [{userSignCount: checkTimes}], ...rest} = await getRecord({}).catch((err) => console.error(err))
+    /**
+     * 1. 没有签到时，返回data为空
+     * 2. 有签到时，data列表里有值
+     */
+    const {data, ...rest} = await getRecord({}).catch((err) => console.error(err))
+    let checkTimes = data.length > 0 ? data[0].userSignCount : 0
     this.setData({
       checkTimes,
     })
   },
 
   /**
-   *初始定位
-   *
-   * @author Steven
-   * @date 2020-06-24
+   * 初始定位
+   * @return {Promise<void>}
+   * @private
    */
   async _getOriLocation() {
     /**
@@ -205,10 +206,8 @@ Page({
     this._renderLocation(location)
   },
   /**
-   *显示微调后定位信息
-   *
-   * @author Steven
-   * @date 2020-06-24
+   * 显示微调后定位信息
+   * @private
    */
   _showLocation() {
 
@@ -220,15 +219,11 @@ Page({
   },
 
   /**
-   *获取当前时间
-   *
-   * @author Steven
-   * @date 2020-06-23
-   *
+   * 获取当前时间
+   * @private
    */
   _getCurrentTime() {
     const checkInDate = app.globalData.currentTime
-    console.log("checkInDate 类型", checkInDate)
     if (utils.isEmpty(checkInDate)) {
       return
     }
@@ -240,11 +235,8 @@ Page({
   },
 
   /**
-   *从全局中获取拜访对象
-   *
-   * @author Steven
-   * @date 2020-06-23
-   *
+   * 从全局中获取拜访对象
+   * @private
    */
   _getClient() {
     const client = app.globalData.selectedClient
@@ -263,18 +255,11 @@ Page({
    */
   _getConfig({name}) {
     return getConfig({name})
-    // .then((res) => {
-    //   // console.log("启用获取配置信息", res);
-    //   app.globalData.limitRange = res.value
-    // })
-    // .catch((err) => console.error(err))
   },
   /**
-   *渲染位置数据
-   *
-   * @author Steven
-   * @date 2020-06-24
-   * @param {Object} location 位置信息
+   * 渲染位置数据
+   * @param location
+   * @private
    */
   _renderLocation(location) {
     this.setData({

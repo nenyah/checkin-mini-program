@@ -114,9 +114,9 @@
           a:else
           class="w-10 h-10 circle bg-color-primary color-white flex justify-center items-center mb-2"
         >
-          {{item.length>2?item.slice(-2):item}}
+          {{item.name.length>2?item.name.slice(-2):item.name}}
         </view>
-        <text>{{item}}</text>
+        <text>{{item.name}}</text>
       </view>
     </block>
   </view>

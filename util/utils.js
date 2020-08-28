@@ -185,6 +185,18 @@ function debounce(func, delay) {
   }
 }
 
+function difference(arr1, arr2) {
+  var length = arr1.length
+  var i
+  var result = []
+  for (i = 0; i < length; i++) {
+    if (arr2.indexOf(arr1[i]) < 0) {
+      result.push(arr1[i])
+    }
+  }
+  return result
+}
+
 module.exports = {
   urlEncode,
   imageUtil,
@@ -192,4 +204,5 @@ module.exports = {
   ddToast,
   isEmpty,
   debounce,
+  difference,
 }
