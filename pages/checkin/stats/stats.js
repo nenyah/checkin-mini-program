@@ -1,6 +1,6 @@
 import moment from "moment"
 import {getDeptInfo} from "/service/dept"
-import {getOwnDeptRecord, getRecord} from "/service/record"
+import {getRecord} from "/service/record"
 import utils from "/util/utils"
 
 let app = getApp()
@@ -158,7 +158,7 @@ Page({
 
     if (hasMore) {
       current += 1
-      getOwnDeptRecord({current, date, size})
+      getRecord({current, size, startDate: date, endDate: date})
         .then((res) => {
           this._renderData(res)
         })

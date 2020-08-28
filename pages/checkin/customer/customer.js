@@ -1,12 +1,11 @@
 import {getClients} from "/service/clients"
-import {defaltItems} from "/config/api"
 
 let app = getApp()
 
 Page({
   data: {
     activeIndex: 0,
-    items: defaltItems,
+    items: [],
     searchItems: [],
     numClients: 0,
     hasContentHeight: false,

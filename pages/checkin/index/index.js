@@ -87,6 +87,7 @@ Page({
    * @date 2020-06-22
    */
   refresh() {
+    console.log("触发刷新")
     // 获取签到数
     this._checkRecordTimes()
     this._getCurrentTime()
