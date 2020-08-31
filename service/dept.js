@@ -6,7 +6,7 @@
  * @LastEditTime: 2020-08-04 09:58:38
  */
 import {request} from "./network"
-import {DeptInfo, DeptuserInfo} from "../config/api"
+import {DeptInfo, DeptUserInfo} from "../config/api"
 
 /**
  * 获取部门信息
@@ -29,7 +29,7 @@ function getDeptInfo({deptIds}) {
  */
 function getDeptUserInfo({deptIds}) {
   return request({
-    url: DeptuserInfo,
+    url: DeptUserInfo,
     data: {
       deptIds,
     }

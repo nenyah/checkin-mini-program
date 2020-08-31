@@ -54,7 +54,7 @@ Component({
         success: (res) => {
           console.log("选人结束", res)
           this.setData({
-            userNum: res.users.length,
+            userNum: res.selectedCount,
           })
           this.props.onGetNewUser(res.users)
 

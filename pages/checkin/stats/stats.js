@@ -13,12 +13,13 @@ Page({
       {title: "0", subTitle: "最新签到"},
       {title: "0", subTitle: "未签到"},
     ],
-    activeTab: 0,
+    activeTab: 0, // 默认显示第一项tab
     items: [],
     notSignRecords: [],
     dept: "",
     userNum: 0,
     userIds: [],
+    selectedUserIds: [],
     date: "",
     pages: 0,
     current: 0,
@@ -34,11 +35,14 @@ Page({
     this.setData({
       date: moment(app.globalData.currentTime).format("YYYY-MM-DD"),
     })
+
+  },
+  onShow() {
     const userInfo = app.globalData.userInfo
     if (!utils.isEmpty(userInfo)) {
       console.log("获取到用户信息", app.globalData.userInfo)
       this._getDeptInfo()
-      this._getRecords()
+      this._getRecord()
     }
   },
   onUnload() {
@@ -59,7 +63,7 @@ Page({
       case "refresh":
         console.log("触发更新")
         this._getDeptInfo()
-        this._getRecords()
+        this._getRecord()
         break
       default:
         break
@@ -74,7 +78,7 @@ Page({
       items: [],
       current: 0,
     })
-    this._getRecords()
+    this._getRecord()
   },
   /**
    * 下拉时加载更多
@@ -88,7 +92,7 @@ Page({
       })
       return
     }
-    this._getRecords()
+    this._getRecord()
   },
   /**
    * 点击tab
@@ -111,7 +115,7 @@ Page({
       current: 0,
       pages: 0,
     })
-    this._getRecords()
+    this._getRecord()
   },
   /**
    * 获取用户
@@ -120,17 +124,17 @@ Page({
   onGetNewUser(users) {
     console.log("统计页获得人员数据", users)
     const userNum = users.length
-    const myusers = users.map((el) => {
+    const selectedUserIds = users.map((el) => {
       return el.userId
     })
     this.setData({
-      userIds: myusers,
+      selectedUserIds,
       userNum,
       items: [],
       current: 0,
       pages: 0,
     })
-    this._getRecords()
+    this._getRecord()
   },
   /**
    * 跳转历史页面
@@ -154,44 +158,21 @@ Page({
    * @return {Promise<void>}
    * @private
    */
-  async _getOwnDeptRecord() {
+  async _getRecord() {
     const date = this.data.date,
       size = this.data.size,
       hasMore = this.data.hasMore
     let current = this.data.current
     let userInfo = await this._getDeptUserInfo()
-    let userIds = userInfo.map(el => el.id)
+    let userIds = this.data.userNum > 0 ? this.data.selectedUserIds : userInfo.map(el => el.id)
     if (hasMore) {
       current += 1
       getRecord({current, size, userIds, startDate: date, endDate: date})
         .then((res) => {
           console.log("获取信息", res)
-          this._renderData(res, userInfo)
-        })
-        .catch((err) => {
-          console.error(err)
-          my.showToast({
-            content: "数据获取错误" + JSON.stringify(err.data),
-          })
-        })
-    }
-  },
-  /**
-   * 获取签到记录
-   * @return {Promise<void>}
-   * @private
-   */
-  async _getRecord() {
-    const date = this.data.date,
-      userIds = this.data.userIds,
-      size = this.data.size,
-      hasMore = this.data.hasMore
-    let current = this.data.current
-    if (hasMore) {
-      current += 1
-      getRecord({current, userIds, date, size})
-        .then((res) => {
-          this._renderData(res, userIds)
+          if (!utils.isEmpty(res.data)) {
+            this._renderData(res, userInfo)
+          }
         })
         .catch((err) => {
           console.error(err)
@@ -207,7 +188,11 @@ Page({
    * @private
    */
   async _getDeptInfo() {
-    // const dingUserId = await app.globalData.userInfo.dingUserId
+    /**
+     * 1. 判断是否有选择过部门或人员
+     * 2. 如果选择过部门或人员直接显示部门或人员信息
+     * 3. 没有选择过部门或人员就根据
+     */
     getDeptInfo({})
       .then((res) => {
         this.setData({
@@ -256,16 +241,10 @@ Page({
     })
   },
   /**
-   * 获取记录
+   * 获取本部门用户信息
+   * @return {Promise<unknown>}
    * @private
    */
-  _getRecords() {
-    if (this.data.userNum > 0) {
-      this._getRecord()
-    } else {
-      this._getOwnDeptRecord()
-    }
-  },
   async _getDeptUserInfo() {
     return getDeptUserInfo({})
       .catch(err => {

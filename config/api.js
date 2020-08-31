@@ -54,7 +54,7 @@ module.exports = {
 
   // 用户信息
   UserInfo: `${RootUrl}/user`, // 用户信息
-  DeptuserInfo: `${RootUrl}/user/dept`, // 部门内用户信息
+  DeptUserInfo: `${RootUrl}/user/dept`, // 部门内用户信息
   SubUserInfo: `${RootUrl}/user/sub`, // 用户和下属信息
 
   // 部门信息

@@ -24,8 +24,7 @@ Page({
     this.initEventListener()
     this._getOriLocation()
     if (
-      dd.canIUse("createMapContext") &&
-      dd.canIUse("createMapContext.object.showsCompass")
+      dd.canIUse("createMapContext")
     ) {
       console.log("createMapContext 可用")
       this.mapCtx = dd.createMapContext("map")
