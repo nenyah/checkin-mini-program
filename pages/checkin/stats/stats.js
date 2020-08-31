@@ -227,6 +227,7 @@ Page({
     let newItems = res.data.map(el => {
       if (el.userSignVOList.length > 0) {
         el.userSignVOList[0].quantity = el.userSignCount
+        // el.userSignVOList[0].jobNumber = el.jobNumber
         return el.userSignVOList[0]
       }
     })

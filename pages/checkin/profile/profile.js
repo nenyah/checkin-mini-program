@@ -8,7 +8,8 @@
 
 import moment from "moment"
 import {companyName} from "/config/api"
-import {getMonthRecord} from "/service/record"
+import {getRecord} from "/service/record"
+import * as utils from "/util/utils"
 
 Page({
   data: {
@@ -19,16 +20,17 @@ Page({
   },
   onLoad(query) {
     console.log("我的", query.userid)
-    this.setData({
-      userInfo: query,
-    })
-    const month = moment(new Date()).format("YYYY-MM")
+    const now = moment()
+    const month = now.format("YYYY-MM")
+
     console.log(month)
     this.setData({
+      now,
       month,
+      userInfo: query,
     })
-    this._getMonthRecord({
-      dingUserId: query.userid,
+    this._getRecord({
+      userIds: query.userid,
     })
   },
   pickMonth() {
@@ -37,13 +39,19 @@ Page({
       format: "yyyy-MM",
       currentDate: this.data.month,
       success: (res) => {
-        this._getMonthRecord({
-          month: res.date,
-          dingUserId: this.data.userInfo.userid,
-        })
+        let month = moment(res.date, "YYYY-MM")
+        let startDate = month.date(1).format("YYYY-MM-DD")
+        let endDate = month.endOf("month").format("YYYY-MM-DD")
+        console.log(`startDate:${startDate}, endDate:${endDate}`)
         this.setData({
           month: res.date,
         })
+        this._getRecord({
+          startDate,
+          endDate,
+          userIds: this.data.userInfo.userid,
+        })
+
       },
     })
   },
@@ -70,16 +78,24 @@ Page({
         JSON.stringify(this.data.items),
     })
   },
-  _getMonthRecord(options) {
-    getMonthRecord({...options})
+  _getRecord(options) {
+    let month = moment(this.data.month, "YYYY-MM")
+    let startDate = month.date(1).format("YYYY-MM-DD")
+    let endDate = month.endOf("month").format("YYYY-MM-DD")
+    let items = []
+    console.log(`startDate:${startDate}, endDate:${endDate}`)
+    getRecord({userIds: options.userIds, startDate, endDate})
       .then((res) => {
         console.log("月记录", res)
-        res.signInMonthDTOS.forEach((element) => {
-          element.date = moment(element.date).format("MM月DD日")
-          return element
-        })
+        if (!utils.isEmpty(res.data)) {
+          res.data[0].userSignVOList.forEach((element) => {
+            element.date = moment(element.date).format("MM月DD日")
+            return element
+          })
+          items = res.data
+        }
         this.setData({
-          items: res,
+          items,
         })
       })
       .catch((err) => console.error(err))

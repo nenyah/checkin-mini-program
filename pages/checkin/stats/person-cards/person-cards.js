@@ -27,8 +27,9 @@ Component({
     },
     goToPorfile(e) {
       const item = e.currentTarget.dataset.item
+      console.log("获取信息",e)
       my.navigateTo({
-        url: `/pages/checkin/profile/profile?userid=${item.jobNumber}&username=${item.userName}`,
+        url: `/pages/checkin/profile/profile?userid=${item.userId}&username=${item.userName}`,
       })
     },
     previewImg(e) {
