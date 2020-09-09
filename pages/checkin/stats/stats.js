@@ -4,6 +4,7 @@ import {getRecord} from "/service/record"
 import utils from "/util/utils"
 import array from "lodash/array"
 import lang from "lodash/lang"
+import {getUserByCode} from "/service/user"
 
 
 let app = getApp()
@@ -121,12 +122,13 @@ Page({
    * 获取用户
    * @param users
    */
-  onGetNewUser(users) {
+  async onGetNewUser(users) {
     console.log("统计页获得人员数据", users)
     const userNum = users.length
-    const selectedUserIds = users.map((el) => {
-      return el.userId
-    })
+    let userIds = users.map(el => el.userId)
+    let selectedUserInfo = await this._getUserInfo({userJobNumbers: userIds})
+    let selectedUserIds = selectedUserInfo.map(el => el.id)
+    console.log(`userInfo: `, selectedUserIds)
     this.setData({
       selectedUserIds,
       userNum,
@@ -134,6 +136,7 @@ Page({
       current: 0,
       pages: 0,
     })
+
     this._getRecord()
   },
   /**
@@ -154,25 +157,31 @@ Page({
     }
   },
   /**
-   * 获取本部门签到记录
+   * 获取签到记录
    * @return {Promise<void>}
    * @private
    */
   async _getRecord() {
-    const date = this.data.date,
-      size = this.data.size,
-      hasMore = this.data.hasMore
+    const date = this.data.date
+    const size = this.data.size
+    const hasMore = this.data.hasMore
     let current = this.data.current
-    let userInfo = await this._getDeptUserInfo()
-    let userIds = this.data.userNum > 0 ? this.data.selectedUserIds : userInfo.map(el => el.id)
+    let userInfo
+    let userIds
+    // 如果选了用户
+    if (this.data.userNum > 0) {
+      userInfo = await this._getUserInfo()
+      userIds = this.data.selectedUserIds
+    } else {
+      userInfo = await this._getDeptUserInfo()
+      userIds = userInfo.map(el => el.id)
+    }
     if (hasMore) {
       current += 1
       getRecord({current, size, userIds, startDate: date, endDate: date})
         .then((res) => {
           console.log("获取信息", res)
-          if (!utils.isEmpty(res.data)) {
-            this._renderData(res, userInfo)
-          }
+          this._renderData(res, userInfo)
         })
         .catch((err) => {
           console.error(err)
@@ -208,29 +217,40 @@ Page({
   },
   /**
    * 渲染数据
-   * @param res
+   * @param {object} res
+   * @param {object} userInfo
    * @private
    */
   _renderData(res, userInfo) {
-    let checkinNums, uncheckinNums, pages, current, notSignRecords = [], items
-    checkinNums = res.data.length
-    uncheckinNums = userInfo.length - res.data.length
+    let pages
+    let current
+    let notSignRecords
+    let items
+    let userSignInfoSet = []
+    let checkinNums = 0
+    let newItems = []
+    // 如果有签到信息
+    if (res.data.length > 0) {
+      checkinNums = res.data.length
+      userSignInfoSet = res.data.map(el => {
+        return {code: el.jobNumber, name: el.userName}
+      })
+      newItems = res.data.map(el => {
+        if (el.userSignVOList.length > 0) {
+          el.userSignVOList[0].quantity = el.userSignCount
+          // el.userSignVOList[0].jobNumber = el.jobNumber
+          return el.userSignVOList[0]
+        }
+      })
+    }
+
+    let uncheckinNums = userInfo.length - checkinNums
     current = res.current
     let userInfoSet = userInfo.map(({code, name}) => {
         return {code, name}
       }
     )
-    let userSignInfoSet = res.data.map(el => {
-      return {code: el.jobNumber, name: el.userName}
-    })
     notSignRecords = array.differenceWith(userInfoSet, userSignInfoSet, lang.isEqual)
-    let newItems = res.data.map(el => {
-      if (el.userSignVOList.length > 0) {
-        el.userSignVOList[0].quantity = el.userSignCount
-        // el.userSignVOList[0].jobNumber = el.jobNumber
-        return el.userSignVOList[0]
-      }
-    })
     items = [...this.data.items, ...newItems]
     this.setData({
       "tabs[0].title": checkinNums,
@@ -243,7 +263,7 @@ Page({
   },
   /**
    * 获取本部门用户信息
-   * @return {Promise<unknown>}
+   * @return {Promise<object>}
    * @private
    */
   async _getDeptUserInfo() {
@@ -254,5 +274,14 @@ Page({
           content: "数据获取错误" + JSON.stringify(err.data),
         })
       })
+  },
+  /**
+   * 通过工号获取用户信息
+   * @return {Promise<object>}
+   * @private
+   */
+  async _getUserInfo() {
+    let userJobNumbers = this.data.selectedUserIds
+    return getUserByCode({userJobNumbers}).catch(err => console.error(err))
   }
 })

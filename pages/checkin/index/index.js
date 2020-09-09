@@ -19,7 +19,6 @@ Page({
   },
 
   onLoad() {
-    console.log("首页加载")
     // 初始化事件监听器
     this.initEventListener()
     this._getOriLocation()
@@ -37,7 +36,6 @@ Page({
   },
   onShow() {
     // 页面显示
-    console.log("首页显示")
     // 获取当前时间
     this._getCurrentTime()
     this._getOriLocation()
@@ -45,7 +43,6 @@ Page({
     this._getClient()
   },
   onUnload() {
-    console.log("首页卸载")
     app.emitter.removeListener("refresh", this.handleEvent, this)
   },
   /**
@@ -86,7 +83,6 @@ Page({
    * @date 2020-06-22
    */
   refresh() {
-    console.log("触发刷新")
     // 获取签到数
     this._checkRecordTimes()
     this._getCurrentTime()

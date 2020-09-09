@@ -70,6 +70,9 @@ Page({
       urls: [e.currentTarget.dataset.src],
     })
   },
+  /**
+   * 转到历史记录页
+   */
   goToHistory() {
     console.log("到历史页面")
     my.navigateTo({
@@ -78,6 +81,11 @@ Page({
         JSON.stringify(this.data.items),
     })
   },
+  /**
+   * 获取签到记录
+   * @param options
+   * @private
+   */
   _getRecord(options) {
     let month = moment(this.data.month, "YYYY-MM")
     let startDate = month.date(1).format("YYYY-MM-DD")

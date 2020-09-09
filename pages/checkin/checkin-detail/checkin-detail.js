@@ -25,7 +25,6 @@ Page({
     markers: [],
   },
   onLoad(query) {
-    // console.log('签到详情',query)
     const item = JSON.parse(query.item)
     item.date = moment(item.date, "YYYY-MM-DD").format("MM月DD日")
     item.time = moment(item.time, "hh:mm:ss").format("hh:mm")
